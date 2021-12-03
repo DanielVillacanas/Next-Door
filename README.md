@@ -1,2 +1,0 @@
-# Next-Door
-Final Project
