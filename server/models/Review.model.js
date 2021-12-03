@@ -3,21 +3,12 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the user model to whatever makes sense in this case
 const userSchema = new Schema(
   {
-    username: {
-      type: String,
-      unique: true,
-      required: true,
-    },
-    email: {
+    user: { type: Schema.Types.ObjectId, ref: "User" },
+    description: {
       type: String,
       required: true,
     },
-    adress: { type: String, required: true },
-    password: {
-      type: String,
-      required: true,
-    },
-    productsCart: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    rating: { type: Number, enum: [0, 1, 2, 3, 4, 5], required: true },
   },
   {
     timestamps: true,
