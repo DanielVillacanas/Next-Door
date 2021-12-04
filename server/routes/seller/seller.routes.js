@@ -12,7 +12,7 @@ const testProduct = {
 router.post("/createProduct", (req, res, next) => {
   Product.create(req.body)
     .then((response) => res.json(response))
-    .catch((err) => console.log(err));
+    .catch(res.status(500).send("Error al crear producto"));
 });
 
 module.exports = router;
