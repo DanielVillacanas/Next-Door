@@ -15,6 +15,10 @@ const productSchema = new Schema(
     description: {
       type: String,
     },
+    img_url: {
+      type: String,
+      required: true,
+    },
     owner: { type: Schema.Types.ObjectId, ref: "Seller" },
     reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   },
