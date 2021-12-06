@@ -18,13 +18,7 @@ export default function SignUp(props) {
     e.preventDefault();
 
     authService
-      .signup(
-        user.username,
-        user.email,
-        user.password,
-        user.password2,
-        user.address
-      )
+      .signup(user.username, user.email, user.password, user.password2, user.address)
       .then((response) => {
         props.storeUser(response.data);
         props.history.push("/tets");
@@ -43,7 +37,7 @@ export default function SignUp(props) {
     });
   };
   return (
-    <div className="relative bg-gray-800 overflow-hidden">
+    <div className="relative bg-gray-800 overflow-hidden h-screen">
       <div className="relative pt-6 pb-16 sm:pb-24">
         <Popover>
           <nav
@@ -76,17 +70,14 @@ export default function SignUp(props) {
                 <div>
                   <h1 className="mt-2 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl">
                     <span className="md:block">
-                      Unete a nosotros para apoyar el comercio local y de
-                      cercanía.
+                      Unete a nosotros para apoyar el comercio local y de cercanía.
                     </span>{" "}
-                    <span className="text-indigo-400 md:block">
-                      online business
-                    </span>
+                    <span className="text-indigo-400 md:block">online business</span>
                   </h1>
                   <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                    qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                    occaecat fugiat aliqua ad ad non deserunt sunt.
+                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat
+                    commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua ad ad non deserunt
+                    sunt.
                   </p>
                 </div>
               </div>
@@ -204,24 +195,15 @@ export default function SignUp(props) {
                   <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10">
                     <p className="text-xs leading-5 text-gray-500">
                       registrandote estas de acuerdo con nuestros{" "}
-                      <Link
-                        href="#"
-                        className="font-medium text-gray-900 hover:underline"
-                      >
+                      <Link href="#" className="font-medium text-gray-900 hover:underline">
                         Terminos
                       </Link>
                       ,{" "}
-                      <Link
-                        href="#"
-                        className="font-medium text-gray-900 hover:underline"
-                      >
+                      <Link href="#" className="font-medium text-gray-900 hover:underline">
                         Política de datos
                       </Link>{" "}
                       and{" "}
-                      <Link
-                        href="#"
-                        className="font-medium text-gray-900 hover:underline"
-                      >
+                      <Link href="#" className="font-medium text-gray-900 hover:underline">
                         Política de Cookies
                       </Link>
                       .
