@@ -1,13 +1,14 @@
 import Login from "./Auth/Login/Login";
 import NavBar from "./Layout/NavBar/NavBar";
 import SignUp from "./Auth/SignUp/SignUp";
+import SignUpSeller from "./Auth/SignUp/SignUpSeller";
 import Home from "./Home/Home";
 import AllProducts from "./Products/AllProducts/AllProducts";
 import ProductDetails from "./Products/ProductDetails/ProductDetails";
 
 import AuthService from "../Services/AuthServices/auth.service";
 
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
 
   let storeUser = (user) => {
     setLoggedUser({ loggedUser: user });
+    // localStorage.setItem("user", user);
+    // console.log({ localdata: localStorage.getItem("user") });
   };
 
   return (
@@ -58,7 +61,8 @@ function App() {
             )}
           />
           <Route path="/products/:id" render={(props) => <ProductDetails {...props} />} />
-          <Route path="/signup" render={(props) => <SignUp {...props} storeUser={storeUser} />} />
+          <Route path="/signUp" render={(props) => <SignUp {...props} storeUser={storeUser} />} />
+          <Route path="/signUpSeller" render={() => <SignUpSeller storeUser={storeUser} />} />
           <Route path="/login" render={(props) => <Login {...props} storeUser={storeUser} />} />
         </Switch>
       </main>

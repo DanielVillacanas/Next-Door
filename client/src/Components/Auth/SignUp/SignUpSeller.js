@@ -3,39 +3,58 @@ import { Link } from "react-router-dom";
 import AuthService from "../../../Services/AuthServices/auth.service";
 import { Popover } from "@headlessui/react";
 
-export default function SignUp(props) {
-  const [user, setUser] = useState({
+export default function SignUpSeller() {
+  const [seller, setSeller] = useState({
     email: "",
     password: "",
     password2: "",
+    img_url: "",
     address: "",
     username: "",
+    type: "Other",
+    description: "",
   });
 
   let authService = new AuthService();
 
-  let handleSubmit = (e) => {
-    e.preventDefault();
-
-    authService
-      .signUp(user.username, user.email, user.password, user.password2, user.address)
-      .then((response) => {
-        props.storeUser(response.data);
-        props.history.push("/tets");
-      })
-      .catch((err) => console.log(err.response.data.message));
-  };
-
   let handleInputChange = (e) => {
     const { name, value } = e.currentTarget;
 
-    setUser((prevState) => {
+    setSeller((prevState) => {
       return {
         ...prevState,
         [name]: value,
       };
     });
   };
+
+  let handleInputSelect = (e) => {
+    let value = e.currentTarget.value;
+    setSeller((prevState) => {
+      return {
+        ...prevState,
+        type: value,
+      };
+    });
+  };
+
+  let handleSubmit = (e) => {
+    e.preventDefault();
+    authService.signUpSeller(
+      seller.username,
+      seller.email,
+      seller.password,
+      seller.password2,
+      seller.address,
+      seller.type
+    );
+    //   .then((response) => {
+    //     props.storeUser(response.data);
+    //     props.history.push("/tets");
+    //   })
+    //   .catch((err) => console.log(err.response.data.message));
+  };
+
   return (
     <div className="max-h-screen relative bg-gray-800">
       <div className="relative pt-6 pb-10 sm:pb-8 bg-gray-800">
@@ -81,7 +100,7 @@ export default function SignUp(props) {
                             htmlFor="email"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Nombre
+                            Nombre de la empresa
                           </label>
                           <div className="mt-1">
                             <input
@@ -89,7 +108,7 @@ export default function SignUp(props) {
                               name="username"
                               type="text"
                               onChange={handleInputChange}
-                              value={user.username}
+                              value={seller.username}
                               required
                               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             />
@@ -108,7 +127,7 @@ export default function SignUp(props) {
                               name="email"
                               type="email"
                               onChange={handleInputChange}
-                              value={user.email}
+                              value={seller.email}
                               required
                               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             />
@@ -127,7 +146,7 @@ export default function SignUp(props) {
                               name="password"
                               type="password"
                               onChange={handleInputChange}
-                              value={user.password}
+                              value={seller.password}
                               required
                               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             />
@@ -146,7 +165,7 @@ export default function SignUp(props) {
                               name="password2"
                               type="password"
                               onChange={handleInputChange}
-                              value={user.password2}
+                              value={seller.password2}
                               required
                               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             />
@@ -157,7 +176,7 @@ export default function SignUp(props) {
                             htmlFor="address"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Dirección de envio
+                            Dirección de la empresa
                           </label>
                           <div className="mt-1">
                             <input
@@ -165,11 +184,32 @@ export default function SignUp(props) {
                               name="address"
                               type="text"
                               onChange={handleInputChange}
-                              value={user.address}
+                              value={seller.address}
                               required
                               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             />
                           </div>
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="location"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Tipo de comercio
+                          </label>
+                          <select
+                            id="location"
+                            name="location"
+                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md"
+                            defaultValue="Other"
+                            onChange={handleInputSelect}
+                          >
+                            <option>Carnes</option>
+                            <option>Frutas</option>
+                            <option>Pescados</option>
+                            <option>Verduras</option>
+                            <option>Otro</option>
+                          </select>
                         </div>
                         <div>
                           <button
@@ -199,23 +239,6 @@ export default function SignUp(props) {
                         </Link>
                       </div>
                     </div>
-                  </div>
-                  <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 ">
-                    <p className="text-xs leading-5 text-gray-500">
-                      Registrandote estas de acuerdo con nuestros{" "}
-                      <Link href="#" className="font-medium text-gray-900 hover:underline">
-                        Terminos
-                      </Link>
-                      ,{" "}
-                      <Link href="#" className="font-medium text-gray-900 hover:underline">
-                        Política de datos
-                      </Link>{" "}
-                      and{" "}
-                      <Link href="#" className="font-medium text-gray-900 hover:underline">
-                        Política de Cookies
-                      </Link>
-                      .
-                    </p>
                   </div>
                 </div>
               </div>

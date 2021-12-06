@@ -21,13 +21,10 @@ router.get("/", (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-router.get(
-  "/details/:id",
-  /*AQUI IRIA UN MIDDLEWARE*/ (req, res) => {
-    const { id } = req.params;
-    Product.findOne(id).then((response) => res.json(response));
-  }
-);
+router.get("/details/:id", (req, res) => {
+  const { id } = req.params;
+  Product.findById(id).then((response) => res.json(response));
+});
 // You put the next routes here 👇
 // example: router.use("/auth", authRoutes)
 

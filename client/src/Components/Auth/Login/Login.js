@@ -14,13 +14,11 @@ function LoginPage(props) {
   let handleSubmit = (e) => {
     e.preventDefault();
 
-    authService
-      .login(user.email, user.password)
-      .then((response) => {
-        props.storeUser(response.data);
-        props.history.push("/");
-      })
-      .catch((err) => console.log(err.response.data.message));
+    authService.login(user.email, user.password).then((response) => {
+      props.history.push("/products");
+      props.storeUser(response.data);
+    });
+    //.catch((err) => console.log(err.response.data.message));
   };
 
   let handleInputChange = (e) => {
@@ -152,9 +150,7 @@ function LoginPage(props) {
                             <div className="w-full border-t border-gray-300" />
                           </div>
                           <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-white text-gray-500">
-                              O crea una cuenta
-                            </span>
+                            <span className="px-2 bg-white text-gray-500">O crea una cuenta</span>
                           </div>
                         </div>
                       </div>
@@ -171,24 +167,15 @@ function LoginPage(props) {
                   <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 rounded-lg">
                     <p className="text-xs leading-5 text-gray-500">
                       Registrandote estas de acuerdo con nuestros{" "}
-                      <Link
-                        href="#"
-                        className="font-medium text-gray-900 hover:underline"
-                      >
+                      <Link href="#" className="font-medium text-gray-900 hover:underline">
                         Terminos
                       </Link>
                       ,{" "}
-                      <Link
-                        href="#"
-                        className="font-medium text-gray-900 hover:underline"
-                      >
+                      <Link href="#" className="font-medium text-gray-900 hover:underline">
                         Política de datos
                       </Link>{" "}
                       and{" "}
-                      <Link
-                        href="#"
-                        className="font-medium text-gray-900 hover:underline"
-                      >
+                      <Link href="#" className="font-medium text-gray-900 hover:underline">
                         Política de Cookies
                       </Link>
                       .

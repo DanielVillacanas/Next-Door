@@ -15,7 +15,7 @@ const navigation = [
   { name: "Home Page", href: "/", current: true },
   { name: "Login", href: "/login", current: false },
   { name: "All products", href: "/products", current: false },
-  { name: "Sign Up", href: "/signup", current: false },
+  { name: "Sign Up", href: "/signUp", current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -81,10 +81,7 @@ export default function NavBar() {
                     type="button"
                     className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
                   >
-                    <PlusSmIcon
-                      className="-ml-1 mr-2 h-5 w-5"
-                      aria-hidden="true"
-                    />
+                    <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
                     <span>New Product</span>
                   </button>
                 </Link>
@@ -102,11 +99,7 @@ export default function NavBar() {
                     <div>
                       <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open user menu</span>
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src={user.imageUrl}
-                          alt=""
-                        />
+                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
                       </Menu.Button>
                     </div>
                     <Transition
@@ -164,19 +157,11 @@ export default function NavBar() {
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5 sm:px-6">
                 <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src={user.imageUrl}
-                    alt=""
-                  />
+                  <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
                 </div>
                 <div className="ml-3">
-                  <div className="text-base font-medium text-white">
-                    {user.name}
-                  </div>
-                  <div className="text-sm font-medium text-gray-400">
-                    {user.email}
-                  </div>
+                  <div className="text-base font-medium text-white">{user.name}</div>
+                  <div className="text-sm font-medium text-gray-400">{user.email}</div>
                 </div>
                 <button
                   type="button"
