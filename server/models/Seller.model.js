@@ -10,7 +10,7 @@ const sellerSchema = new Schema(
     },
     password: { type: String, required: true },
     img_url: { type: String, default: "../public/images" },
-    adress: { type: String, required: true },
+    address: { type: String, required: true },
     description: String,
     coordinates: [Number],
     type: {

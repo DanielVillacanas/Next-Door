@@ -8,8 +8,9 @@ class AuthService {
     });
   }
 
-  login = (email, paswword) => this.app.post("/login", { email, paswword });
-  //   login = (username, pwd) => this.app.post("/login", { username, pwd })
+  login = (email, password) => this.app.post("/login", { email, password });
+  signup = (email, username, password, address) =>
+    this.app.post("/signup", { email, username, password, address });
   //   logout = () => this.app.get("/logout")
   //   isloggedin = () => this.app.get("/isloggedin")
 }
