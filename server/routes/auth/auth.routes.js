@@ -27,4 +27,11 @@ router.post("/login", (req, res, next) => {
     })
     .catch(res.status(500).send("Error al loguear usuario!"));
 });
+
+router.get("/isloggedin", (req, res) => {
+  req.session.currentUser
+    ? res.json(req.session.currentUser)
+    : res.status(401).json({ code: 401, message: "Unauthorized" });
+});
+
 module.exports = router;
