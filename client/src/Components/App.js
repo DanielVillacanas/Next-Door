@@ -49,6 +49,7 @@ function App() {
           />
           <Route
             path="/products"
+            exact
             render={() => (
               <div>
                 <NavBar storeUser={storeUser} loggedUser={loggedUser} />

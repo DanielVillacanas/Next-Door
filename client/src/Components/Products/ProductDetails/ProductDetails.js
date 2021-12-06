@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ProductService from "../../../Services/ProductsServices/products.service";
 
-export default function BeersDetails(props) {
-  let [product, setProduct] = useState();
+export default function ProductDetails(props) {
+  let [product, setProduct] = useState(props);
   const { id } = props.match.params;
-  console.log(id);
+
   let service = new ProductService();
 
   useEffect(() => {
@@ -13,9 +13,10 @@ export default function BeersDetails(props) {
 
   let loadProduct = () => {
     service.getOneProduct(id).then((result) => {
-      setProduct((product = result));
+      console.log(result);
+      setProduct((product = result.data));
     });
   };
 
-  return <div>Holaaa</div>;
+  return <div>{product.name}</div>;
 }
