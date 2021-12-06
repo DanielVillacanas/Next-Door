@@ -25,7 +25,7 @@ router.get(
   "/details/:id",
   /*AQUI IRIA UN MIDDLEWARE*/ (req, res) => {
     const { id } = req.params;
-    Product.findOne(id).then((response) => res.json(response));
+    Product.findById(id).then((response) => res.json(response));
   }
 );
 // You put the next routes here 👇

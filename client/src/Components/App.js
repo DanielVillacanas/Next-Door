@@ -43,7 +43,6 @@ function App() {
             render={() => (
               <div>
                 <NavBar storeUser={storeUser} loggedUser={loggedUser} />
-                <Home />
               </div>
             )}
           />
@@ -57,9 +56,23 @@ function App() {
               </div>
             )}
           />
-          <Route path="/products/:id" render={(props) => <ProductDetails {...props} />} />
-          <Route path="/signup" render={(props) => <SignUp {...props} storeUser={storeUser} />} />
-          <Route path="/login" render={(props) => <Login {...props} storeUser={storeUser} />} />
+          <Route
+            path="/products/:id"
+            render={(props) => (
+              <div>
+                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
+                <ProductDetails {...props} />
+              </div>
+            )}
+          />
+          <Route
+            path="/signUp"
+            render={(props) => <SignUp {...props} storeUser={storeUser} />}
+          />
+          <Route
+            path="/login"
+            render={(props) => <Login {...props} storeUser={storeUser} />}
+          />
         </Switch>
       </main>
     </>
