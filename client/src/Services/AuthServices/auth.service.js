@@ -9,10 +9,11 @@ class AuthService {
   }
 
   login = (email, password) => this.app.post("/login", { email, password });
-  signup = (email, username, password, address) =>
-    this.app.post("/signup", { email, username, password, address });
-  //   logout = () => this.app.get("/logout")
-  //   isloggedin = () => this.app.get("/isloggedin")
+  signup = (username, email, password, password2, address) => {
+    this.app.post("/signup", { username, email, password, address });
+  };
+  logout = () => this.app.get("/logout");
+  isloggedin = () => this.app.get("/isloggedin");
 }
 
 export default AuthService;
