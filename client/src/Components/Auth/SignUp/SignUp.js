@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../../../Services/AuthServices/auth.service";
 import { Popover } from "@headlessui/react";
@@ -43,21 +43,13 @@ export default function SignUp(props) {
     });
   };
   return (
-    <div className="relative bg-gray-800 overflow-hidden">
-      <div className="relative pt-6 pb-16 sm:pb-24">
+    <div className="max-h-screen relative bg-gray-800">
+      <div className="relative pt-6 pb-10 sm:pb-8 bg-gray-800">
         <Popover>
           <nav
             className="relative max-w-7xl mx-auto flex items-center justify-end px-4 sm:px-6"
             aria-label="Global"
           >
-            <div className="md:flex mx-3">
-              <Link
-                to="/login"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
-              >
-                Log in
-              </Link>
-            </div>
             <div className="md:flex mx-3 md:mr-16">
               <Link
                 to="/"
@@ -69,31 +61,31 @@ export default function SignUp(props) {
           </nav>
         </Popover>
 
-        <main className="mt-12 sm:mt-20">
+        <main className="mt-12 sm:mt-4 bg-gray-800">
           <div className="mx-auto max-w-7xl">
             <div className="lg:grid lg:grid-cols-12 lg:gap-8">
               <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
                 <div>
                   <h1 className="mt-2 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl">
                     <span className="md:block">
-                      Unete a nosotros para apoyar el comercio local y de
-                      cercanía.
+                      Unete a nosotros para apoyar el
                     </span>{" "}
                     <span className="text-indigo-400 md:block">
-                      online business
+                      comercio local y de cercanía.
                     </span>
                   </h1>
                   <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                    qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                    occaecat fugiat aliqua ad ad non deserunt sunt.
+                    El comercio local supone una parte fundamental de la vida en
+                    los barrios. Los pequeños negocios, combinados con otros
+                    servicios, generan un desarrollo económico y social de gran
+                    impacto en las ciudades.
                   </p>
                 </div>
               </div>
               <div className="mt-16 sm:mt-22 lg:mt-0 lg:col-span-6">
                 <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
-                  <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md ">
-                    <div className="bg-white py-3 px-4 shadow sm:rounded-lg sm:px-10">
+                  <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-md ">
+                    <div className="bg-white py-2 px-4 shadow sm:rounded-lg sm:px-10">
                       <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                           <label
@@ -199,11 +191,31 @@ export default function SignUp(props) {
                           </button>
                         </div>
                       </form>
+                      <div className="mt-6">
+                        <div className="relative">
+                          <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-300" />
+                          </div>
+                          <div className="relative flex justify-center text-sm">
+                            <span className="px-2 bg-white text-gray-500">
+                              o inicia sesión
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <Link
+                          to="/login"
+                          className="mt-6 w-full flex justify-center py-2 px-4 border border-indigo-600 rounded-md shadow-sm text-sm font-medium text-indigo focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                          Login
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                  <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10">
+                  <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 ">
                     <p className="text-xs leading-5 text-gray-500">
-                      registrandote estas de acuerdo con nuestros{" "}
+                      Registrandote estas de acuerdo con nuestros{" "}
                       <Link
                         href="#"
                         className="font-medium text-gray-900 hover:underline"

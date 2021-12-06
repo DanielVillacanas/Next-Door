@@ -38,6 +38,16 @@ function App() {
       <main>
         <Switch>
           <Route
+            path="/"
+            exact
+            render={() => (
+              <div>
+                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
+                <Home />
+              </div>
+            )}
+          />
+          <Route
             path="/products"
             render={() => (
               <div>
