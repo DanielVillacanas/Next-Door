@@ -38,7 +38,7 @@ export default function SignUp(props) {
   };
   return (
     <div className="max-h-screen relative bg-gray-800">
-      <div className="relative pt-6 pb-10 sm:pb-8 bg-gray-800">
+      <div className="relative pt-4 pb-10 sm:pb-8 bg-gray-800">
         <Popover>
           <nav
             className="relative max-w-7xl mx-auto flex items-center justify-end px-4 sm:px-6"
@@ -71,10 +71,18 @@ export default function SignUp(props) {
                   </p>
                 </div>
               </div>
-              <div className="mt-16 sm:mt-22 lg:mt-0 lg:col-span-6">
-                <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
-                  <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-md ">
-                    <div className="bg-white py-2 px-4 shadow sm:rounded-lg sm:px-10">
+              <div className="lg:col-span-6 sm:px-10 mx-10">
+                <div className="md:flex sm:max-w-md sm:w-full sm:mx-auto mt-8 lg:mt-0">
+                  <Link
+                    to="/signUpSeller"
+                    className="inline-flex items-center px-6 py-2 border border-transparent text-sm font-medium rounded-t-md text-black bg-white"
+                  >
+                    Registrate como empresa
+                  </Link>
+                </div>
+                <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto rounded-b-lg rounded-tr-lg sm:overflow-hidden">
+                  <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                    <div className="bg-white py-2 px-4 shadow rounded-lg ">
                       <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                           <label
@@ -193,14 +201,14 @@ export default function SignUp(props) {
                       <div>
                         <Link
                           to="/login"
-                          className="mt-6 w-full flex justify-center py-2 px-4 border border-green-600 rounded-md shadow-sm text-sm font-medium text-green focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                          className="mt-6 w-full flex justify-center py-2 px-4 border border-green-600 rounded-md shadow-sm text-sm font-medium text-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hover:text-white hover:bg-green-600"
                         >
                           Login
                         </Link>
                       </div>
                     </div>
                   </div>
-                  <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 ">
+                  <div className="px-4 py-4 bg-gray-50 border-t-2 border-gray-200 sm:px-10 ">
                     <p className="text-xs leading-5 text-gray-500">
                       Registrandote estas de acuerdo con nuestros{" "}
                       <Link href="#" className="font-medium text-gray-900 hover:underline">

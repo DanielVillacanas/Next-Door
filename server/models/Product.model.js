@@ -20,7 +20,6 @@ const productSchema = new Schema(
       required: true,
     },
     owner: { type: Schema.Types.ObjectId, ref: "Seller" },
-    reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
   },
   {
     timestamps: true,
