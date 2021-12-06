@@ -49,6 +49,7 @@ function App() {
           />
           <Route
             path="/products"
+            exact
             render={() => (
               <div>
                 <NavBar storeUser={storeUser} loggedUser={loggedUser} />
@@ -56,18 +57,9 @@ function App() {
               </div>
             )}
           />
-          <Route
-            path="/products/:id"
-            render={(props) => <ProductDetails {...props} />}
-          />
-          <Route
-            path="/signup"
-            render={(props) => <SignUp {...props} storeUser={storeUser} />}
-          />
-          <Route
-            path="/login"
-            render={(props) => <Login {...props} storeUser={storeUser} />}
-          />
+          <Route path="/products/:id" render={(props) => <ProductDetails {...props} />} />
+          <Route path="/signup" render={(props) => <SignUp {...props} storeUser={storeUser} />} />
+          <Route path="/login" render={(props) => <Login {...props} storeUser={storeUser} />} />
         </Switch>
       </main>
     </>

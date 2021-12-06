@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductService from "../../../Services/ProductsServices/products.service";
 
-export default function BeersDetails(props) {
+export default function ProductsDetails(props) {
   let [product, setProduct] = useState();
   const { id } = props.match.params;
   console.log(id);
