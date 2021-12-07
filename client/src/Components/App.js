@@ -14,7 +14,8 @@ import { Switch, Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
 function App() {
-  const [loggedUser, setLoggedUser] = useState(undefined);
+  const [loggedUser, setLoggedUser] = useState(null);
+  const [type, setType] = useState("");
 
   let authService = new AuthService();
 
@@ -26,16 +27,16 @@ function App() {
     authService
       .isloggedin()
       .then((response) => {
-        console.log(response);
-        storeUser(response.data);
+        storeUser(response.data.user);
       })
       .catch((err) => storeUser(null));
   };
 
   let storeUser = (user) => {
     setLoggedUser({ loggedUser: user });
-    // localStorage.setItem("user", user);
-    // console.log({ localdata: localStorage.getItem("user") });
+  };
+  let setTypeBussines = (type) => {
+    setType({ type: type });
   };
 
   return (
@@ -47,28 +48,11 @@ function App() {
             exact
             render={() => (
               <div>
-                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
-                <Home />
-              </div>
-            )}
-          />
-          <Route
-            path="/new-product"
-            exact
-            render={(props) => (
-              <div>
-                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
-                <NewProduct {...props} />
-              </div>
-            )}
-          />
-          <Route
-            path="/seller/:id"
-            exact
-            render={(props) => (
-              <div>
-                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
-                <SellerProfile {...props} />
+                <NavBar
+                  storeUser={storeUser}
+                  loggedUser={loggedUser}
+                  type={type}
+                />
               </div>
             )}
           />
@@ -77,7 +61,11 @@ function App() {
             exact
             render={() => (
               <div>
-                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
+                <NavBar
+                  storeUser={storeUser}
+                  loggedUser={loggedUser}
+                  type={type}
+                />
                 <AllProducts />
               </div>
             )}
@@ -86,7 +74,11 @@ function App() {
             path="/products/:id"
             render={(props) => (
               <div>
-                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
+                <NavBar
+                  storeUser={storeUser}
+                  loggedUser={loggedUser}
+                  type={type}
+                />
                 <ProductDetails {...props} />
               </div>
             )}
@@ -96,12 +88,30 @@ function App() {
             render={(props) => <SignUp {...props} storeUser={storeUser} />}
           />
           <Route
+            path="/logOut"
+            render={() => (
+              <div>
+                <NavBar
+                  storeUser={storeUser}
+                  loggedUser={loggedUser}
+                  type={type}
+                />
+              </div>
+            )}
+          />
+          <Route
             path="/signUpSeller"
             render={() => <SignUpSeller storeUser={storeUser} />}
           />
           <Route
             path="/login"
-            render={(props) => <Login {...props} storeUser={storeUser} />}
+            render={(props) => (
+              <Login
+                {...props}
+                storeUser={storeUser}
+                setTypeBussines={setTypeBussines}
+              />
+            )}
           />
         </Switch>
       </main>
