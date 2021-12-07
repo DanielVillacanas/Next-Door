@@ -23,6 +23,10 @@ const notLogged = [
 
 const authService = new AuthService();
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
 export default function NavBar(props) {
   let logged = props.loggedUser?.loggedUser;
   const [openedModal, setOpen] = useState(false);
