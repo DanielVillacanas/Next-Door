@@ -3,7 +3,6 @@ const User = require("../../models/User.model");
 const Seller = require("../../models/Seller.model");
 
 router.post("/signUp", (req, res, next) => {
-  console.log(req.body);
   const { email } = req.body;
   User.findOne({ email }).then((user) => {
     user
@@ -27,27 +26,31 @@ router.post("/signUpSeller", (req, res, next) => {
 
 router.post("/login", (req, res, next) => {
   const { email, password } = req.body;
-  console.log("entra");
-  User.findOne({ email }).then((user) => {
-    user
-      ? password === user.password
-        ? res.json(user)
-        : res.status(500).send("Error contraseña incorrecta!")
-      : Seller.findOne({ email }).then((seller) => {
-          seller
-            ? password === seller.password
-              ? res.json(seller)
-              : res.status(500).send("Error contraseña incorrecta!")
-            : res.status(500).send("Error usuario no registrado!");
-        });
-  });
-  // .catch(res.status(500).send("Error al loguear usuario!"));
+  User.findOne({ email })
+    .then((user) => {
+      user
+        ? password === user.password //Validate password
+          ? ((req.session.currentUser = user), res.json({ user: user, type: "user" }))
+          : res.status(500).send("Error contraseña incorrecta!")
+        : Seller.findOne({ email }).then((seller) => {
+            seller
+              ? password === seller.password //Validate password
+                ? ((req.session.currentUser = user), res.json({ seller: seller, type: "seller" }))
+                : res.status(500).send("Error contraseña incorrecta!")
+              : res.status(500).send("Error usuario no registrado!");
+          });
+    })
+    .catch((err) => console.log(err));
 });
 
-// router.get("/isloggedin", (req, res) => {
-//   req.session.currentUser
-//     ? res.json(req.session.currentUser)
-//     : res.status(401).json({ code: 401, message: "Unauthorized" });
-// });
+router.get("/isloggedin", (req, res) => {
+  req.session.currentUser
+    ? res.json(req.session.currentUser)
+    : res.status(401).json({ code: 401, message: "Unauthorized" });
+});
+
+router.get("/logout", (req, res) => {
+  req.session.destroy((err) => res.status(200).json({ code: 200, message: "Logout successful" }));
+});
 
 module.exports = router;

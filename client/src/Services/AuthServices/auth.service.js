@@ -13,7 +13,6 @@ class AuthService {
     this.app.post("/signUp", { username, email, password, address });
   };
   signUpSeller = (username, email, password, password2, address, type) => {
-    console.log(type);
     this.app.post("/signUpSeller", { username, email, password, address, type });
   };
   logout = () => this.app.get("/logout");

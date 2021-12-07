@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { PlusSmIcon } from "@heroicons/react/solid";
+import AuthService from "../../../Services/AuthServices/auth.service";
 
 const user = {
   name: "Tom Cook",
@@ -13,21 +14,29 @@ const user = {
 };
 const navigation = [
   { name: "Home Page", href: "/", current: true },
-  { name: "Login", href: "/login", current: false },
   { name: "All products", href: "/products", current: false },
+];
+const notLogged = [
+  { name: "Login", href: "/login", current: false },
   { name: "Sign Up", href: "/signUp", current: false },
 ];
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+
+const authService = new AuthService();
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function NavBar() {
+export default function NavBar(props) {
+  let logged = props.loggedUser?.loggedUser;
+
+  let logOut = () => {
+    authService
+      .logout()
+      .then((response) => props.storeUser(null))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -73,18 +82,38 @@ export default function NavBar() {
                       {item.name}
                     </Link>
                   ))}
+                  {notLogged.map(
+                    (item) =>
+                      logged === null && (
+                        <Link
+                          key={item.name}
+                          to={item.href}
+                          className={classNames(
+                            item.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "px-3 py-2 rounded-md text-sm font-medium"
+                          )}
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {item.name}
+                        </Link>
+                      )
+                  )}
                 </div>
               </div>
               <div className="flex items-center">
-                <Link className="flex-shrink-0" to="/products/new-product">
-                  <button
-                    type="button"
-                    className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
-                  >
-                    <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-                    <span>New Product</span>
-                  </button>
-                </Link>
+                {props.type.type === "seller" && (
+                  <Link className="flex-shrink-0" to="/products/new-product">
+                    <button
+                      type="button"
+                      className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                    >
+                      <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                      <span>New Product</span>
+                    </button>
+                  </Link>
+                )}
                 <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
                   {/* <button
                     type="button"
@@ -112,21 +141,33 @@ export default function NavBar() {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {userNavigation.map((item) => (
-                          <Menu.Item key={item.name}>
-                            {({ active }) => (
-                              <Link
-                                to={item.href}
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                {item.name}
-                              </Link>
-                            )}
-                          </Menu.Item>
-                        ))}
+                        <Menu.Item key="Your Profile">
+                          {({ active }) => (
+                            <Link
+                              to={"#"}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Your Profile
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item key="Sign out">
+                          {({ active }) => (
+                            <Link
+                              to={"/logOut"}
+                              onClick={logOut}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Sign out
+                            </Link>
+                          )}
+                        </Menu.Item>
                       </Menu.Items>
                     </Transition>
                   </Menu>
@@ -137,22 +178,23 @@ export default function NavBar() {
 
           <Disclosure.Panel className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block px-3 py-2 rounded-md text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
+              {logged !== null &&
+                navigation.map((item) => (
+                  <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    href={item.href}
+                    className={classNames(
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "block px-3 py-2 rounded-md text-base font-medium"
+                    )}
+                    aria-current={item.current ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                ))}
             </div>
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5 sm:px-6">
@@ -172,16 +214,23 @@ export default function NavBar() {
                 </button>
               </div>
               <div className="mt-3 px-2 space-y-1 sm:px-3">
-                {userNavigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
+                <Disclosure.Button
+                  key="Your Profile"
+                  as={Link}
+                  to={"/"}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                >
+                  Your Profile
+                </Disclosure.Button>
+                <Disclosure.Button
+                  key="Sign out"
+                  as={Link}
+                  to={"/logOut"}
+                  onClick={logOut}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                >
+                  Sign out
+                </Disclosure.Button>
               </div>
             </div>
           </Disclosure.Panel>

@@ -14,11 +14,14 @@ function LoginPage(props) {
   let handleSubmit = (e) => {
     e.preventDefault();
 
-    authService.login(user.email, user.password).then((response) => {
-      props.history.push("/products");
-      props.storeUser(response.data);
-    });
-    //.catch((err) => console.log(err.response.data.message));
+    authService
+      .login(user.email, user.password)
+      .then((response) => {
+        props.history.push("/products");
+        props.storeUser(response.data.user);
+        props.setTypeBussines(response.data.type);
+      })
+      .catch((err) => console.log("error", err));
   };
 
   let handleInputChange = (e) => {
