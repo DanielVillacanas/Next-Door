@@ -5,6 +5,8 @@ import SignUpSeller from "./Auth/SignUp/SignUpSeller";
 import Home from "./Home/Home";
 import AllProducts from "./Products/AllProducts/AllProducts";
 import ProductDetails from "./Products/ProductDetails/ProductDetails";
+import SellerProfile from "./Auth/SellerProfile/SellerProfile";
+import NewProduct from "./Products/NewProduct/NewProduct";
 
 import AuthService from "../Services/AuthServices/auth.service";
 
@@ -46,6 +48,27 @@ function App() {
             render={() => (
               <div>
                 <NavBar storeUser={storeUser} loggedUser={loggedUser} />
+                <Home />
+              </div>
+            )}
+          />
+          <Route
+            path="/new-product"
+            exact
+            render={(props) => (
+              <div>
+                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
+                <NewProduct {...props} />
+              </div>
+            )}
+          />
+          <Route
+            path="/seller/:id"
+            exact
+            render={(props) => (
+              <div>
+                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
+                <SellerProfile {...props} />
               </div>
             )}
           />
@@ -68,9 +91,18 @@ function App() {
               </div>
             )}
           />
-          <Route path="/signUp" render={(props) => <SignUp {...props} storeUser={storeUser} />} />
-          <Route path="/signUpSeller" render={() => <SignUpSeller storeUser={storeUser} />} />
-          <Route path="/login" render={(props) => <Login {...props} storeUser={storeUser} />} />
+          <Route
+            path="/signUp"
+            render={(props) => <SignUp {...props} storeUser={storeUser} />}
+          />
+          <Route
+            path="/signUpSeller"
+            render={() => <SignUpSeller storeUser={storeUser} />}
+          />
+          <Route
+            path="/login"
+            render={(props) => <Login {...props} storeUser={storeUser} />}
+          />
         </Switch>
       </main>
     </>

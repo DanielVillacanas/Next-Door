@@ -7,9 +7,17 @@ class ProductService {
       withCredentials: true,
     });
   }
-
   getAllProducts = () => this.app.get("/");
+  createProduct = (name, price, description, img_url, owner) =>
+    this.app.post("/create-new-product", {
+      name,
+      price,
+      description,
+      img_url,
+      owner,
+    });
   getOneProduct = (id) => this.app.get(`/details/${id}`);
+  getAllProductsFromASeller = (id) => this.app.get(`/seller/${id}`);
 }
 
 export default ProductService;

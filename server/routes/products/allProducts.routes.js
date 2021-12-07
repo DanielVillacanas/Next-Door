@@ -23,8 +23,17 @@ router.get("/", (req, res, next) => {
 
 router.get("/details/:id", (req, res) => {
   const { id } = req.params;
-  Product.findById(id).then((response) => res.json(response));
+  Product.findById(id)
+    .populate("owner")
+    .then((response) => res.json(response));
 });
+router.post("/create-new-product", (req, res, next) => {
+  console.log(req.body);
+  Product.create(req.body).then((response) => {
+    res.json(response);
+  });
+});
+
 // You put the next routes here 👇
 // example: router.use("/auth", authRoutes)
 

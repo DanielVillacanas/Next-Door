@@ -80,20 +80,33 @@ export default function SignUpSeller() {
               <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
                 <div>
                   <h1 className="mt-2 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl">
-                    <span className="md:block">Unete a nosotros para apoyar el</span>{" "}
-                    <span className="text-green-400 md:block">comercio local y de cercanía.</span>
+                    <span className="md:block">
+                      Unete a nosotros para apoyar el
+                    </span>{" "}
+                    <span className="text-green-400 md:block">
+                      comercio local y de cercanía.
+                    </span>
                   </h1>
                   <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    El comercio local supone una parte fundamental de la vida en los barrios. Los
-                    pequeños negocios, combinados con otros servicios, generan un desarrollo
-                    económico y social de gran impacto en las ciudades.
+                    El comercio local supone una parte fundamental de la vida en
+                    los barrios. Los pequeños negocios, combinados con otros
+                    servicios, generan un desarrollo económico y social de gran
+                    impacto en las ciudades.
                   </p>
                 </div>
               </div>
-              <div className="mt-16 sm:mt-22 lg:mt-0 lg:col-span-6">
-                <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
-                  <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-md ">
-                    <div className="bg-white py-2 px-4 shadow sm:rounded-lg sm:px-10">
+              <div className="lg:col-span-6 sm:px-10 mx-10">
+                <div className="md:flex sm:max-w-md sm:w-full sm:mx-auto mt-8 lg:mt-0">
+                  <Link
+                    to="/signUp"
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-t-md text-black bg-white"
+                  >
+                    Registrate como usuario
+                  </Link>
+                </div>
+                <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto rounded-b-lg rounded-tr-lg sm:overflow-hidden">
+                  <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                    <div className="bg-white py-2 px-4 shadow rounded-lg ">
                       <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                           <label
@@ -192,15 +205,15 @@ export default function SignUpSeller() {
                         </div>
                         <div>
                           <label
-                            htmlFor="location"
+                            htmlFor="type"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Tipo de comercio
                           </label>
                           <select
-                            id="location"
-                            name="location"
-                            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md"
+                            id="type"
+                            name="type"
+                            className=" border-2 border-green-500 mt-3 block w-full pl-1 pr-10 py-2 text-base focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md"
                             defaultValue="Other"
                             onChange={handleInputSelect}
                           >
@@ -226,19 +239,47 @@ export default function SignUpSeller() {
                             <div className="w-full border-t border-gray-300" />
                           </div>
                           <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-white text-gray-500">o inicia sesión</span>
+                            <span className="px-2 bg-white text-gray-500">
+                              o inicia sesión
+                            </span>
                           </div>
                         </div>
                       </div>
                       <div>
                         <Link
                           to="/login"
-                          className="mt-6 w-full flex justify-center py-2 px-4 border border-green-600 rounded-md shadow-sm text-sm font-medium text-green focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                          className="mt-6 w-full flex justify-center py-2 px-4 border border-green-600 rounded-md shadow-sm text-sm font-medium text-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                         >
                           Login
                         </Link>
                       </div>
                     </div>
+                  </div>
+                  <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 rounded-lg">
+                    <p className="text-xs leading-5 text-gray-500">
+                      Registrandote estas de acuerdo con nuestros{" "}
+                      <Link
+                        href="#"
+                        className="font-medium text-gray-900 hover:underline"
+                      >
+                        Terminos
+                      </Link>
+                      ,{" "}
+                      <Link
+                        href="#"
+                        className="font-medium text-gray-900 hover:underline"
+                      >
+                        Política de datos
+                      </Link>{" "}
+                      and{" "}
+                      <Link
+                        href="#"
+                        className="font-medium text-gray-900 hover:underline"
+                      >
+                        Política de Cookies
+                      </Link>
+                      .
+                    </p>
                   </div>
                 </div>
               </div>

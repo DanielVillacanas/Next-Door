@@ -12,6 +12,7 @@ export default function ProductsDetails(props) {
 
   let [count, setCount] = useState(0);
   let [product, setProduct] = useState();
+  let [owner, setOwner] = useState();
 
   const { id } = props.match.params;
 
@@ -24,6 +25,8 @@ export default function ProductsDetails(props) {
   let loadProduct = () => {
     service.getOneProduct(id).then((result) => {
       setProduct((product = result.data));
+      setOwner((owner = result.data.owner));
+      console.log(owner._id);
     });
   };
 
@@ -77,7 +80,13 @@ export default function ProductsDetails(props) {
             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl mb-4">
               {product?.name}
             </h1>
-            <div className="grid grid-cols-12 gap-4 mb-6">
+            <Link
+              className="text-green-600 hover:text-green-500"
+              to={`/seller/${owner?._id}`}
+            >
+              {owner?.username}
+            </Link>
+            <div className="grid grid-cols-12 gap-4 mb-6 mt-4">
               <div className="col-start-1 col-end-5 text-sm text-gray-900">
                 Precio por unidad: {product?.price} €
               </div>
@@ -85,19 +94,19 @@ export default function ProductsDetails(props) {
                 <button
                   type="button"
                   onClick={decrement}
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500  sm:text-sm"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500  sm:text-sm"
                 >
                   -
                 </button>
               </div>
-              <div className="col-end-9 col-span-2 text-center pt-2">
+              <div className="select-none col-end-9 col-span-2 text-center pt-1 border-2 border-green-200 rounded-lg">
                 {count}
               </div>
               <div className="col-end-11 col-span-2">
                 <button
                   type="button"
                   onClick={() => setCount(count + 1)}
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500  sm:text-sm"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500  sm:text-sm"
                 >
                   +
                 </button>
@@ -105,18 +114,18 @@ export default function ProductsDetails(props) {
             </div>
             <Link
               to={"/cesta"}
-              className="grid grid-cols-6 border-b-2 border-gray-200 pb-4"
+              className="grid grid-cols-6 border-b-2 border-gray-200 pb-6"
             >
               <button
                 type="button"
                 onClick={() => setCount(count + 1)}
-                className="col-start-3 col-span-3 inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
+                className="col-start-3 col-span-3 inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-green-600 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
               >
                 Añadir a la cesta
               </button>
             </Link>
             <div>
-              <div className="space-y-6 mt-6">
+              <div className="space-y-6 mt-8">
                 <p className="text-base text-gray-900 pb-4">
                   {product?.description}
                 </p>
