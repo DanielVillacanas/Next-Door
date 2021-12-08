@@ -13,6 +13,7 @@ export default function ProductsDetails(props) {
 
   let [count, setCount] = useState(1);
   let [product, setProduct] = useState();
+  let [owner, setOwner] = useState();
 
   const { id } = props.match.params;
 
@@ -25,6 +26,7 @@ export default function ProductsDetails(props) {
   let loadProduct = () => {
     service.getOneProduct(id).then((result) => {
       setProduct((product = result.data));
+      setOwner((owner = result.data.owner));
     });
   };
 
@@ -37,7 +39,6 @@ export default function ProductsDetails(props) {
   };
 
   let addProductCart = () => {
-    console.log("entra");
     //Llamo al BACK pidiendo que añada el producto al carrito del usuario logueado
     service.addProductCart(product._id, count).then((res) => console.log(res));
   };
@@ -46,10 +47,10 @@ export default function ProductsDetails(props) {
       <div className="pt-6">
         {/* Image gallery */}
         <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
-          <div className=" aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
+          <div className=" aspect-w-3 aspect-h-4 overflow-hidden lg:block">
             <img
               src={product?.img_url}
-              className="w-full h-80 object-center object-fill mb-6 lg:mb-0"
+              className="w-full h-80 object-center px-4 lg:mx-0 object-fill lg:object-cover mb-6 lg:mb-0 rounded"
             />
           </div>
           <div className="lg:col-span-2 lg:pr-8 mx-8 lg:mx-4">
@@ -81,7 +82,10 @@ export default function ProductsDetails(props) {
             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl mb-4">
               {product?.name}
             </h1>
-            <div className="grid grid-cols-12 gap-4 mb-6">
+            <Link className="text-green-600 hover:text-green-500" to={`/seller/${owner?._id}`}>
+              {owner?.username}
+            </Link>
+            <div className="grid grid-cols-12 gap-4 mb-6 mt-4">
               <div className="col-start-1 col-end-5 text-sm text-gray-900">
                 Precio por unidad: {product?.price} €
               </div>
@@ -89,7 +93,7 @@ export default function ProductsDetails(props) {
                 <button
                   type="button"
                   onClick={decrement}
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500  sm:text-sm"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500  sm:text-sm"
                 >
                   -
                 </button>
@@ -99,7 +103,7 @@ export default function ProductsDetails(props) {
                 <button
                   type="button"
                   onClick={() => setCount(count + 1)}
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500  sm:text-sm"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500  sm:text-sm"
                 >
                   +
                 </button>

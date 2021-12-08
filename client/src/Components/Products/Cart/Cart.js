@@ -22,7 +22,6 @@ export default function Cart(props) {
   };
 
   let removeFromCart = (id) => {
-    console.log(id);
     service.removeProductCart(id).then((response) => getAllCart());
   };
   // setCart((cart = response.data.productsCart))

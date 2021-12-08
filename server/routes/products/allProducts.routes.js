@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { response } = require("express");
 const Product = require("../../models/Product.model");
 const User = require("../../models/User.model");
+const Seller = require("../../models/Seller.model");
 
 router.get("/cart/add", (req, res) => {
   const id = req.query.id;
@@ -34,13 +35,16 @@ router.get("/cart/add", (req, res) => {
 
 router.get("/", (req, res, next) => {
   Product.find()
+    .populate("owner")
     .then((response) => res.json(response))
     .catch((err) => console.log(err));
 });
 
 router.get("/details/:id", (req, res) => {
   const { id } = req.params;
-  Product.findById(id).then((response) => res.json(response));
+  Product.findById(id)
+    .populate("owner")
+    .then((response) => res.json(response));
 });
 
 router.get("/cart/all", (req, res) => {
@@ -62,6 +66,21 @@ router.put("/cart/remove/:id", (req, res) => {
     (response) => res.json(response)
   );
 });
+router.post("/create-new-product", (req, res, next) => {
+  const id = req.session.currentUser._id;
+  Product.create(req.body).then((response) => {
+    Seller.findByIdAndUpdate(
+      id,
+      {
+        $push: { products: response._id },
+      },
+      { new: true }
+    ).then((somo) => {
+      res.json(response);
+    });
+  });
+});
+
 // You put the next routes here 👇
 // example: router.use("/auth", authRoutes)
 

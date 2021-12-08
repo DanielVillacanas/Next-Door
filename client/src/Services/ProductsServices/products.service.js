@@ -7,12 +7,20 @@ class ProductService {
       withCredentials: true,
     });
   }
-
   getAllProducts = () => this.app.get("/");
+  createProduct = (name, price, description, img_url, owner) =>
+    this.app.post("/create-new-product", {
+      name,
+      price,
+      description,
+      img_url,
+      owner,
+    });
   getOneProduct = (id) => this.app.get(`/details/${id}`);
   addProductCart = (id, quantity) => this.app.get(`/cart/add?id=${id}&quantity=${quantity}`);
   getCartProducts = () => this.app.get("/cart/all");
   removeProductCart = (id) => this.app.put(`/cart/remove/${id}`);
+  getAllProductsFromASeller = (id) => this.app.get(`/seller/${id}`);
 }
 
 export default ProductService;

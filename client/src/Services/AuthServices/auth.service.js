@@ -13,7 +13,13 @@ class AuthService {
     return this.app.post("/signUp", { username, email, password, address });
   };
   signUpSeller = (username, email, password, password2, address, type) => {
-    this.app.post("/signUpSeller", { username, email, password, address, type });
+    this.app.post("/signUpSeller", {
+      username,
+      email,
+      password,
+      address,
+      type,
+    });
   };
   logout = () => this.app.get("/logout");
   isloggedin = () => this.app.get("/isloggedin");
