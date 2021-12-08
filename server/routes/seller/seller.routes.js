@@ -20,7 +20,9 @@ router.post("/createProduct", (req, res, next) => {
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  Seller.findById(id).then((response) => res.json(response));
+  Seller.findById(id)
+    .populate("products")
+    .then((response) => res.json(response));
 });
 
 module.exports = router;

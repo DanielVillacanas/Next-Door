@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { response } = require("express");
 const Product = require("../../models/Product.model");
 const User = require("../../models/User.model");
+const Seller = require("../../models/Seller.model");
 
 router.get("/cart/add/:id", (req, res) => {
   // const { id } = req.params;
@@ -17,6 +18,7 @@ router.get("/cart/add/:id", (req, res) => {
 
 router.get("/", (req, res, next) => {
   Product.find()
+    .populate("owner")
     .then((response) => res.json(response))
     .catch((err) => console.log(err));
 });
@@ -27,10 +29,20 @@ router.get("/details/:id", (req, res) => {
     .populate("owner")
     .then((response) => res.json(response));
 });
+
 router.post("/create-new-product", (req, res, next) => {
-  console.log(req.body);
+  const id = req.session.currentUser._id;
   Product.create(req.body).then((response) => {
-    res.json(response);
+    console.log(id, response, response._id, "<=================");
+    Seller.findByIdAndUpdate(
+      id,
+      {
+        $push: { products: response._id },
+      },
+      { new: true }
+    ).then((somo) => {
+      res.json(response);
+    });
   });
 });
 
