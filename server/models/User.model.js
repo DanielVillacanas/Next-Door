@@ -18,7 +18,16 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    productsCart: [{ type: Schema.Types.ObjectId, ref: "Product" }],
+    productsCart: [
+      {
+        product: { type: Schema.Types.ObjectId, ref: "Product" },
+        quantity: Number,
+      },
+    ],
+    role: {
+      type: String,
+      default: "User",
+    },
   },
   {
     timestamps: true,

@@ -3,16 +3,33 @@ const { response } = require("express");
 const Product = require("../../models/Product.model");
 const User = require("../../models/User.model");
 
-router.get("/cart/add/:id", (req, res) => {
-  // const { id } = req.params;
-  // const user_id = req.session.currentUser._id;
-  const id = "61ab4fd2fe0752e1ac305afb";
-  const user = "61ade814ec0388cc4a9fc775";
-  User.findOneAndUpdate(user, { $push: { productsCart: id } }, { new: true })
-    .populate("productsCart")
-    .then((response) => {
-      res.json(response.productsCart);
-    });
+router.get("/cart/add", (req, res) => {
+  const id = req.query.id;
+  let newquantity = req.query.quantity;
+  const user_id = req.session.currentUser?._id;
+
+  User.findById(user_id).then((response) => {
+    let quantity = 0;
+    let position = undefined;
+    //Busco si ese producto ya estaba en el carrito,si es asi lo guardo en la variable produc
+    for (let i = 0; i < response.productsCart.length; i++) {
+      response.productsCart[i]?.product.toString() === id &&
+        ((newquantity = parseInt(newquantity) + parseInt(response.productsCart[i].quantity)),
+        (position = i));
+    }
+    position === undefined
+      ? (response.productsCart.push({ product: id, quantity: newquantity }),
+        User.findByIdAndUpdate(user_id, response, { new: true }).catch((err) => console.log(err)))
+      : User.findByIdAndUpdate(
+          user_id,
+          {
+            $set: {
+              [`productsCart.${position}.quantity`]: newquantity,
+            },
+          },
+          { new: true }
+        ).catch((err) => console.log(err));
+  });
 });
 
 router.get("/", (req, res, next) => {
@@ -24,6 +41,26 @@ router.get("/", (req, res, next) => {
 router.get("/details/:id", (req, res) => {
   const { id } = req.params;
   Product.findById(id).then((response) => res.json(response));
+});
+
+router.get("/cart/all", (req, res) => {
+  const user_id = req.session.currentUser._id;
+  User.findById(user_id)
+    .populate({
+      path: "productsCart.product",
+      populate: { path: "owner" },
+    })
+    .then((response) => {
+      res.json(response);
+    });
+});
+
+router.put("/cart/remove/:id", (req, res) => {
+  const { id } = req.params;
+  const user_id = req.session.currentUser._id;
+  User.findByIdAndUpdate(user_id, { $pull: { productsCart: { _id: id } } }, { new: true }).then(
+    (response) => res.json(response)
+  );
 });
 // You put the next routes here 👇
 // example: router.use("/auth", authRoutes)

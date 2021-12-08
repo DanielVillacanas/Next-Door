@@ -22,6 +22,10 @@ const sellerSchema = new Schema(
       enum: ["Carnes", "Frutas", "Pescados", "Verduras", "Other"],
       required: true,
     },
+    role: {
+      type: String,
+      default: "Seller",
+    },
     products: [{ type: Schema.Types.ObjectId, ref: "Product" }],
   },
   {

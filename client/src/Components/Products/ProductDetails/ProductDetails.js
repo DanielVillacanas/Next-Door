@@ -9,8 +9,9 @@ function classNames(...classes) {
 
 export default function ProductsDetails(props) {
   const reviews = { href: "#", average: 2, totalCount: 117 };
+  let logged = props.loggedUser?.loggedUser;
 
-  let [count, setCount] = useState(0);
+  let [count, setCount] = useState(1);
   let [product, setProduct] = useState();
 
   const { id } = props.match.params;
@@ -28,13 +29,18 @@ export default function ProductsDetails(props) {
   };
 
   let decrement = () => {
-    if (count <= 0) {
+    if (count <= 1) {
       return;
     } else {
       setCount(count - 1);
     }
   };
 
+  let addProductCart = () => {
+    console.log("entra");
+    //Llamo al BACK pidiendo que añada el producto al carrito del usuario logueado
+    service.addProductCart(product._id, count).then((res) => console.log(res));
+  };
   return (
     <div className="bg-white">
       <div className="pt-6">
@@ -56,9 +62,7 @@ export default function ProductsDetails(props) {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        reviews.average > rating
-                          ? "text-gray-900"
-                          : "text-gray-200",
+                        reviews.average > rating ? "text-gray-900" : "text-gray-200",
                         "h-5 w-5 flex-shrink-0"
                       )}
                       aria-hidden="true"
@@ -90,9 +94,7 @@ export default function ProductsDetails(props) {
                   -
                 </button>
               </div>
-              <div className="col-end-9 col-span-2 text-center pt-2">
-                {count}
-              </div>
+              <div className="col-end-9 col-span-2 text-center pt-2">{count}</div>
               <div className="col-end-11 col-span-2">
                 <button
                   type="button"
@@ -103,13 +105,10 @@ export default function ProductsDetails(props) {
                 </button>
               </div>
             </div>
-            <Link
-              to={"/cesta"}
-              className="grid grid-cols-6 border-b-2 border-gray-200 pb-4"
-            >
+            <Link to={"/cesta"} className="grid grid-cols-6 border-b-2 border-gray-200 pb-4">
               <button
                 type="button"
-                onClick={() => setCount(count + 1)}
+                onClick={() => addProductCart()}
                 className="col-start-3 col-span-3 inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
               >
                 Añadir a la cesta
@@ -117,9 +116,7 @@ export default function ProductsDetails(props) {
             </Link>
             <div>
               <div className="space-y-6 mt-6">
-                <p className="text-base text-gray-900 pb-4">
-                  {product?.description}
-                </p>
+                <p className="text-base text-gray-900 pb-4">{product?.description}</p>
               </div>
             </div>
           </div>

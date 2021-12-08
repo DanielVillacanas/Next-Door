@@ -13,9 +13,7 @@ function ProductCard(props) {
           />
         </div>
         <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-        <p className="mt-1 text-lg font-medium text-gray-900">
-          {product.price} €
-        </p>
+        <p className="mt-1 text-lg font-medium text-gray-900">{product.price} €</p>
         <Link to={`/products/${product._id}`}>
           <button
             type="button"

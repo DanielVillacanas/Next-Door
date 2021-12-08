@@ -2,18 +2,17 @@ import Login from "./Auth/Login/Login";
 import NavBar from "./Layout/NavBar/NavBar";
 import SignUp from "./Auth/SignUp/SignUp";
 import SignUpSeller from "./Auth/SignUp/SignUpSeller";
-import Home from "./Home/Home";
 import AllProducts from "./Products/AllProducts/AllProducts";
 import ProductDetails from "./Products/ProductDetails/ProductDetails";
-
+import UserProfile from "./Auth/UserProfile/UserProfile";
 import AuthService from "../Services/AuthServices/auth.service";
 
 import { Switch, Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import Cart from "./Products/Cart/Cart";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(null);
-  const [type, setType] = useState("");
 
   let authService = new AuthService();
 
@@ -25,16 +24,13 @@ function App() {
     authService
       .isloggedin()
       .then((response) => {
-        storeUser(response.data.user);
+        storeUser(response.data);
       })
       .catch((err) => storeUser(null));
   };
 
   let storeUser = (user) => {
     setLoggedUser({ loggedUser: user });
-  };
-  let setTypeBussines = (type) => {
-    setType({ type: type });
   };
 
   return (
@@ -46,7 +42,7 @@ function App() {
             exact
             render={() => (
               <div>
-                <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
+                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
               </div>
             )}
           />
@@ -55,8 +51,18 @@ function App() {
             exact
             render={() => (
               <div>
-                <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
-                <AllProducts />
+                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
+                <AllProducts loggedUser={loggedUser} />
+              </div>
+            )}
+          />
+          <Route
+            path="/products/cart"
+            exact
+            render={(props) => (
+              <div>
+                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
+                <Cart loggedUser={loggedUser} />
               </div>
             )}
           />
@@ -64,8 +70,8 @@ function App() {
             path="/products/:id"
             render={(props) => (
               <div>
-                <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
-                <ProductDetails {...props} />
+                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
+                <ProductDetails {...props} loggedUser={loggedUser} />
               </div>
             )}
           />
@@ -74,17 +80,12 @@ function App() {
             path="/logOut"
             render={() => (
               <div>
-                <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
+                <NavBar storeUser={storeUser} loggedUser={loggedUser} />
               </div>
             )}
           />
           <Route path="/signUpSeller" render={() => <SignUpSeller storeUser={storeUser} />} />
-          <Route
-            path="/login"
-            render={(props) => (
-              <Login {...props} storeUser={storeUser} setTypeBussines={setTypeBussines} />
-            )}
-          />
+          <Route path="/login" render={(props) => <Login {...props} storeUser={storeUser} />} />
         </Switch>
       </main>
     </>

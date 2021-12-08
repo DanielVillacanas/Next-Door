@@ -3,7 +3,7 @@ import ProductService from "../../../Services/ProductsServices/products.service"
 import ProductCard from "./ProductCard";
 import SearchBar from "../SearchBar/SearchBar";
 
-export default function AllProducts() {
+export default function AllProducts(props) {
   let [products, setProducts] = useState([]);
   let [productsCopy, setProductsCopy] = useState([]);
 
@@ -29,9 +29,7 @@ export default function AllProducts() {
   };
 
   useEffect(() => {
-    let copy = products.filter((product) =>
-      product.name.toLowerCase().includes(search)
-    );
+    let copy = products.filter((product) => product.name.toLowerCase().includes(search));
     setProductsCopy(copy);
   }, [search]);
 
@@ -42,7 +40,9 @@ export default function AllProducts() {
         <h2 className="sr-only">Products</h2>
         <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {productsCopy.map((product) => (
-            <ProductCard product={product} />
+            <div key={product._id}>
+              <ProductCard product={product} />
+            </div>
           ))}
         </div>
       </div>

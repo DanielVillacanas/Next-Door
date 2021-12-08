@@ -21,7 +21,7 @@ export default function SignUp(props) {
       .signUp(user.username, user.email, user.password, user.password2, user.address)
       .then((response) => {
         props.storeUser(response.data);
-        props.history.push("/tets");
+        props.history.push("/login");
       })
       .catch((err) => console.log(err.response.data.message));
   };
