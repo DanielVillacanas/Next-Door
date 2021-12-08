@@ -7,7 +7,6 @@ export default function SellerProfile(props) {
   const { id } = props.match.params;
 
   let service = new SellerService();
-
   useEffect(() => {
     if (!seller) {
       loadSeller();
@@ -19,7 +18,6 @@ export default function SellerProfile(props) {
       setSeller((seller = result.data));
     });
   };
-
   return (
     <div className="bg-gray-900 ">
       <div className="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24 ">
@@ -29,13 +27,13 @@ export default function SellerProfile(props) {
         />
         <div className=" xl:flex xl:items-center xl:justify-between mt-8">
           <div className="font-medium text-lg leading-6 mx-auto text-center">
-            <h3 className="text-white mb-4">{seller?.name}</h3>
+            <h3 className="text-white mb-4">{seller?.username}</h3>
             <div className="text-green-400 mb-8">{seller?.address}</div>
             <div className=" text-white">{seller?.description}</div>
           </div>
         </div>
       </div>
-      <SellerProducts products={seller?.products} />
+      <SellerProducts products={seller?.products} id={id} />
     </div>
   );
 }

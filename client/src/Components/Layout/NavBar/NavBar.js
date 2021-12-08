@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { Disclosure, Dialog, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
@@ -13,7 +13,7 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Home Page", href: "/", current: true },
+  { name: "Home Page", href: "/", current: false },
   { name: "All products", href: "/products", current: false },
 ];
 const notLogged = [
@@ -29,7 +29,8 @@ function classNames(...classes) {
 
 export default function NavBar(props) {
   let logged = props.loggedUser?.loggedUser;
-  const [openedModal, setOpen] = useState(false);
+
+  const [isOpen, setOpen] = useState(false);
 
   let openModal = () => {
     setOpen(true);
@@ -38,7 +39,6 @@ export default function NavBar(props) {
   let closeModal = () => {
     setOpen(false);
   };
-
   let logOut = () => {
     authService
       .logout()
@@ -86,7 +86,7 @@ export default function NavBar(props) {
                           : "text-gray-300 hover:bg-gray-700 hover:text-white",
                         "px-3 py-2 rounded-md text-sm font-medium"
                       )}
-                      aria-current={item.current ? "page" : undefined}
+                      aria-current={item.current ? "page" : true}
                     >
                       {item.name}
                     </Link>
@@ -126,14 +126,10 @@ export default function NavBar(props) {
                   </button>
                 )}
 
-                <Transition.Root
-                  show={openedModal}
-                  as={Fragment}
-                  onHide={closeModal}
-                >
+                <Transition.Root show={isOpen} as={Fragment}>
                   <Dialog
                     as="div"
-                    className="fixed z-10 inset-0 overflow-y-auto"
+                    className="fixed z-10 inset-0 overflow-y-auto "
                     onClose={setOpen}
                   >
                     <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -144,14 +140,14 @@ export default function NavBar(props) {
                         enterTo="opacity-100"
                         leave="ease-in duration-200"
                         leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
+                        leaveTo="opacity-0 "
                       >
                         <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                       </Transition.Child>
 
                       {/* This element is to trick the browser into centering the modal contents. */}
                       <span
-                        className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                        className=" sm:inline-block sm:align-middle sm:h-12"
                         aria-hidden="true"
                       >
                         &#8203;
@@ -164,22 +160,20 @@ export default function NavBar(props) {
                         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                       >
-                        <NewProduct />
+                        <Fragment>
+                          <NewProduct
+                            refreshTheProducts={props.refreshProducts}
+                            storeUser={logged}
+                            history={props.history}
+                            close={closeModal}
+                          />
+                        </Fragment>
                       </Transition.Child>
                     </div>
                   </Dialog>
                 </Transition.Root>
 
                 <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
-                  {/* <button
-                    type="button"
-                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button> */}
-
-                  {/* Profile dropdown */}
                   <Menu as="div" className="ml-3 relative">
                     <div>
                       <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -238,12 +232,26 @@ export default function NavBar(props) {
 
           <Disclosure.Panel className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {logged !== null &&
-                navigation.map((item) => (
-                  <Disclosure.Button
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={classNames(
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "block px-3 py-2 rounded-md text-base font-medium"
+                  )}
+                  aria-current={item.current ? "page" : undefined}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              {logged === null &&
+                notLogged.map((item) => (
+                  <Link
                     key={item.name}
-                    as="a"
-                    href={item.href}
+                    to={item.href}
                     className={classNames(
                       item.current
                         ? "bg-gray-900 text-white"
@@ -253,7 +261,7 @@ export default function NavBar(props) {
                     aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
-                  </Disclosure.Button>
+                  </Link>
                 ))}
             </div>
             <div className="pt-4 pb-3 border-t border-gray-700">
@@ -278,7 +286,6 @@ export default function NavBar(props) {
                   className="ml-auto flex-shrink-0 bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                 >
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
               </div>
               <div className="mt-3 px-2 space-y-1 sm:px-3">
@@ -290,7 +297,7 @@ export default function NavBar(props) {
                 >
                   Your Profile
                 </Disclosure.Button>
-                <Disclosure.Button
+                <Link
                   key="Sign out"
                   as={Link}
                   to={"/logOut"}
@@ -298,7 +305,7 @@ export default function NavBar(props) {
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                 >
                   Sign out
-                </Disclosure.Button>
+                </Link>
               </div>
             </div>
           </Disclosure.Panel>

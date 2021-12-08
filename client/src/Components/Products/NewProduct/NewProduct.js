@@ -7,8 +7,9 @@ export default function NewProduct(props) {
     price: "",
     description: "",
     img_url: "",
+    owner: props.storeUser._id,
   });
-
+  console.log(props.storeUser.products);
   let productService = new ProductService();
 
   let handleSubmit = (e) => {
@@ -19,10 +20,12 @@ export default function NewProduct(props) {
         product.name,
         product.price,
         product.description,
-        product.img_url
+        product.img_url,
+        product.owner
       )
       .then((response) => {
-        console.log(response);
+        props.refreshTheProducts();
+        props.close();
       })
       .catch((err) => console.log(err.response.data.message));
   };
@@ -37,7 +40,6 @@ export default function NewProduct(props) {
       };
     });
   };
-
   return (
     <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
       <p className="text-center font-semibold text-lg text-green-800">
@@ -76,6 +78,8 @@ export default function NewProduct(props) {
                 onChange={handleInputChange}
                 name="price"
                 type="number"
+                step="any"
+                min="0"
                 required
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               />
@@ -116,9 +120,6 @@ export default function NewProduct(props) {
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               />
             </div>
-          </div>
-          <div className="mt-1">
-            <input name="owner" type="text" required hidden />
           </div>
           <div>
             <button

@@ -26,7 +26,6 @@ export default function ProductsDetails(props) {
     service.getOneProduct(id).then((result) => {
       setProduct((product = result.data));
       setOwner((owner = result.data.owner));
-      console.log(owner._id);
     });
   };
 
@@ -43,10 +42,10 @@ export default function ProductsDetails(props) {
       <div className="pt-6">
         {/* Image gallery */}
         <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
-          <div className=" aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
+          <div className=" aspect-w-3 aspect-h-4 overflow-hidden lg:block">
             <img
               src={product?.img_url}
-              className="w-full h-80 object-center object-fill mb-6 lg:mb-0"
+              className="w-full h-80 object-center px-4 lg:mx-0 object-fill lg:object-cover mb-6 lg:mb-0 rounded"
             />
           </div>
           <div className="lg:col-span-2 lg:pr-8 mx-8 lg:mx-4">
@@ -99,7 +98,7 @@ export default function ProductsDetails(props) {
                   -
                 </button>
               </div>
-              <div className="select-none col-end-9 col-span-2 text-center pt-1 border-2 border-green-200 rounded-lg">
+              <div className="select-none col-end-9 col-span-2 text-center pt-1 md:border-2 border-green-200 rounded-lg">
                 {count}
               </div>
               <div className="col-end-11 col-span-2">
