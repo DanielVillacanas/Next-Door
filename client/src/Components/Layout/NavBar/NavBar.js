@@ -118,7 +118,10 @@ export default function NavBar(props) {
                     onClick={openModal}
                     className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
                   >
-                    <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                    <PlusSmIcon
+                      className="-ml-1 mr-2 h-5 w-5"
+                      aria-hidden="true"
+                    />
                     <span>New Product</span>
                   </button>
                 )}
@@ -152,7 +155,10 @@ export default function NavBar(props) {
                       </Transition.Child>
 
                       {/* This element is to trick the browser into centering the modal contents. */}
-                      <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
+                      <span
+                        className=" sm:inline-block sm:align-middle sm:h-12"
+                        aria-hidden="true"
+                      >
                         &#8203;
                       </span>
                       <Transition.Child
@@ -181,7 +187,11 @@ export default function NavBar(props) {
                     <div>
                       <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open user menu</span>
-                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                        <img
+                          className="h-8 w-8 rounded-full"
+                          src={user.imageUrl}
+                          alt=""
+                        />
                       </Menu.Button>
                     </div>
                     <Transition
@@ -193,7 +203,7 @@ export default function NavBar(props) {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item key="Your Profile">
                           {({ active }) => (
                             <Link
@@ -214,7 +224,7 @@ export default function NavBar(props) {
                               onClick={logOut}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "block px-4 py-2 text-sm text-gray-700 "
                               )}
                             >
                               Sign out
@@ -266,18 +276,24 @@ export default function NavBar(props) {
             <div className="pt-4 pb-3 border-t border-gray-700">
               <div className="flex items-center px-5 sm:px-6">
                 <div className="flex-shrink-0">
-                  <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                  <img
+                    className="h-10 w-10 rounded-full"
+                    src={user.imageUrl}
+                    alt=""
+                  />
                 </div>
                 <div className="ml-3">
-                  <div className="text-base font-medium text-white">{user.name}</div>
-                  <div className="text-sm font-medium text-gray-400">{user.email}</div>
+                  <div className="text-base font-medium text-white">
+                    {user.name}
+                  </div>
+                  <div className="text-sm font-medium text-gray-400">
+                    {user.email}
+                  </div>
                 </div>
                 <button
                   type="button"
                   className="ml-auto flex-shrink-0 bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                  <span className="sr-only">View notifications</span>
-                </button>
+                ></button>
               </div>
               <div className="mt-3 px-2 space-y-1 sm:px-3">
                 <Disclosure.Button
@@ -290,7 +306,6 @@ export default function NavBar(props) {
                 </Disclosure.Button>
                 <Link
                   key="Sign out"
-                  as={Link}
                   to={"/logOut"}
                   onClick={logOut}
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"

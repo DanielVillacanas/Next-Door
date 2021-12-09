@@ -7,13 +7,13 @@ const Seller = require("../../models/Seller.model");
 router.get("/cart/add", (req, res) => {
   const id = req.query.id;
   let newquantity = req.query.quantity;
-  const user_id = req.session.currentUser?._id;
+  const user_id = req.session.currentUser._id;
 
   User.findById(user_id).then((response) => {
     let position = undefined;
     //Busco si ese producto ya estaba en el carrito,si es asi lo guardo en la variable produc
     for (let i = 0; i < response.productsCart.length; i++) {
-      response.productsCart[i]?.product.toString() === id &&
+      response.productsCart[i].product.toString() === id &&
         ((newquantity = parseInt(newquantity) + parseInt(response.productsCart[i].quantity)),
         (position = i));
     }
@@ -64,6 +64,21 @@ router.put("/cart/remove/:id", (req, res) => {
   User.findByIdAndUpdate(user_id, { $pull: { productsCart: { _id: id } } }, { new: true }).then(
     (response) => res.json(response)
   );
+});
+
+router.post("/create-new-product", (req, res, next) => {
+  const id = req.session.currentUser._id;
+  Product.create(req.body).then((response) => {
+    Seller.findByIdAndUpdate(
+      id,
+      {
+        $push: { products: response._id },
+      },
+      { new: true }
+    ).then((response) => {
+      res.json(response);
+    });
+  });
 });
 
 // You put the next routes here 👇

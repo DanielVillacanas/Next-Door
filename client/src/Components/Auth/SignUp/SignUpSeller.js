@@ -11,7 +11,7 @@ export default function SignUpSeller() {
     img_url: "",
     address: "",
     username: "",
-    type: "Other",
+    type: "",
     description: "",
   });
 
@@ -40,6 +40,7 @@ export default function SignUpSeller() {
 
   let handleSubmit = (e) => {
     e.preventDefault();
+    console.log("entra");
     authService.signUpSeller(
       seller.username,
       seller.email,
@@ -214,7 +215,7 @@ export default function SignUpSeller() {
                             id="type"
                             name="type"
                             className=" border-2 border-green-500 mt-3 block w-full pl-1 pr-10 py-2 text-base focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm rounded-md"
-                            defaultValue="Other"
+                            defaultValue="Carnes"
                             onChange={handleInputSelect}
                           >
                             <option>Carnes</option>
