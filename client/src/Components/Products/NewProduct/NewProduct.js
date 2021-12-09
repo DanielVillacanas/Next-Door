@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProductService from "../../../Services/ProductsServices/products.service";
+import SellerService from "../../../Services/SellerServices/seller.service";
 
 export default function NewProduct(props) {
   const [product, setProduct] = useState({
@@ -10,12 +10,12 @@ export default function NewProduct(props) {
     owner: props.storeUser._id,
   });
   console.log(props.storeUser.products);
-  let productService = new ProductService();
+  let sellerService = new SellerService();
 
   let handleSubmit = (e) => {
     e.preventDefault();
 
-    productService
+    sellerService
       .createProduct(
         product.name,
         product.price,
@@ -42,16 +42,11 @@ export default function NewProduct(props) {
   };
   return (
     <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-      <p className="text-center font-semibold text-lg text-green-800">
-        Crear un nuevo producto
-      </p>
+      <p className="text-center font-semibold text-lg text-green-800">Crear un nuevo producto</p>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Nombre
             </label>
             <div className="mt-1">
@@ -66,10 +61,7 @@ export default function NewProduct(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="price"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="price" className="block text-sm font-medium text-gray-700">
               Precio
             </label>
             <div className="mt-1">
@@ -86,10 +78,7 @@ export default function NewProduct(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="description"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
               Descipción
             </label>
             <div className="mt-1">
@@ -104,10 +93,7 @@ export default function NewProduct(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="image"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="image" className="block text-sm font-medium text-gray-700">
               Imagen del producto
             </label>
             <div className="mt-1">

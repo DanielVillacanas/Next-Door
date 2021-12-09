@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Product = require("../../models/Product.model");
 const Seller = require("../../models/Seller.model");
+const User = require("../../models/User.model");
 
 const testProduct = {
   name: "Manzanas Rojas",
@@ -12,10 +13,36 @@ const testProduct = {
     "https://www.vip.coop/images/content/472343_37260_5_N_350_400_0_5246360/pinova-40x60x10.png",
 };
 
-router.post("/createProduct", (req, res, next) => {
-  //SUSTITUIR testProduct por req.body
-  Product.create(testProduct).then((response) => res.json(response));
-  // .catch(res.status(500).send("Error al crear producto"));
+router.post("/create-new-product", (req, res, next) => {
+  const id = req.session.currentUser._id;
+  Product.create(req.body).then((response) => {
+    Seller.findByIdAndUpdate(
+      id,
+      {
+        $push: { products: response._id },
+      },
+      { new: true }
+    ).then((somo) => {
+      res.json(response);
+    });
+  });
+});
+
+router.get("/deleteProduct/:id", (req, res, next) => {
+  const { id } = req.params;
+  Product.findByIdAndRemove(id)
+    .then((response) => res.json(response))
+    .catch((err) => console.log(err));
+});
+
+router.put("/deleteProductFromSeller/:id", (req, res, next) => {
+  const { id } = req.params;
+  const seller_id = req.session.currentUser._id;
+
+  Seller.findByIdAndUpdate(seller_id, { $pull: { products: id } }, { new: true })
+    .populate("products")
+    .then((response) => res.json(response))
+    .catch((err) => console.log(err));
 });
 
 router.get("/:id", (req, res) => {

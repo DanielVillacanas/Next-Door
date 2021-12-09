@@ -112,7 +112,7 @@ export default function NavBar(props) {
                 </div>
               </div>
               <div className="flex items-center">
-                {props.type.type === "seller" && (
+                {logged?.role === "Seller" && (
                   <button
                     type="button"
                     onClick={openModal}

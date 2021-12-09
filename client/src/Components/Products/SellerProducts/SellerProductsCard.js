@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon, XIcon } from "@heroicons/react/outline";
 import UserContext from "../../../Context/UserContext/UserContext";
-import ProductService from "../../../Services/ProductsServices/products.service";
+import SellerService from "../../../Services/SellerServices/seller.service";
 
 function SellerProductsCard(props) {
   const [isOpen, setOpen] = useState(false);
@@ -15,17 +15,18 @@ function SellerProductsCard(props) {
   let product = props.product;
   let id = props.product?._id;
 
-  let service = new ProductService();
+  let service = new SellerService();
 
   let { loggedUser } = useContext(UserContext);
 
   let eliminatePoduct = () => {
     setOpen(false);
+    service.deleteProductFromSeller(id).then((res) => {
+      props.bringProduct(res.data.products);
+    });
     service
       .deleteProduct(id)
-      .then((result) => {
-        service.deleteProductFromSeller(result._id);
-      })
+      .then((result) => {})
       .catch((err) => console.log(err));
   };
 
@@ -40,9 +41,7 @@ function SellerProductsCard(props) {
         </div>
         <div className="bg-white p-4">
           <h3 className="mt-4 text-sm text-green-700 ">{product.name}</h3>
-          <p className="mt-1 text-lg font-medium text-gray-900">
-            {product.price} €
-          </p>
+          <p className="mt-1 text-lg font-medium text-gray-900">{product.price} €</p>
           <div>
             <Link to={`/products/${id}`}>
               <button
@@ -52,22 +51,17 @@ function SellerProductsCard(props) {
                 Product Details
               </button>
             </Link>
-            {loggedUser.loggedUser !== null &&
-              loggedUser.loggedUser?._id === props?.id && (
-                <button
-                  type="button"
-                  onClick={openModal}
-                  className="mt-4 ml-10 px-4 shadow-sm text-sm font-medium text-black  border-b-2 border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
-                >
-                  Delete Product
-                </button>
-              )}
-            <Transition.Root show={isOpen} as={Fragment}>
-              <Dialog
-                as="div"
-                className="fixed z-10 inset-0 overflow-y-auto"
-                onClose={setOpen}
+            {loggedUser.loggedUser !== null && loggedUser.loggedUser?._id === props?.id && (
+              <button
+                type="button"
+                onClick={openModal}
+                className="mt-4 ml-10 px-4 shadow-sm text-sm font-medium text-black  border-b-2 border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
               >
+                Delete Product
+              </button>
+            )}
+            <Transition.Root show={isOpen} as={Fragment}>
+              <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                   <Transition.Child
                     as={Fragment}
@@ -105,10 +99,7 @@ function SellerProductsCard(props) {
                       </div>
                       <div className="sm:flex sm:items-start">
                         <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                          <ExclamationIcon
-                            className="h-6 w-6 text-red-600"
-                            aria-hidden="true"
-                          />
+                          <ExclamationIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
                         </div>
                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                           <Dialog.Title
@@ -120,10 +111,9 @@ function SellerProductsCard(props) {
                           <div className="mt-2">
                             <p className="text-sm text-gray-500">
                               ¿Estas seguro de que quieres eliminar{" "}
-                              <span className="text-black">{product.name}</span>{" "}
-                              de la tienda? Si acepta se borrara toda la
-                              informacion de este producto haciendo esta acción
-                              irremediable.
+                              <span className="text-black">{product.name}</span> de la tienda? Si
+                              acepta se borrara toda la informacion de este producto haciendo esta
+                              acción irremediable.
                             </p>
                           </div>
                         </div>
