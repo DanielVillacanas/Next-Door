@@ -19,7 +19,7 @@ const sellerSchema = new Schema(
     coordinates: [Number],
     type: {
       type: String,
-      enum: ["Carnes", "Frutas", "Pescados", "Verduras", "Other"],
+      enum: ["Carnes", "Frutas", "Pescados", "Verduras", "Otro"],
       required: true,
     },
     role: {

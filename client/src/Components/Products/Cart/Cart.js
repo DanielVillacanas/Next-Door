@@ -15,7 +15,9 @@ export default function Cart(props) {
       result.data.productsCart.forEach((element) => {
         element.product &&
           setSubtotal(
-            Math.round((subtotal += element.product?.price * element.quantity) * 100) / 100
+            Math.round(
+              (subtotal += element.product?.price * element.quantity) * 100
+            ) / 100
           );
       });
     });
@@ -24,7 +26,7 @@ export default function Cart(props) {
   let removeFromCart = (id) => {
     service.removeProductCart(id).then((response) => getAllCart());
   };
-  // setCart((cart = response.data.productsCart))
+
   useEffect(() => {
     getAllCart();
   }, []);
@@ -32,16 +34,22 @@ export default function Cart(props) {
   return (
     <>
       <div>
-        <div class="local inset-y-0 right-0 pl-10 pr-10 max-w-full flex">
-          <div class="w-screen ">
-            <div class="h-full flex flex-col bg-white shadow-xl ">
+        <div class="local inset-y-0 right-0 pl-10 pr-10 max-w-full flex mt-10 ">
+          <div class="w-screen">
+            <div class="h-full flex flex-col bg-white shadow-xl">
               <div class="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
                 <div class="flex items-start justify-between">
-                  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">
-                    Shopping cart
+                  <h2
+                    class="text-lg font-medium text-gray-900"
+                    id="slide-over-title"
+                  >
+                    Tu cesta
                   </h2>
                   <div class="ml-3 h-7 flex items-center">
-                    <button type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                    <button
+                      type="button"
+                      class="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                    >
                       <span class="sr-only">Close panel</span>
                       <path
                         stroke-linecap="round"
@@ -69,8 +77,10 @@ export default function Cart(props) {
                               <div class="ml-4 flex-1 flex flex-col">
                                 <div>
                                   <div class="flex justify-between text-base font-medium text-gray-900">
-                                    <h3>
-                                      <a href="#">{elm.product.name}</a>
+                                    <h3 className="hover:text-green-500">
+                                      <Link to={`/products/${elm.product._id}`}>
+                                        {elm.product.name}
+                                      </Link>
                                     </h3>
                                     <p class="ml-4">{elm.product.price}€</p>
                                   </div>
@@ -79,12 +89,14 @@ export default function Cart(props) {
                                   </p>
                                 </div>
                                 <div class="flex-1 flex items-end justify-between ">
-                                  <p class="text-gray-500">Cantidad: {elm.quantity}</p>
+                                  <p class="text-gray-500">
+                                    Cantidad: {elm.quantity}
+                                  </p>
                                   <div class="flex">
                                     <button
                                       onClick={() => removeFromCart(elm._id)}
                                       type="button"
-                                      class="font-medium text-indigo-600 hover:text-indigo-500"
+                                      class="font-medium text-green-600 hover:text-green-500"
                                     >
                                       Remove
                                     </button>
@@ -105,25 +117,25 @@ export default function Cart(props) {
                   <p>{subtotal}€</p>
                 </div>
                 <p class="mt-0.5 text-sm text-gray-500">
-                  Shipping and taxes calculated at checkout.
+                  Gastos de envio y de gestion calculados en el coste total.
                 </p>
-                <div class="mt-6">
+                <div class="mt-6 flex sm:justify-end justify-center">
                   <a
                     href="#"
-                    class="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                    class="w-44 flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-600 hover:bg-green-700"
                   >
-                    Checkout
+                    Comprar
                   </a>
                 </div>
-                <div class="mt-6 flex justify-center text-sm text-center text-gray-500">
+                <div class="mt-6 flex sm:justify-end justify-center text-sm text-center text-gray-500">
                   <p>
-                    or{" "}
+                    o{" "}
                     <Link to="/products">
                       <button
                         type="button"
-                        class="text-indigo-600 font-medium hover:text-indigo-500"
+                        class="text-green-600 font-medium hover:text-green-500 "
                       >
-                        Continue Shopping<span aria-hidden="true"> →</span>
+                        Continuar comprando<span aria-hidden="true"> →</span>
                       </button>
                     </Link>
                   </p>

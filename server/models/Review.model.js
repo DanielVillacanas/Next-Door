@@ -8,7 +8,7 @@ const reviewSchema = new Schema(
       type: String,
       required: true,
     },
-    rating: { type: Number, enum: [0, 1, 2, 3, 4], required: true },
+    rating: { type: Number, enum: [1, 2, 3, 4, 5], required: true },
     product: { type: Schema.Types.ObjectId, ref: "Product" },
     seller: { type: Schema.Types.ObjectId, ref: "Seller" },
     type: {

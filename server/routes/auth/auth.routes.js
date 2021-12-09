@@ -19,6 +19,7 @@ router.post("/signUpSeller", (req, res, next) => {
     seller
       ? res.status(500).send("Error vendedor ya registrado")
       : Seller.create(req.body).then((response) => {
+          console.log(response);
           res.json(response);
         });
   });
