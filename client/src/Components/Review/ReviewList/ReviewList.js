@@ -63,7 +63,7 @@ export default function Reviews() {
     e.preventDefault();
 
     reviewService
-      .createReview(description, rating)
+      .createReview(review.description, review.rating)
       .then((response) => {})
       .catch((err) => console.log("error", err));
   };
@@ -79,21 +79,14 @@ export default function Reviews() {
                 <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
-                      <h2
-                        id="notes-title"
-                        className="text-lg font-medium text-gray-900"
-                      >
+                      <h2 id="notes-title" className="text-lg font-medium text-gray-900">
                         Notes
                       </h2>
                     </div>
                     <div className="bg-gray-50 px-4 py-6 sm:px-6">
                       <div className="flex space-x-3">
                         <div className="flex-shrink-0">
-                          <img
-                            className="h-10 w-10 rounded-full"
-                            src={user.imageUrl}
-                            alt=""
-                          />
+                          <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
                         </div>
                         <div className="min-w-0 flex-1">
                           <form onSubmit={handleSubmit}>
@@ -161,10 +154,7 @@ export default function Reviews() {
                               </div>
                               <div>
                                 <div className="text-sm">
-                                  <a
-                                    href="#"
-                                    className="font-medium text-gray-900"
-                                  >
+                                  <a href="#" className="font-medium text-gray-900">
                                     {comment.name}
                                   </a>
                                 </div>

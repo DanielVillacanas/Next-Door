@@ -66,21 +66,6 @@ router.put("/cart/remove/:id", (req, res) => {
   );
 });
 
-router.post("/create-new-product", (req, res, next) => {
-  const id = req.session.currentUser._id;
-  Product.create(req.body).then((response) => {
-    Seller.findByIdAndUpdate(
-      id,
-      {
-        $push: { products: response._id },
-      },
-      { new: true }
-    ).then((response) => {
-      res.json(response);
-    });
-  });
-});
-
 // You put the next routes here 👇
 // example: router.use("/auth", authRoutes)
 

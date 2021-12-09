@@ -22,7 +22,7 @@ router.post("/create-new-product", (req, res, next) => {
         $push: { products: response._id },
       },
       { new: true }
-    ).then((somo) => {
+    ).then((response) => {
       res.json(response);
     });
   });

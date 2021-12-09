@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import UserContext, { UpdateViewContext } from "../../../Context/UserContext/UserContext";
 import SellerService from "../../../Services/SellerServices/seller.service";
 
 export default function NewProduct(props) {
@@ -9,7 +10,7 @@ export default function NewProduct(props) {
     img_url: "",
     owner: props.storeUser._id,
   });
-  console.log(props.storeUser.products);
+  const [context, setContext] = UserContext(UpdateViewContext);
   let sellerService = new SellerService();
 
   let handleSubmit = (e) => {
@@ -23,11 +24,11 @@ export default function NewProduct(props) {
         product.img_url,
         product.owner
       )
-      .then((response) => {
-        props.refreshTheProducts();
+      .then(() => {
+        setContext(true);
         props.close();
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.log(err));
   };
 
   let handleInputChange = (e) => {

@@ -4,13 +4,18 @@ import SellerProductsCard from "./SellerProductsCard";
 
 export default function SellerProducts(props) {
   let [products, setProducts] = useState();
+
   let service = new SellerService();
   useEffect(() => {
-    service.getAllProductsFromASeller(props.id).then((res) => setProducts(res.data.products));
+    getProductsFromSeller();
   }, []);
 
+  let getProductsFromSeller = () => {
+    return service
+      .getAllProductsFromASeller(props.id)
+      .then((res) => setProducts(res.data.products));
+  };
   let bringProduct = (arrProd) => {
-    console.log(arrProd, "<----------------");
     let copy = [...products];
     arrProd && (copy = arrProd);
     setProducts(copy);
