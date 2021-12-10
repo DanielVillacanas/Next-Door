@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import UserContext, { UpdateViewContext } from "../../../Context/UserContext/UserContext";
 import SellerService from "../../../Services/SellerServices/seller.service";
 
 export default function NewProduct(props) {
@@ -10,7 +9,7 @@ export default function NewProduct(props) {
     img_url: "",
     owner: props.storeUser._id,
   });
-  const [context, setContext] = UserContext(UpdateViewContext);
+
   let sellerService = new SellerService();
 
   let handleSubmit = (e) => {
@@ -24,9 +23,10 @@ export default function NewProduct(props) {
         product.img_url,
         product.owner
       )
-      .then(() => {
-        setContext(true);
+      .then((response) => {
+        props.refreshProducts();
         props.close();
+        props.history.push("/products");
       })
       .catch((err) => console.log(err));
   };

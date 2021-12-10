@@ -4,5 +4,6 @@ module.exports = (app) => {
   app.use("/auth", require("./auth/auth.routes"));
   app.use("/reviews", require("./reviews/reviews.routes"));
   app.use("/seller", require("./seller/seller.routes"));
-  // // app.use("/api", require("./auth.routes"));
+  app.use("/user", require("./user/user.routes"));
+  app.use("/api/upload", require("./upload/uploads.routes"));
 };

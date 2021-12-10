@@ -51,7 +51,7 @@ function SellerProductsCard(props) {
                 Product Details
               </button>
             </Link>
-            {loggedUser?.loggedUser !== null && loggedUser.loggedUser?._id === props?.id && (
+            {loggedUser?.loggedUser !== null && loggedUser?.loggedUser?._id === props?.id && (
               <button
                 type="button"
                 onClick={openModal}

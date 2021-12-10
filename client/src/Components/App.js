@@ -11,13 +11,14 @@ import AuthService from "../Services/AuthServices/auth.service";
 import { Switch, Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Cart from "./Products/Cart/Cart";
-import { UserProvider, UpdateViewContext } from "../Context/UserContext/UserContext";
+import { UserProvider } from "../Context/UserContext/UserContext";
+import UserProfile from "./Auth/UserProfile/UserProfile";
 
 function App() {
   const [loggedUser, setLoggedUser] = useState(null);
   const [type, setType] = useState("");
   const [refresh, setRefresh] = useState(false);
-  const [updateView, setUpdateView] = useState(null);
+
   let authService = new AuthService();
 
   useEffect(() => {
@@ -36,12 +37,12 @@ function App() {
   const refreshProducts = () => {
     setRefresh(true);
   };
-
   const changeValueRefresh = () => {
     setRefresh(false);
   };
 
   let storeUser = (user) => {
+    console.log(user);
     setLoggedUser({ loggedUser: user });
   };
 
@@ -52,91 +53,107 @@ function App() {
   return (
     <>
       <UserProvider value={{ loggedUser }}>
-        <UpdateViewContext value={{ updateView, setUpdateView }}>
-          <main>
-            <Switch>
-              <Route
-                path="/"
-                exact
-                render={() => (
-                  <div>
-                    <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
-                  </div>
-                )}
-              />
-              <Route
-                path="/products"
-                exact
-                render={(props) => (
-                  <div>
-                    <NavBar
-                      {...props}
-                      storeUser={storeUser}
-                      loggedUser={loggedUser}
-                      type={type}
-                      refreshProducts={refreshProducts}
-                    />
-                    <AllProducts refresh={refresh} changeValueRefresh={changeValueRefresh} />
-                  </div>
-                )}
-              />
-              <Route
-                path="/products/cart"
-                exact
-                render={(props) => (
-                  <div>
-                    <NavBar
-                      {...props}
-                      storeUser={storeUser}
-                      loggedUser={loggedUser}
-                      type={type}
-                      refreshProducts={refreshProducts}
-                    />
-                    <Cart loggedUser={loggedUser} />
-                  </div>
-                )}
-              />
-              <Route
-                path="/seller/:id"
-                exact
-                render={(props) => (
-                  <div>
-                    <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
-                    <SellerProfile {...props} />
-                  </div>
-                )}
-              />
-              <Route
-                path="/products/:id"
-                render={(props) => (
-                  <div>
-                    <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
-                    <ProductDetails {...props} />
-                  </div>
-                )}
-              />
-              <Route
-                path="/signUp"
-                render={(props) => <SignUp {...props} storeUser={storeUser} />}
-              />
-              <Route
-                path="/logOut"
-                render={() => (
-                  <div>
-                    <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
-                  </div>
-                )}
-              />
-              <Route path="/signUpSeller" render={() => <SignUpSeller storeUser={storeUser} />} />
-              <Route
-                path="/login"
-                render={(props) => (
-                  <Login {...props} storeUser={storeUser} setTypeBussines={setTypeBussines} />
-                )}
-              />
-            </Switch>
-          </main>
-        </UpdateViewContext>
+        <main>
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={() => (
+                <div>
+                  <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
+                </div>
+              )}
+            />
+            <Route
+              path="/products"
+              exact
+              render={(props) => (
+                <div>
+                  <NavBar
+                    {...props}
+                    storeUser={storeUser}
+                    loggedUser={loggedUser}
+                    type={type}
+                    refreshProducts={() => refreshProducts()}
+                  />
+                  <AllProducts refresh={refresh} changeValueRefresh={changeValueRefresh} />
+                </div>
+              )}
+            />
+            <Route
+              path="/products/cart"
+              exact
+              render={(props) => (
+                <div>
+                  <NavBar
+                    {...props}
+                    storeUser={storeUser}
+                    loggedUser={loggedUser}
+                    type={type}
+                    refreshProducts={() => refreshProducts()}
+                  />
+                  <Cart loggedUser={loggedUser} />
+                </div>
+              )}
+            />
+            <Route
+              path="/seller/:id"
+              render={(props) => (
+                <div>
+                  <NavBar
+                    refreshProducts={() => refreshProducts()}
+                    storeUser={storeUser}
+                    loggedUser={loggedUser}
+                    type={type}
+                    {...props}
+                  />
+                  <SellerProfile {...props} />
+                </div>
+              )}
+            />
+            <Route
+              path="/user/:id"
+              exact
+              render={(props) => (
+                <div>
+                  <NavBar
+                    refreshProducts={() => refreshProducts()}
+                    storeUser={storeUser}
+                    loggedUser={loggedUser}
+                    type={type}
+                    {...props}
+                  />
+                  <UserProfile {...props} loggedUser={loggedUser} storeUser={storeUser} />
+                </div>
+              )}
+            />
+            <Route
+              path="/products/:id"
+              render={(props) => (
+                <div>
+                  <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
+                  <ProductDetails {...props} />
+                </div>
+              )}
+            />
+            <Route path="/signUp" render={(props) => <SignUp {...props} storeUser={storeUser} />} />
+            <Route
+              path="/logOut"
+              render={() => (
+                <div>
+                  <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
+                </div>
+              )}
+            />
+            <Route path="/signUpSeller" render={() => <SignUpSeller storeUser={storeUser} />} />
+            <Route
+              path="/login"
+              render={(props) => (
+                <Login {...props} storeUser={storeUser} setTypeBussines={setTypeBussines} />
+              )}
+            />
+          </Switch>
+        </main>
       </UserProvider>
     </>
   );
