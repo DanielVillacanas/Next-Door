@@ -19,12 +19,14 @@ router.post("/edit", (req, res) => {
   const { username, email, password, address, img_url } = req.body;
   const id = req.session.currentUser._id;
 
-  User.findByIdAndUpdate(id, { username, email, password, address, img_url })
-    .then((response) => {
-      console.log(response);
-      res.json(response);
-    })
-    .catch((err) => console.log(err));
+  //LLAMAR A LA API DE LOS MAPAS PARA ACTUALIZAR LA POSICION DEL MAPA Y LA ADDRESS
+  //
+  User.findByIdAndUpdate(id, { username, email, password, address, img_url }, { new: true }).then(
+    (response) => {
+      req.session.currentUser = response;
+      return res.json(response);
+    }
+  );
 });
 
 module.exports = router;

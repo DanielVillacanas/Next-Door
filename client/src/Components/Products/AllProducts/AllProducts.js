@@ -24,7 +24,6 @@ export default function AllProducts(props) {
   };
 
   if (props.refresh === true) {
-    console.log("Actualiza");
     loadProducts();
   }
   props.changeValueRefresh();

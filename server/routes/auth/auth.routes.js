@@ -1,26 +1,46 @@
 const router = require("express").Router();
 const User = require("../../models/User.model");
 const Seller = require("../../models/Seller.model");
+const { APIMapBox } = require("../../services/APImapBox/mapBoxSerivces");
+const { response } = require("express");
+
+let mapAPI = new APIMapBox();
 
 router.post("/signUp", (req, res, next) => {
-  const { email } = req.body;
-  User.findOne({ email }).then((user) => {
-    user
-      ? res.status(500).send("Error usuario ya registrado")
-      : User.create(req.body).then((response) => {
-          res.json(response);
-        });
+  let { email, password, address, username } = req.body;
+  mapAPI.getCoordinates(address).then((response) => {
+    address = response.data.features[0].place_name;
+    const coordinates = response.data.features[0].center;
+    mapAPI.getMap(coordinates).then((map) => {
+      let map_img = map;
+      User.findOne({ email })
+        .then((user) => {
+          user
+            ? res.status(500).send("Error usuario ya registrado")
+            : User.create({ email, password, address, username, coordinates, map_img }).then(
+                (response) => {
+                  res.json(response);
+                }
+              );
+        })
+        .catch((err) => console.log(err));
+    });
   });
 });
 
 router.post("/signUpSeller", (req, res, next) => {
-  const { email } = req.body;
-  Seller.findOne({ email }).then((seller) => {
-    seller
-      ? res.status(500).send("Error vendedor ya registrado")
-      : Seller.create(req.body).then((response) => {
-          res.json(response);
-        });
+  let { email, password, address, username, coordinates, type } = req.body;
+
+  mapAPI.getCoordinates(address).then((response) => {
+    address = response.data.features[0].place_name;
+    const coordinates = response.data.features[0].center;
+    Seller.findOne({ email }).then((seller) => {
+      seller
+        ? console.log("Vendedor ya registrado")
+        : Seller.create({ email, password, address, username, coordinates, type }).then(
+            (response) => res.json(response)
+          );
+    });
   });
 });
 

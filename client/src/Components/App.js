@@ -145,7 +145,10 @@ function App() {
                 </div>
               )}
             />
-            <Route path="/signUpSeller" render={() => <SignUpSeller storeUser={storeUser} />} />
+            <Route
+              path="/signUpSeller"
+              render={(props) => <SignUpSeller {...props} storeUser={storeUser} />}
+            />
             <Route
               path="/login"
               render={(props) => (

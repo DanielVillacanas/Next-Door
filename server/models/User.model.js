@@ -14,10 +14,12 @@ const userSchema = new Schema(
       //unique: true,
     },
     address: { type: String, required: true },
+    coordinates: [Number],
     img_url: {
       type: String,
       default: "/images/Perfil/perfil-photo.png",
     },
+    map_img: String,
     password: {
       type: String,
       required: true,
