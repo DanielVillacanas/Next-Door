@@ -19,7 +19,6 @@ router.post("/signUpSeller", (req, res, next) => {
     seller
       ? res.status(500).send("Error vendedor ya registrado")
       : Seller.create(req.body).then((response) => {
-          console.log(response);
           res.json(response);
         });
   });
@@ -31,14 +30,12 @@ router.post("/login", (req, res, next) => {
     .then((user) => {
       user
         ? password === user.password //Validate password
-          ? ((req.session.currentUser = user),
-            res.json({ user: user, type: "user" }))
+          ? ((req.session.currentUser = user), res.json({ user: user, type: "user" }))
           : res.status(500).send("Error contraseña incorrecta!")
         : Seller.findOne({ email }).then((seller) => {
             seller
               ? password === seller.password //Validate password
-                ? ((req.session.currentUser = seller),
-                  res.json({ user: seller, type: "seller" }))
+                ? ((req.session.currentUser = seller), res.json({ user: seller, type: "seller" }))
                 : res.status(500).send("Error contraseña incorrecta!")
               : res.status(500).send("Error usuario no registrado!");
           });
@@ -53,9 +50,7 @@ router.get("/isloggedin", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  req.session.destroy((err) =>
-    res.status(200).json({ code: 200, message: "Logout successful" })
-  );
+  req.session.destroy((err) => res.status(200).json({ code: 200, message: "Logout successful" }));
 });
 
 module.exports = router;

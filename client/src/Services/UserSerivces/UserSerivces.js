@@ -1,5 +1,4 @@
 import axios from "axios";
-console.log("Services");
 
 class UserServices {
   constructor() {
@@ -10,7 +9,6 @@ class UserServices {
   }
 
   editUser = (username, email, password, password2, address, img_url) => {
-    console.log("LLAMADA SERVICE");
     this.app.post("/edit", username, email, password, address, img_url);
   };
 }

@@ -85,7 +85,7 @@ export default function Reviews(props) {
       .catch((err) => console.log(err));
   };
   let reviewListLength = reviewList.length;
-  console.log(reviewListLength);
+
   let loadReviews = () => {
     reviewService
       .getReviewsOhThis(id, type)

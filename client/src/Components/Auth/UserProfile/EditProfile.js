@@ -5,7 +5,6 @@ import UploadService from "../../../Services/UploadServices/UploadServices";
 import UserServices from "../../../Services/UserSerivces/UserSerivces";
 
 export default function EditProfile(props) {
-  console.log(props);
   const [user, setUser] = useState({
     username: props.user?.username,
     email: props.user?.email,
@@ -17,7 +16,6 @@ export default function EditProfile(props) {
   let userServices = new UserServices();
   let uploadService = new UploadService();
   const handleSubmit = () => {
-    console.log("Editar1");
     userServices
       .editUser(user)
       .then((response) => props.storeUser(response))
@@ -45,9 +43,7 @@ export default function EditProfile(props) {
       .catch((err) => console.log("El error", { err }));
   };
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  useEffect(() => {}, [user]);
 
   return (
     <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto rounded-b-lg rounded-tr-lg sm:overflow-hidden ">

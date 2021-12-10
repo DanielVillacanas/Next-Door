@@ -20,7 +20,10 @@ router.post("/edit", (req, res) => {
   const id = req.session.currentUser._id;
 
   User.findByIdAndUpdate(id, { username, email, password, address, img_url })
-    .then((response) => res.json(response))
+    .then((response) => {
+      console.log(response);
+      res.json(response);
+    })
     .catch((err) => console.log(err));
 });
 
