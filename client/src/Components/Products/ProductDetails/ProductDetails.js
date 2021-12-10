@@ -62,7 +62,10 @@ export default function ProductsDetails(props) {
   };
 
   let addProductCart = () => {
-    service.addProductCart(product._id, count).then((res) => console.log(res));
+    service.addProductCart(product._id, count).then((res) => {
+      console.log(res);
+      props.loadUser();
+    });
   };
 
   return (

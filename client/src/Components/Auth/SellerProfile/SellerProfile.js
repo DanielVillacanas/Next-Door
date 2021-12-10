@@ -47,7 +47,10 @@ export default function SellerProfile(props) {
   return (
     <div className="bg-gray-900 ">
       <div className="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24 ">
-        <img className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56" src={seller?.img_url} />
+        <img
+          className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56"
+          src={seller?.img_url}
+        />
         <div className=" xl:flex xl:items-center xl:justify-between mt-8">
           <div className="font-medium text-lg leading-6 mx-auto text-center">
             <h3 className="text-white mb-4">{seller?.username}</h3>
@@ -61,14 +64,14 @@ export default function SellerProfile(props) {
           <button
             type="button"
             onClick={renderProducts}
-            className="mx-auto my-4 h-6 text-sm font-sm  text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+            className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
           >
             Mostrar productos
           </button>
           <button
             type="button"
             onClick={renderReviews}
-            className="mx-auto my-4 h-6 text-sm font-sm  text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+            className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
           >
             Mostrar comentarios
           </button>
@@ -80,7 +83,7 @@ export default function SellerProfile(props) {
             <button
               type="button"
               onClick={renderReviews}
-              className="mx-auto mb-10 h-6 text-sm font-sm  text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+              className="mx-auto mb-10 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
             >
               Mostrar comentarios
             </button>
@@ -97,7 +100,7 @@ export default function SellerProfile(props) {
             <button
               type="button"
               onClick={renderProducts}
-              className="mx-auto my-4 h-6 text-sm font-sm  text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+              className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
             >
               Mostrar productos
             </button>

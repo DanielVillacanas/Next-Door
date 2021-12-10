@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { SubtotalContext } from "../../../Context/SubtotalContext/SubtotalContext";
 import ProductService from "../../../Services/ProductsServices/products.service";
 
-export default function Cart(props) {
-  const [loggedUser, setUser] = useState(props.loggedUser?.loggedUser);
+const service = new ProductService();
+
+export default function Cart() {
   let [cart, setCart] = useState([]);
-  let [subtotal, setSubtotal] = useState(0);
-  const service = new ProductService();
+  let { subtotal, setSubtotal } = useContext(SubtotalContext);
 
   let getAllCart = () => {
     service.getCartProducts().then((result) => {
@@ -120,12 +121,12 @@ export default function Cart(props) {
                   Gastos de envio y de gestion calculados en el coste total.
                 </p>
                 <div class="mt-6 flex sm:justify-end justify-center">
-                  <a
-                    href="#"
+                  <Link
+                    to={"/payment"}
                     class="w-44 flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-green-600 hover:bg-green-700"
                   >
                     Comprar
-                  </a>
+                  </Link>
                 </div>
                 <div class="mt-6 flex sm:justify-end justify-center text-sm text-center text-gray-500">
                   <p>
