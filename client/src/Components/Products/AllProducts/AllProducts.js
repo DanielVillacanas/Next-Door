@@ -24,6 +24,7 @@ export default function AllProducts(props) {
   };
 
   if (props.refresh === true) {
+    console.log("Actualiza");
     loadProducts();
   }
   props.changeValueRefresh();
@@ -54,9 +55,7 @@ export default function AllProducts(props) {
   useEffect(() => {
     let copy = [...products];
     if (search.length !== 0) {
-      copy = products.filter((product) =>
-        product.name.toLowerCase().includes(search)
-      );
+      copy = products.filter((product) => product.name.toLowerCase().includes(search));
     }
     if (filters.length !== 0) {
       copy = copy.filter((product) => filters.includes(product.owner.type));

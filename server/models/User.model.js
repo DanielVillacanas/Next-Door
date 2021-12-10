@@ -14,6 +14,7 @@ const userSchema = new Schema(
       //unique: true,
     },
     address: { type: String, required: true },
+    img_url: { type: String },
     password: {
       type: String,
       required: true,
