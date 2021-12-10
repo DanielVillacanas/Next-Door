@@ -4,13 +4,17 @@ import { StarIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import UserContext from "../../../Context/UserContext/UserContext";
 import ReviewList from "../../Review/ReviewList/ReviewList";
+import ReviewService from "../../../Services/ReviewService/reviews.service";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+let reviewService = new ReviewService();
+let service = new ProductService();
+
 export default function ProductsDetails(props) {
-  const reviews = { href: "#", average: 2, totalCount: 117 };
+  const [reviewList, setReviewList] = useState([]);
 
   let { loggedUser } = useContext(UserContext);
 
@@ -19,10 +23,17 @@ export default function ProductsDetails(props) {
   let [owner, setOwner] = useState();
 
   const { id } = props.match.params;
-  console.log(loggedUser);
-  let service = new ProductService();
+
+  let sum = 0;
+
+  reviewList.forEach((review) => (sum += review.rating));
+
+  let averageTotal = Math.floor(sum / reviewList.length);
+
+  const reviews = { average: averageTotal, totalCount: reviewList.length };
 
   useEffect(() => {
+    loadReviews();
     loadProduct();
   }, []);
 
@@ -31,6 +42,15 @@ export default function ProductsDetails(props) {
       setProduct((product = result.data));
       setOwner((owner = result.data.owner));
     });
+  };
+
+  let loadReviews = () => {
+    reviewService
+      .getReviewsOhThis(id, "product")
+      .then((result) => {
+        setReviewList(result.data);
+      })
+      .catch((err) => console.log(err));
   };
 
   let decrement = () => {
@@ -42,24 +62,23 @@ export default function ProductsDetails(props) {
   };
 
   let addProductCart = () => {
-    //Llamo al BACK pidiendo que añada el producto al carrito del usuario logueado
     service.addProductCart(product._id, count).then((res) => console.log(res));
   };
+
   return (
     <div className="bg-white">
       <div className="py-6">
         {/* Image gallery */}
         <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
-          <div className=" aspect-w-3 aspect-h-4 overflow-hidden lg:block rounded">
+          <div className=" aspect-w-3 aspect-h-4 overflow-hidden lg:block rounded-lg">
             <img
               src={product?.img_url}
-              className="w-full h-80 object-center lg:mx-0 object-fill lg:object-cover mb-6 lg:mb-0 rounded-lg"
+              className="px-4 w-full h-80 object-center lg:mx-0 lg:px-0 object-fill lg:object-cover mb-6 lg:mb-0 rounded-lg "
             />
           </div>
           <div className="lg:col-span-2 lg:pr-8 mx-8 lg:mx-4">
             {/* Reviews */}
             <div className="my-6">
-              <h3 className="sr-only">Reviews</h3>
               <div className="flex items-center">
                 <div className="flex items-center">
                   {[0, 1, 2, 3, 4].map((rating) => (
@@ -67,7 +86,7 @@ export default function ProductsDetails(props) {
                       key={rating}
                       className={classNames(
                         reviews.average > rating
-                          ? "text-gray-900"
+                          ? "text-green-500"
                           : "text-gray-200",
                         "h-5 w-5 flex-shrink-0"
                       )}
@@ -76,12 +95,12 @@ export default function ProductsDetails(props) {
                   ))}
                 </div>
                 <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <a
+                <p
                   href={reviews.href}
-                  className="ml-3 text-sm font-medium text-green-600 hover:text-green-500"
+                  className="ml-3 text-sm font-medium text-green-600 "
                 >
                   {reviews.totalCount} reviews
-                </a>
+                </p>
               </div>
             </div>
             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl mb-4">
@@ -151,7 +170,12 @@ export default function ProductsDetails(props) {
             </div>
           </div>
         </div>
-        <ReviewList />
+
+        <ReviewList
+          ProductId={id}
+          loadProduct={loadProduct}
+          loadReviewsFather={loadReviews}
+        />
       </div>
     </div>
   );

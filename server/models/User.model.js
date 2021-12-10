@@ -14,7 +14,10 @@ const userSchema = new Schema(
       //unique: true,
     },
     address: { type: String, required: true },
-    img_url: { type: String },
+    img_url: {
+      type: String,
+      default: "/images/Perfil/perfil-photo.png",
+    },
     password: {
       type: String,
       required: true,
