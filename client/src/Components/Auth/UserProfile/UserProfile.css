@@ -1,8 +1,8 @@
 .profile {
   display: flex;
   flex-direction: row;
-  padding-left: 100px;
-  padding-top: 70px;
+  padding-left: 20px;
+  padding-top: 20px;
   border-style: solid black;
   border-width: 2px;
   border-radius: 10px;
@@ -10,12 +10,18 @@
   margin-left: 20px;
   margin-top: 20px;
 }
+.img {
+  display: flex;
+  flex-direction: column;
+}
 .img img {
   width: 120px;
   border-radius: 50%;
   height: 120px;
   object-fit: cover;
   position: relative;
+  margin-top: 40px;
+  margin-bottom: 10px;
 }
 
 .info {

@@ -15,6 +15,7 @@ export default function UserProfile(props) {
     <div className="profile">
       <div className="img">
         <img src={user?.img_url} alt="Img User"></img>
+        <button onClick={handleOnclick}>Editar Perfil</button>
       </div>
       <div className="info">
         <label>
@@ -36,7 +37,6 @@ export default function UserProfile(props) {
           </div>
         </label>
       </div>
-      <button onClick={handleOnclick}>Editar Perfil</button>
 
       {modal && <EditProfile user={user} storeUser={props.storeUser} />}
     </div>
