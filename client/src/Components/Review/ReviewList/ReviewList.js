@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import ReviewService from "../../../Services/ReviewService/reviews.service";
 import UserContext from "../../../Context/UserContext/UserContext";
 import { StarIcon } from "@heroicons/react/solid";
@@ -11,11 +11,11 @@ function classNames(...classes) {
 let reviewService = new ReviewService();
 
 const Options = [
-  { value: 1, label: "1", checked: false },
-  { value: 2, label: "2", checked: false },
-  { value: 3, label: "3", checked: false },
-  { value: 4, label: "4", checked: false },
-  { value: 5, label: "5", checked: false },
+  { value: 1, label: "1" },
+  { value: 2, label: "2" },
+  { value: 3, label: "3" },
+  { value: 4, label: "4" },
+  { value: 5, label: "5" },
 ];
 
 export default function Reviews(props) {
@@ -26,6 +26,8 @@ export default function Reviews(props) {
     seller: props.SellerId,
   });
   const [reviewList, setReviewList] = useState([]);
+
+  const radioButtons = useRef();
 
   let id = "";
   let type = "";
@@ -43,8 +45,10 @@ export default function Reviews(props) {
   }, []);
 
   let handleInputChange = (e) => {
-    const { name, value } = e.currentTarget;
+    const { name, value, type, checked } = e.currentTarget;
 
+    // if (type == "radio") setChecked(checked);
+    // else
     setReview((prevState) => {
       return {
         ...prevState,
@@ -73,6 +77,8 @@ export default function Reviews(props) {
           product: props.ProductId,
           seller: props.SellerId,
         });
+
+        radioButtons.current.reset();
       })
       .catch((err) => console.log("error", err));
   };
@@ -138,7 +144,7 @@ export default function Reviews(props) {
                               />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <form onSubmit={handleSubmit}>
+                              <form onSubmit={handleSubmit} ref={radioButtons}>
                                 <div>
                                   <textarea
                                     value={review.description}
@@ -152,15 +158,15 @@ export default function Reviews(props) {
                                 </div>
                                 <h3 className="ml-5 mt-4">Deja tu nota</h3>
                                 <div className="py-1 flex grid grid-cols-5">
-                                  {Options.map((option) => (
+                                  {Options.map((option, i) => (
                                     <div
-                                      key={option.value}
+                                      key={i + 1}
                                       className="flex items-center px-4 py-2 ml-6"
                                     >
                                       <input
                                         onChange={handleInputChange}
-                                        id={option.value}
-                                        value={option.value}
+                                        id={i + 1}
+                                        value={i + 1}
                                         name="rating"
                                         defaultChecked={false}
                                         type="radio"

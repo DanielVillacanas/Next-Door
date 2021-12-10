@@ -1,9 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
 import "./index.css";
+
 import App from "./Components/App";
-import { BrowserRouter as Router } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>

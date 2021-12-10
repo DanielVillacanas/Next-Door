@@ -6,6 +6,8 @@
     "@craco/craco": "^6.4.2",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
+    "@stripe/react-stripe-js": "^1.6.0",
+    "@stripe/stripe-js": "^1.21.2",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
