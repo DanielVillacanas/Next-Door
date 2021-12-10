@@ -13,7 +13,9 @@ function ProductCard(props) {
           />
         </div>
         <div className="pl-8 pb-4">
-          <h3 className="mt-4 text-sm text-gray-700 h-10">{product.name}</h3>
+          <h3 className="mt-4 pr-2 mb-6 text-sm text-gray-700 h-10">
+            {product.name}
+          </h3>
           <p className="mt-1 text-lg font-medium text-gray-900">
             {product.price} €
           </p>

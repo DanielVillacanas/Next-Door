@@ -15,6 +15,7 @@ router.get("/getCart", (req, res) => {
     })
     .then((response) => console.log(response));
 });
+
 router.post("/edit", (req, res) => {
   const { username, email, password, address, img_url } = req.body;
   const id = req.session.currentUser._id;

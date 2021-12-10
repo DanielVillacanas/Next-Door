@@ -14,12 +14,18 @@ router.get("/cart/add", (req, res) => {
     //Busco si ese producto ya estaba en el carrito,si es asi lo guardo en la variable produc
     for (let i = 0; i < response.productsCart.length; i++) {
       response.productsCart[i].product.toString() === id &&
-        ((newquantity = parseInt(newquantity) + parseInt(response.productsCart[i].quantity)),
+        ((newquantity =
+          parseInt(newquantity) + parseInt(response.productsCart[i].quantity)),
         (position = i));
     }
     position === undefined
       ? (response.productsCart.push({ product: id, quantity: newquantity }),
-        User.findByIdAndUpdate(user_id, response, { new: true }).catch((err) => console.log(err)))
+        User.findByIdAndUpdate(user_id, response, { new: true })
+          .then((response) => {
+            req.session.currentUser = response;
+            return res.json(response);
+          })
+          .catch((err) => console.log(err)))
       : User.findByIdAndUpdate(
           user_id,
           {
@@ -28,7 +34,12 @@ router.get("/cart/add", (req, res) => {
             },
           },
           { new: true }
-        ).catch((err) => console.log(err));
+        )
+          .then((response) => {
+            req.session.currentUser = response;
+            return res.json(response);
+          })
+          .catch((err) => console.log(err));
   });
 });
 
@@ -61,12 +72,11 @@ router.get("/cart/all", (req, res) => {
 router.put("/cart/remove/:id", (req, res) => {
   const { id } = req.params;
   const user_id = req.session.currentUser._id;
-  User.findByIdAndUpdate(user_id, { $pull: { productsCart: { _id: id } } }, { new: true }).then(
-    (response) => res.json(response)
-  );
+  User.findByIdAndUpdate(
+    user_id,
+    { $pull: { productsCart: { _id: id } } },
+    { new: true }
+  ).then((response) => res.json(response));
 });
-
-// You put the next routes here 👇
-// example: router.use("/auth", authRoutes)
 
 module.exports = router;
