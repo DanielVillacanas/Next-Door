@@ -7,11 +7,15 @@ class ReviewService {
       withCredentials: true,
     });
   }
-  createReview = (description, rating) =>
-    this.app.post("/create-new-product", {
+  createReview = (description, rating, product, seller) =>
+    this.app.post("/create-new-review", {
       description,
       rating,
+      product,
+      seller,
     });
+  getReviewsOhThis = (id, type) => this.app.get(`/?id=${id}&type=${type}`);
+  deleteThisReview = (id) => this.app.delete(`/remove/${id}`);
 }
 
 export default ReviewService;
