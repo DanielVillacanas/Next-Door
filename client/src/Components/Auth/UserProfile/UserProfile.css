@@ -23,7 +23,10 @@
   margin-top: 40px;
   margin-bottom: 10px;
 }
-
+button {
+  background-color: #4caf50;
+  border-radius: 10px;
+}
 .info {
   padding-left: 50px;
   display: flex;
