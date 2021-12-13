@@ -61,10 +61,7 @@ export default function SignUpSeller(props) {
         <div className="bg-white py-2 px-4 shadow rounded-lg ">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Nombre de la empresa
               </label>
               <div className="mt-1">
@@ -80,10 +77,7 @@ export default function SignUpSeller(props) {
               </div>
             </div>
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Dirección de correo
               </label>
               <div className="mt-1">
@@ -99,10 +93,7 @@ export default function SignUpSeller(props) {
               </div>
             </div>
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                 Contraseña
               </label>
               <div className="mt-1">
@@ -118,10 +109,7 @@ export default function SignUpSeller(props) {
               </div>
             </div>
             <div>
-              <label
-                htmlFor="password2"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="password2" className="block text-sm font-medium text-gray-700">
                 Comprobación de contraseña
               </label>
               <div className="mt-1">
@@ -137,10 +125,7 @@ export default function SignUpSeller(props) {
               </div>
             </div>
             <div>
-              <label
-                htmlFor="address"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="address" className="block text-sm font-medium text-gray-700">
                 Dirección de la empresa
               </label>
               <div className="mt-1">
@@ -156,10 +141,7 @@ export default function SignUpSeller(props) {
               </div>
             </div>
             <div>
-              <label
-                htmlFor="type"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="type" className="block text-sm font-medium text-gray-700">
                 Tipo de comercio
               </label>
               <select
@@ -191,9 +173,7 @@ export default function SignUpSeller(props) {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  o inicia sesión
-                </span>
+                <span className="px-2 bg-white text-gray-500">o inicia sesión</span>
               </div>
             </div>
           </div>
@@ -209,15 +189,15 @@ export default function SignUpSeller(props) {
       </div>
       <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 rounded-lg">
         <p className="text-xs leading-5 text-gray-500">
-          Registrandote estas de acuerdo con nuestros{" "}
+          Registrandote estas de acuerdo con nuestros
           <Link href="#" className="font-medium text-gray-900 hover:underline">
             Terminos
           </Link>
-          ,{" "}
+          ,
           <Link href="#" className="font-medium text-gray-900 hover:underline">
             Política de datos
-          </Link>{" "}
-          and{" "}
+          </Link>
+          and
           <Link href="#" className="font-medium text-gray-900 hover:underline">
             Política de Cookies
           </Link>
