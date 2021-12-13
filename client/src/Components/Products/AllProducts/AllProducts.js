@@ -70,8 +70,8 @@ export default function AllProducts(props) {
         (product) =>
           range >
           calcDistance(
-            product.owner.coordinates,
-            props.loggedUser.loggedUser.coordinates
+            product.owner?.coordinates,
+            props.loggedUser?.coordinates
           )
       );
     }

@@ -100,11 +100,11 @@ export default function Reviews(props) {
   return (
     <>
       <div className="min-h-full">
-        <div className="pb-10">
-          <div className="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense">
-            <div className="space-y-6 lg:col-start-1 lg:col-span-2">
+        <div className="pb-10 ">
+          <div className="mt-8 max-w-3xl  mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense">
+            <div className="space-y-6 lg:col-start-1 lg:col-span-2 px-4 ">
               <section aria-labelledby="notes-title">
-                <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
+                <div className="bg-white shadow rounded-lg sm:overflow-hidden">
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
                       {id !== props.ProductId ? (
@@ -126,7 +126,7 @@ export default function Reviews(props) {
                     {loggedUser?.role === "User" && (
                       <>
                         <div className="bg-gray-50 px-4 py-6 sm:px-6">
-                          <div className="flex space-x-3">
+                          <div className="flex space-x-3 ">
                             <div className="flex-shrink-0">
                               <img
                                 className="h-10 w-10 rounded-full"
@@ -134,7 +134,7 @@ export default function Reviews(props) {
                                 alt=""
                               />
                             </div>
-                            <div className="min-w-0 flex-1">
+                            <div className="min-w-0 flex-1 ">
                               <form onSubmit={handleSubmit} ref={radioButtons}>
                                 <div>
                                   <textarea
@@ -150,7 +150,10 @@ export default function Reviews(props) {
                                 <h3 className="ml-5 mt-4">Deja tu nota</h3>
                                 <div className="py-1 flex grid grid-cols-5">
                                   {Options.map((option, i) => (
-                                    <div key={i + 1} className="flex items-center px-4 py-2 ml-6">
+                                    <div
+                                      key={i + 1}
+                                      className="flex items-center px-4 py-2 ml-6"
+                                    >
                                       <input
                                         onChange={handleInputChange}
                                         id={i + 1}

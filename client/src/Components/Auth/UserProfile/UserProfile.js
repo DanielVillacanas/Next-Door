@@ -116,7 +116,7 @@ export default function UserProfile(props) {
                     )}
                   </div>
                 ) : (
-                  <div className="flex justify-between lg:grid">
+                  <div className="flex justify-between lg:grid mx-auto">
                     {showReviews === false ? (
                       <button
                         type="button"
@@ -169,7 +169,7 @@ export default function UserProfile(props) {
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                       >
                         <Fragment>
-                          <EditProfile user={user} />
+                          <EditProfile user={user} loadUser={props.loadUser} />
                         </Fragment>
                       </Transition.Child>
                     </div>

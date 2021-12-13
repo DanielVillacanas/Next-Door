@@ -39,6 +39,7 @@ router.get("/user/:id", (req, res) => {
   const { id } = req.params;
   Review.find({ creator: id })
     .populate("product")
+    .populate("seller")
     .populate("creator")
     .then((response) => res.json(response));
 });

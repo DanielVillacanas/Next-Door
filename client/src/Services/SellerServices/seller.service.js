@@ -17,8 +17,28 @@ class SellerService {
     });
   deleteProduct = (id) => this.app.get(`/deleteProduct/${id}`);
   getSeller = (id) => this.app.get(`/${id}`);
+  editSeller = (
+    username,
+    email,
+    password,
+    password2,
+    description,
+    address,
+    img_url
+  ) => {
+    return this.app.post(
+      "/edit",
+      username,
+      email,
+      password,
+      description,
+      address,
+      img_url
+    );
+  };
   getAllProductsFromASeller = (id) => this.app.get(`/${id}`);
-  deleteProductFromSeller = (id) => this.app.put(`/deleteProductFromSeller/${id}`);
+  deleteProductFromSeller = (id) =>
+    this.app.put(`/deleteProductFromSeller/${id}`);
 }
 
 export default SellerService;
