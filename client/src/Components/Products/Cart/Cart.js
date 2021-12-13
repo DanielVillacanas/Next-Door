@@ -16,7 +16,9 @@ export default function Cart() {
       result.data.productsCart.forEach((element) => {
         element.product &&
           setSubtotal(
-            Math.round((subtotal += element.product?.price * element.quantity) * 100) / 100
+            Math.round(
+              (subtotal += element.product?.price * element.quantity) * 100
+            ) / 100
           );
       });
     });
@@ -38,11 +40,17 @@ export default function Cart() {
             <div class="h-full flex flex-col bg-white shadow-xl">
               <div class="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
                 <div class="flex items-start justify-between">
-                  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">
+                  <h2
+                    class="text-lg font-medium text-gray-900"
+                    id="slide-over-title"
+                  >
                     Tu cesta
                   </h2>
                   <div class="ml-3 h-7 flex items-center">
-                    <button type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                    <button
+                      type="button"
+                      class="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                    >
                       <span class="sr-only">Close panel</span>
                       <path
                         stroke-linecap="round"
@@ -88,7 +96,9 @@ export default function Cart() {
                                   </p>
                                 </div>
                                 <div class="flex-1 flex items-end justify-between ">
-                                  <p class="text-gray-500">Cantidad: {elm.quantity}</p>
+                                  <p class="text-gray-500">
+                                    Cantidad: {elm.quantity}
+                                  </p>
                                   <div class="flex">
                                     <button
                                       onClick={() => removeFromCart(elm._id)}
@@ -126,7 +136,7 @@ export default function Cart() {
                 </div>
                 <div class="mt-6 flex sm:justify-end justify-center text-sm text-center text-gray-500">
                   <p>
-                    o
+                    o{" "}
                     <Link to="/products">
                       <button
                         type="button"

@@ -34,6 +34,7 @@ function CheckoutForm(props) {
         }
       );
       if (data) {
+        //limpiar el carro del usuario comprador
         props.history.push("/");
       }
     }

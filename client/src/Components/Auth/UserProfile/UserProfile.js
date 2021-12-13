@@ -1,77 +1,170 @@
-import React, { useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import EditProfile from "./EditProfile";
-import "./UserProfile.css";
+import ReviewListUser from "../../Review/ReviewListUser/ReviewListUser";
+import ReviewService from "../../../Services/ReviewService/reviews.service";
+import UserService from "../../../Services/UserSerivces/UserSerivces";
+
+let reviewService = new ReviewService();
+let userService = new UserService();
 
 export default function UserProfile(props) {
-  const [show, setShow] = useState(false);
   let user = props.loggedUser?.loggedUser;
+  let ownerProfile = props.match.params.id;
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [isOpen, setOpen] = useState(false);
+  const [showReviews, setshowReviews] = useState(false);
+  const [owner, setOwner] = useState();
+  const [reviewList, setReviewList] = useState([]);
+
+  console.log(props);
+  useEffect(() => {
+    loadReviews();
+    loadOwner();
+  }, []);
+
+  let openModal = () => {
+    setOpen(true);
+  };
+
+  let renderReviews = () => {
+    return setshowReviews(true);
+  };
+
+  let closeReviews = () => {
+    return setshowReviews(false);
+  };
+
+  let loadReviews = () => {
+    reviewService
+      .getReviewsOfThisUser(ownerProfile)
+      .then((result) => {
+        setReviewList(result.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  let loadOwner = () => {
+    userService
+      .getOwner(ownerProfile)
+      .then((result) => {
+        setOwner(result.data);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <div className="profile">
-      <div className="img">
-        <img src={user?.img_url} alt="Img User"></img>
-        <button onClick={handleShow}>Editar Perfil</button>
-      </div>
-      <div className="info">
-        <label>
-          Nombre de Usuario:
-          <div className="data">
-            <h3>{user?.username}</h3>
-          </div>
-        </label>
-        <label>
-          Email:
-          <div className="data">
-            <h3>{user?.email}</h3>
-          </div>
-        </label>
-        <label>
-          Direccion:
-          <div className="data">
-            <h3>{user?.address}</h3>
-          </div>
-        </label>
-        <img src={user?.map_img}></img>
-        {show ? (
-          <>
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-              <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                {/*content*/}
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                  {/*header*/}
-                  <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                    <h3 className="text-3xl font-semibold">Editar Perfil</h3>
+    <>
+      <div className="bg-gray-900 ">
+        <div className="lg:flex lg:justify-start mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24 ">
+          <img
+            className="h-40 mx-auto lg:mx-0 w-40 rounded-full xl:w-56 xl:h-56 lg:mr-20"
+            src={owner?.img_url}
+          />
+          <div className=" xl:flex xl:items-center xl:justify-between mt-8">
+            <div className="font-medium text-lg mx-auto text-center lg:text-left">
+              <h3 className="text-white">{owner?.username}</h3>
+              <div className=" text-green-300 text-sm my-2">{owner?.email}</div>
+              {user?._id === ownerProfile ? (
+                <div className="flex justify-between lg:grid lg:grid-cols-1">
+                  <button
+                    type="button"
+                    onClick={openModal}
+                    className="mx-auto my-4 h-6 text-sm font-medium lg:mx-0 lg:text-left lg:w-20 text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                  >
+                    Editar perfil
+                  </button>
+                  {showReviews === false ? (
                     <button
-                      className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                      onClick={() => setShow(false)}
-                    >
-                      <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                        ×
-                      </span>
-                    </button>
-                  </div>
-                  {/*body*/}
-                  <EditProfile user={user} storeUser={props.storeUser} />
-                  {/*footer*/}
-                  <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
-                    <button
-                      className="text-white-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
-                      onClick={() => setShow(false)}
+                      onClick={renderReviews}
+                      className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
                     >
-                      Close
+                      Mostrar mis comentarios
                     </button>
-                  </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={closeReviews}
+                      className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                    >
+                      Cerrar mis comentarios
+                    </button>
+                  )}
                 </div>
-              </div>
+              ) : (
+                <>
+                  {showReviews === false ? (
+                    <button
+                      type="button"
+                      onClick={renderReviews}
+                      className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                    >
+                      Mostrar comentarios
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={closeReviews}
+                      className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                    >
+                      Cerrar comentarios
+                    </button>
+                  )}
+                </>
+              )}
+              <Transition.Root show={isOpen} as={Fragment}>
+                <Dialog
+                  as="div"
+                  className="fixed z-10 inset-0 overflow-y-auto "
+                  onClose={setOpen}
+                >
+                  <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <Transition.Child
+                      as={Fragment}
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0"
+                      enterTo="opacity-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0 "
+                    >
+                      <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                    </Transition.Child>
+
+                    {/* This element is to trick the browser into centering the modal contents. */}
+                    <span
+                      className=" sm:inline-block sm:align-middle sm:h-12"
+                      aria-hidden="true"
+                    >
+                      &#8203;
+                    </span>
+                    <Transition.Child
+                      enter="ease-out duration-300"
+                      enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                      enterTo="opacity-100 translate-y-0 sm:scale-100"
+                      leave="ease-in duration-200"
+                      leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                      leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                    >
+                      <Fragment>
+                        <EditProfile />
+                      </Fragment>
+                    </Transition.Child>
+                  </div>
+                </Dialog>
+              </Transition.Root>
             </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black" onClick={handleClose}></div>
+          </div>
+        </div>
+        {showReviews ? (
+          <>
+            <ReviewListUser id={user?._id} />
           </>
-        ) : null}
+        ) : (
+          <></>
+        )}
       </div>
-    </div>
+    </>
   );
 }

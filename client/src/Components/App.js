@@ -97,6 +97,7 @@ function App() {
                     />
                     <AllProducts
                       refresh={refresh}
+                      loggedUser={loggedUser}
                       changeValueRefresh={changeValueRefresh}
                     />
                     <Footer />
