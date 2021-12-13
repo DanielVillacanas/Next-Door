@@ -2,7 +2,8 @@ const router = require("express").Router();
 const User = require("../../models/User.model");
 const Seller = require("../../models/Seller.model");
 const { APIMapBox } = require("../../services/APImapBox/mapBoxSerivces");
-let mapAPI = new APIMapBox();
+const mapAPI = new APIMapBox();
+const bcrypt = require("bcrypt");
 
 router.post("/signUp", (req, res) => {
   let { email, password, address, username } = req.body;
@@ -21,12 +22,14 @@ router.post("/signUp", (req, res) => {
       return User.findOne({ email });
     })
     .then((user) => {
-      console.log("LLEGA a create USER", user);
+      const bcryptSalt = 10;
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
       user
         ? res.status(500).send("Error usuario ya registrado")
         : User.create({
             email,
-            password,
+            password: hashPass,
             address,
             username,
             coordinates,
@@ -56,11 +59,15 @@ router.post("/signUpSeller", (req, res) => {
       return Seller.findOne({ email });
     })
     .then((seller) => {
+      const bcryptSalt = 10;
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
+
       seller
         ? console.log("Vendedor ya registrado")
         : Seller.create({
             email,
-            password,
+            password: hashPass,
             address,
             username,
             coordinates,
@@ -84,15 +91,13 @@ router.post("/login", (req, res) => {
     .then((user) => {
       if (user) {
         password === user.password //Validate password
-          ? ((req.session.currentUser = user),
-            res.json({ user: user, type: "user" }))
+          ? ((req.session.currentUser = user), res.json({ user: user, type: "user" }))
           : res.status(500).send("Error contraseña incorrecta!");
       } else {
         Seller.findOne({ email }).then((seller) => {
           seller
             ? password === seller.password //Validate password
-              ? ((req.session.currentUser = seller),
-                res.json({ user: seller, type: "seller" }))
+              ? ((req.session.currentUser = seller), res.json({ user: seller, type: "seller" }))
               : res.status(500).send("Error contraseña incorrecta!")
             : res.status(500).send("Error usuario no registrado!");
         });
@@ -130,9 +135,7 @@ router.get("/isloggedin", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  req.session.destroy((err) =>
-    res.status(200).json({ code: 200, message: "Logout successful" })
-  );
+  req.session.destroy((err) => res.status(200).json({ code: 200, message: "Logout successful" }));
 });
 
 module.exports = router;

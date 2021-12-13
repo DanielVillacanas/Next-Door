@@ -37,7 +37,6 @@ function App() {
   }, []);
 
   let loadUser = () => {
-    debugger;
     authService
       .isloggedin()
       .then((response) => {

@@ -7,25 +7,34 @@ let userServices = new UserServices();
 let uploadService = new UploadService();
 
 export default function EditProfile(props) {
+  console.log(props.user);
   const [user, setUser] = useState({
-    username: props.user?.username,
-    email: props.user?.email,
+    username: props.user.username,
+    email: props.user.email,
     password: "",
     password2: "",
-    address: props.user?.address,
+    address: props.user.address,
     img_url: "",
   });
+  const [errMessage, setError] = useState(undefined);
+
   const handleSubmit = () => {
-    userServices
-      .editUser(user)
-      .then(() => {
-        props.loadUser();
-      })
-      .catch((err) => console.log(err));
+    !errMessage &&
+      userServices
+        .editUser(user)
+        .then(() => {
+          props.loadUser();
+        })
+        .catch((err) => console.log(err));
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.currentTarget;
+    if (e.currentTarget.name === "password2" && e.currentTarget.value !== "") {
+      e.currentTarget.value !== user.password
+        ? setError("Las contraseñas no coinciden")
+        : setError(undefined);
+    }
     setUser((prevState) => {
       return {
         ...prevState,
@@ -36,8 +45,8 @@ export default function EditProfile(props) {
 
   const handleUploadChange = (e) => {
     const uploadData = new FormData();
-    console.log(e.target.files[0]);
     uploadData.append("imageData", e.target.files[0]);
+
     uploadService
       .uploadImage(uploadData)
       .then((response) => {
@@ -115,6 +124,7 @@ export default function EditProfile(props) {
                 required
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               />
+              {errMessage && <p className="text-red-500">{errMessage}</p>}
             </div>
           </div>
           <div>

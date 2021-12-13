@@ -16,9 +16,14 @@ export default function SignUpSeller(props) {
     description: "",
   });
   const [errSingUp, setErr] = useState();
+  const [errMessage, setError] = useState(undefined);
   let handleInputChange = (e) => {
     const { name, value } = e.currentTarget;
-
+    if (e.currentTarget.name === "password2" && e.currentTarget.value !== "") {
+      e.currentTarget.value !== seller.password
+        ? setError("Las contraseñas no coinciden")
+        : setError(undefined);
+    }
     setSeller((prevState) => {
       return {
         ...prevState,
@@ -39,22 +44,22 @@ export default function SignUpSeller(props) {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-
-    authService
-      .signUpSeller(
-        seller.username,
-        seller.email,
-        seller.password,
-        seller.password2,
-        seller.address,
-        seller.type
-      )
-      .then((response) => {
-        console.log(response);
-        props.props.loadUser();
-        props.props.history.push("/products");
-      })
-      .catch((err) => setErr(err.response.data));
+    !errMessage &&
+      authService
+        .signUpSeller(
+          seller.username,
+          seller.email,
+          seller.password,
+          seller.password2,
+          seller.address,
+          seller.type
+        )
+        .then((response) => {
+          console.log(response);
+          props.props.loadUser();
+          props.props.history.push("/products");
+        })
+        .catch((err) => setErr(err.response.data));
     // .catch((err) => console.log(err.response?.data.message));
   };
   return (
@@ -124,6 +129,7 @@ export default function SignUpSeller(props) {
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 />
+                {errMessage && <p className="text-red-500">{errMessage}</p>}
               </div>
             </div>
             <div>

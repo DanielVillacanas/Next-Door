@@ -12,21 +12,27 @@ export default function SignUp(props) {
     address: "",
     username: "",
   });
+  const [errMessage, setError] = useState(undefined);
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    authService
-      .signUp(user.username, user.email, user.password, user.password2, user.address)
-      .then(() => {
-        props.props.loadUser();
-        props.props.history.push("/products");
-      })
-      .catch((err) => console.log("USER", err));
+    !errMessage &&
+      authService
+        .signUp(user.username, user.email, user.password, user.password2, user.address)
+        .then(() => {
+          props.props.loadUser();
+          props.props.history.push("/products");
+        })
+        .catch((err) => console.log("USER", err));
   };
 
   let handleInputChange = (e) => {
     const { name, value } = e.currentTarget;
-
+    if (e.currentTarget.name === "password2" && e.currentTarget.value !== "") {
+      e.currentTarget.value !== user.password
+        ? setError("Las contraseñas no coinciden")
+        : setError(undefined);
+    }
     setUser((prevState) => {
       return {
         ...prevState,
@@ -102,6 +108,7 @@ export default function SignUp(props) {
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                 />
+                {errMessage && <p className="text-red-500">{errMessage}</p>}
               </div>
             </div>
             <div>

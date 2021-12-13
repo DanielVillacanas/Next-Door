@@ -4,6 +4,7 @@ import EditProfile from "./EditProfile";
 import ReviewListUser from "../../Review/ReviewListUser/ReviewListUser";
 import ReviewService from "../../../Services/ReviewService/reviews.service";
 import UserService from "../../../Services/UserSerivces/UserSerivces";
+import { UserAddIcon } from "@heroicons/react/solid";
 
 let reviewService = new ReviewService();
 let userService = new UserService();
@@ -24,6 +25,13 @@ export default function UserProfile(props) {
     loadReviews();
   }, []);
 
+  useEffect(() => {
+    console.log("Entra");
+    setOwnerProfie(props.match.params.id);
+    loadOwner();
+    loadReviews();
+  }, [props.match.params.id]);
+
   let openModal = () => {
     setOpen(true);
   };
@@ -38,7 +46,7 @@ export default function UserProfile(props) {
 
   let loadReviews = () => {
     reviewService
-      .getReviewsOfThisUser(ownerProfile)
+      .getReviewsOfThisUser(props.match.params.id)
       .then((result) => {
         setReviewList(result.data);
       })
@@ -46,9 +54,9 @@ export default function UserProfile(props) {
   };
 
   let loadOwner = () => {
-    console.log(ownerProfile);
+    console.log(props.match.params.id);
     userService
-      .getOwner(ownerProfile)
+      .getOwner(props.match.params.id)
       .then((result) => {
         console.log(result);
         setOwner(result.data);
@@ -59,21 +67,29 @@ export default function UserProfile(props) {
     <>
       <div className="bg-gray-900 pb-80">
         <div className="lg:flex lg:justify-between mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24 ">
-          <div className="lg:flex lg:justify-between my-auto">
+          <div className="lg:flex lg:justify-between my-auto ">
             <img
-              className="h-40 mx-auto lg:mx-0 w-40 rounded-full xl:w-56 xl:h-56 lg:mr-20"
+              className="h-40 mx-auto lg:mx-0 w-40 rounded-full xl:w-56 xl:h-56 lg:mr-20 my-auto"
               src={owner?.img_url}
               alt="User"
             />
             <div className="flex lg:justify-between justify-center mt-8 ">
               <div className="font-medium text-lg lg:text-start text-center lg:text-left ">
-                <h3 className="text-white">{owner?.username}</h3>
-                <div className="text-green-300 text-sm my-2">{owner?.email}</div>
+                <h3 className="text-white">
+                  Nombre de Usuario: <h3>{owner?.username}</h3>{" "}
+                </h3>
+                <div className="text-white text-sm my-2">
+                  Email:
+                  <div className="text-green-300 text-sm my-2">{owner?.email}</div>
+                </div>
                 {user?._id === ownerProfile && (
-                  <div className="text-green-300 text-sm my-2">{owner?.address}</div>
+                  <div className="text-green-300 text-sm my-2 max-w-sm ">
+                    <div className="text-white pb-3 pt-3"> Direccion:</div>
+                    <div> {owner?.address}</div>
+                  </div>
                 )}
                 {user?._id === ownerProfile ? (
-                  <div className="flex justify-between grid grid-col-1">
+                  <div className="flex lg:justify-between justify-center grid grid-col-1 text-center ">
                     <button
                       type="button"
                       onClick={openModal}
@@ -153,7 +169,7 @@ export default function UserProfile(props) {
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                       >
                         <Fragment>
-                          <EditProfile />
+                          <EditProfile user={user} />
                         </Fragment>
                       </Transition.Child>
                     </div>

@@ -1,7 +1,8 @@
 const User = require("../../models/User.model");
 const router = require("express").Router();
 const { APIMapBox } = require("../../services/APImapBox/mapBoxSerivces");
-let mapAPI = new APIMapBox();
+const mapAPI = new APIMapBox();
+const bcrypt = require("bcrypt");
 
 router.post("/edit", (req, res) => {
   let { username, email, password, address, img_url } = req.body;
@@ -17,9 +18,14 @@ router.post("/edit", (req, res) => {
     })
     .then((map) => {
       map_img = map.request._redirectable._currentUrl;
+
+      const bcryptSalt = 10;
+      const salt = bcrypt.genSaltSync(bcryptSalt);
+      const hashPass = bcrypt.hashSync(password, salt);
+
       return User.findOneAndUpdate(
         { email },
-        { username, email, password, address, img_url, coordinates, map_img },
+        { username, email, password: hashPass, address, img_url, coordinates, map_img },
         { new: true }
       );
     })
