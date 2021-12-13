@@ -86,7 +86,7 @@ export default function ReviewsUser(props) {
                                 </div>
                               </div>
                               <div className="flex place-items-end">
-                                {props._id === comment.creator._id && (
+                                {props.id === comment.creator._id && (
                                   <button
                                     type="button"
                                     onClick={() => deleteReview(comment._id)}

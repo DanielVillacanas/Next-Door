@@ -159,7 +159,7 @@ export default function UserProfile(props) {
         </div>
         {showReviews ? (
           <>
-            <ReviewListUser id={user?._id} />
+            <ReviewListUser id={ownerProfile} />
           </>
         ) : (
           <></>
