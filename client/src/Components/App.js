@@ -7,6 +7,7 @@ import ProductDetails from "./Products/ProductDetails/ProductDetails";
 import SellerProfile from "./Auth/SellerProfile/SellerProfile";
 import Cart from "./Products/Cart/Cart";
 import CheckoutForm from "./Products/Payment/CheckoutForm";
+import Footer from "./Layout/Footer/Footer";
 
 import AuthService from "../Services/AuthServices/auth.service";
 
@@ -19,6 +20,7 @@ import React, { useEffect, useState } from "react";
 import { SubtotalContext } from "../Context/SubtotalContext/SubtotalContext";
 import { UserProvider } from "../Context/UserContext/UserContext";
 import UserProfile from "./Auth/UserProfile/UserProfile";
+import Home from "./Home/Home";
 
 let authService = new AuthService();
 const stripePromise = loadStripe(
@@ -52,7 +54,6 @@ function App() {
   };
 
   let storeUser = (user) => {
-    console.log(user);
     setLoggedUser({ loggedUser: user });
   };
 
@@ -71,7 +72,13 @@ function App() {
                 exact
                 render={() => (
                   <div>
-                    <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
+                    <NavBar
+                      storeUser={storeUser}
+                      loggedUser={loggedUser}
+                      type={type}
+                    />
+                    <Home />
+                    <Footer />
                   </div>
                 )}
               />
@@ -88,7 +95,11 @@ function App() {
                       type={type}
                       refreshProducts={() => refreshProducts()}
                     />
-                    <AllProducts refresh={refresh} changeValueRefresh={changeValueRefresh} />
+                    <AllProducts
+                      refresh={refresh}
+                      changeValueRefresh={changeValueRefresh}
+                    />
+                    <Footer />
                   </div>
                 )}
               />
@@ -146,7 +157,11 @@ function App() {
                       type={type}
                       {...props}
                     />
-                    <UserProfile {...props} loggedUser={loggedUser} storeUser={storeUser} />
+                    <UserProfile
+                      {...props}
+                      loggedUser={loggedUser}
+                      storeUser={storeUser}
+                    />
                   </div>
                 )}
               />
@@ -155,7 +170,11 @@ function App() {
                 exact
                 render={(props) => (
                   <div>
-                    <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
+                    <NavBar
+                      storeUser={storeUser}
+                      loggedUser={loggedUser}
+                      type={type}
+                    />
                     <ProductDetails {...props} loadUser={loadUser} />
                   </div>
                 )}
@@ -168,18 +187,28 @@ function App() {
                 path="/logOut"
                 render={() => (
                   <div>
-                    <NavBar storeUser={storeUser} loggedUser={loggedUser} type={type} />
+                    <NavBar
+                      storeUser={storeUser}
+                      loggedUser={loggedUser}
+                      type={type}
+                    />
                   </div>
                 )}
               />
               <Route
                 path="/signUpSeller"
-                render={(props) => <SignUpSeller {...props} storeUser={storeUser} />}
+                render={(props) => (
+                  <SignUpSeller {...props} storeUser={storeUser} />
+                )}
               />
               <Route
                 path="/login"
                 render={(props) => (
-                  <Login {...props} storeUser={storeUser} setTypeBussines={setTypeBussines} />
+                  <Login
+                    {...props}
+                    storeUser={storeUser}
+                    setTypeBussines={setTypeBussines}
+                  />
                 )}
               />
             </Switch>

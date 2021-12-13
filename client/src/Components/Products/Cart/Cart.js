@@ -86,7 +86,13 @@ export default function Cart() {
                                     <p class="ml-4">{elm.product.price}€</p>
                                   </div>
                                   <p class="mt-1 text-sm text-gray-500">
-                                    Vendedor: {elm.product.owner?.username}
+                                    Vendedor:{" "}
+                                    <Link
+                                      to={`/seller/${elm.product.owner?._id}`}
+                                      class="mt-1 text-sm text-gray-500 hover:text-green-500"
+                                    >
+                                      {elm.product.owner?.username}
+                                    </Link>
                                   </p>
                                 </div>
                                 <div class="flex-1 flex items-end justify-between ">
@@ -99,7 +105,7 @@ export default function Cart() {
                                       type="button"
                                       class="font-medium text-green-600 hover:text-green-500"
                                     >
-                                      Remove
+                                      Eliminar
                                     </button>
                                   </div>
                                 </div>
