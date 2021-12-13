@@ -60,6 +60,7 @@ export default function UserProfile(props) {
           <img
             className="h-40 mx-auto lg:mx-0 w-40 rounded-full xl:w-56 xl:h-56 lg:mr-20"
             src={owner?.img_url}
+            alt="User"
           />
           <div className=" xl:flex xl:items-center xl:justify-between mt-8">
             <div className="font-medium text-lg mx-auto text-center lg:text-left">
@@ -114,11 +115,7 @@ export default function UserProfile(props) {
                 </>
               )}
               <Transition.Root show={isOpen} as={Fragment}>
-                <Dialog
-                  as="div"
-                  className="fixed z-10 inset-0 overflow-y-auto "
-                  onClose={setOpen}
-                >
+                <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto " onClose={setOpen}>
                   <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     <Transition.Child
                       as={Fragment}
@@ -133,10 +130,7 @@ export default function UserProfile(props) {
                     </Transition.Child>
 
                     {/* This element is to trick the browser into centering the modal contents. */}
-                    <span
-                      className=" sm:inline-block sm:align-middle sm:h-12"
-                      aria-hidden="true"
-                    >
+                    <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
                       &#8203;
                     </span>
                     <Transition.Child

@@ -31,7 +31,7 @@ export default function Reviews(props) {
     id = props.ProductId;
     type = "product";
   }
-  let { loggedUser } = useContext(UserContext);
+  let loggedUser = useContext(UserContext);
 
   useEffect(() => {
     loadReviews();
@@ -52,12 +52,7 @@ export default function Reviews(props) {
     e.preventDefault();
 
     reviewService
-      .createReview(
-        review.description,
-        review.rating,
-        review.product,
-        review.seller
-      )
+      .createReview(review.description, review.rating, review.product, review.seller)
       .then((response) => {
         loadReviews();
         if (props.ProductId) {
@@ -108,17 +103,11 @@ export default function Reviews(props) {
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
                       {id !== props.ProductId ? (
-                        <h2
-                          id="notes-title"
-                          className="text-lg font-medium text-gray-900"
-                        >
+                        <h2 id="notes-title" className="text-lg font-medium text-gray-900">
                           Comentarios del vendedor
                         </h2>
                       ) : (
-                        <h2
-                          id="notes-title"
-                          className="text-lg font-medium text-gray-900"
-                        >
+                        <h2 id="notes-title" className="text-lg font-medium text-gray-900">
                           Comentarios del producto
                         </h2>
                       )}
@@ -233,8 +222,7 @@ export default function Reviews(props) {
                                 </div>
                               </div>
                               <div className="flex place-items-end">
-                                {loggedUser.loggedUser?._id ===
-                                  comment.creator._id && (
+                                {loggedUser.loggedUser?._id === comment.creator._id && (
                                   <button
                                     type="button"
                                     onClick={() => deleteReview(comment._id)}
