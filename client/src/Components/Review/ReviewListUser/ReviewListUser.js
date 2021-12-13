@@ -87,15 +87,18 @@ export default function ReviewsUser(props) {
                                 </div>
                               </div>
                               <div className="flex place-items-end">
-                                {props.loggedUser._id === comment.creator && (
-                                  <button
-                                    type="button"
-                                    onClick={() => deleteReview(comment._id)}
-                                    className="mt-4 h-6 text-sm font-sm text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
-                                  >
-                                    Borrar
-                                  </button>
-                                )}
+                                {
+                                  (console.log(props.loggedUser._id, comment.creator._id),
+                                  props.loggedUser._id === comment.creator._id && (
+                                    <button
+                                      type="button"
+                                      onClick={() => deleteReview(comment._id)}
+                                      className="mt-4 h-6 text-sm font-sm text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                                    >
+                                      Borrar
+                                    </button>
+                                  ))
+                                }
                               </div>
                             </div>
                           </li>
