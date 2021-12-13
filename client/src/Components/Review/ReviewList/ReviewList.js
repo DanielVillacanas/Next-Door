@@ -112,14 +112,14 @@ export default function Reviews(props) {
                         </h2>
                       )}
                     </div>
-                    {loggedUser?.loggedUser?.role === "User" && (
+                    {loggedUser?.role === "User" && (
                       <>
                         <div className="bg-gray-50 px-4 py-6 sm:px-6">
                           <div className="flex space-x-3">
                             <div className="flex-shrink-0">
                               <img
                                 className="h-10 w-10 rounded-full"
-                                src={loggedUser?.loggedUser?.img_url}
+                                src={loggedUser?.img_url}
                                 alt=""
                               />
                             </div>
@@ -139,10 +139,7 @@ export default function Reviews(props) {
                                 <h3 className="ml-5 mt-4">Deja tu nota</h3>
                                 <div className="py-1 flex grid grid-cols-5">
                                   {Options.map((option, i) => (
-                                    <div
-                                      key={i + 1}
-                                      className="flex items-center px-4 py-2 ml-6"
-                                    >
+                                    <div key={i + 1} className="flex items-center px-4 py-2 ml-6">
                                       <input
                                         onChange={handleInputChange}
                                         id={i + 1}
@@ -222,7 +219,7 @@ export default function Reviews(props) {
                                 </div>
                               </div>
                               <div className="flex place-items-end">
-                                {loggedUser.loggedUser?._id === comment.creator._id && (
+                                {loggedUser?._id === comment.creator._id && (
                                   <button
                                     type="button"
                                     onClick={() => deleteReview(comment._id)}

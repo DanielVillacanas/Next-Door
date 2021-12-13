@@ -9,18 +9,19 @@ let reviewService = new ReviewService();
 let userService = new UserService();
 
 export default function UserProfile(props) {
-  let user = props.loggedUser?.loggedUser;
-  let ownerProfile = props.match.params.id;
+  let user = props.loggedUser;
 
   const [isOpen, setOpen] = useState(false);
   const [showReviews, setshowReviews] = useState(false);
+  const [ownerProfile, setOwnerProfie] = useState(props.match.params.id);
   const [owner, setOwner] = useState();
   const [reviewList, setReviewList] = useState([]);
 
-  console.log(props);
   useEffect(() => {
-    loadReviews();
+    console.log("Entra");
     loadOwner();
+    setOwnerProfie(props.match.params.id);
+    loadReviews();
   }, []);
 
   let openModal = () => {
@@ -45,9 +46,11 @@ export default function UserProfile(props) {
   };
 
   let loadOwner = () => {
+    console.log(ownerProfile);
     userService
       .getOwner(ownerProfile)
       .then((result) => {
+        console.log(result);
         setOwner(result.data);
       })
       .catch((err) => console.log(err));
@@ -153,7 +156,7 @@ export default function UserProfile(props) {
         </div>
         {showReviews ? (
           <>
-            <ReviewListUser id={user?._id} />
+            <ReviewListUser id={ownerProfile} loggedUser={props.loggedUser} />
           </>
         ) : (
           <></>

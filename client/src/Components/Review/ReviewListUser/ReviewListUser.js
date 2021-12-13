@@ -48,10 +48,7 @@ export default function ReviewsUser(props) {
                 <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
-                      <h2
-                        id="notes-title"
-                        className="text-lg font-medium text-gray-900"
-                      >
+                      <h2 id="notes-title" className="text-lg font-medium text-gray-900">
                         Comentarios del usuario
                       </h2>
                     </div>
@@ -86,7 +83,7 @@ export default function ReviewsUser(props) {
                                 </div>
                               </div>
                               <div className="flex place-items-end">
-                                {props._id === comment.creator._id && (
+                                {props.loggedUser._id === comment.creator && (
                                   <button
                                     type="button"
                                     onClick={() => deleteReview(comment._id)}
