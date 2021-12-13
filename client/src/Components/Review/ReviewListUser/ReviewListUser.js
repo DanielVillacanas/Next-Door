@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import ReviewService from "../../../Services/ReviewService/reviews.service";
-import UserContext from "../../../Context/UserContext/UserContext";
 import { StarIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 
@@ -16,19 +15,16 @@ export default function ReviewsUser(props) {
   useEffect(() => {
     loadReviews();
   }, []);
-
+  console.log(reviewList);
   let deleteReview = (id) => {
     reviewService
       .deleteThisReview(id)
       .then((result) => {
         loadReviews();
-        if (props.ProductId) {
-          props.loadReviewsFather();
-        }
       })
       .catch((err) => console.log(err));
   };
-
+  console.log(reviewList);
   let loadReviews = () => {
     reviewService
       .getReviewsOfThisUser(props.id)
@@ -37,7 +33,6 @@ export default function ReviewsUser(props) {
       })
       .catch((err) => console.log(err));
   };
-
   return (
     <>
       <div className="min-h-full">
@@ -45,7 +40,7 @@ export default function ReviewsUser(props) {
           <div className="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense">
             <div className="space-y-6 lg:col-start-1 lg:col-span-2">
               <section aria-labelledby="notes-title">
-                <div className="bg-white shadow sm:rounded-lg sm:overflow-hidden">
+                <div className="bg-white shadow rounded-lg sm:overflow-hidden">
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
                       <h2 id="notes-title" className="text-lg font-medium text-gray-900">
@@ -59,7 +54,16 @@ export default function ReviewsUser(props) {
                             <div className="flex space-x-3 justify-between">
                               <div className="flex">
                                 <div className=" ml-2">
-                                  <div className="lg:col-span-2 lg:pr-8 mx-4 mt-2 ">
+                                  <div className="lg:col-span-2 lg:pr-8 mx-4 my-2 ">
+                                    <div className="pb-2">
+                                      Comentaste en:{" "}
+                                      <Link
+                                        to={`/products/${comment.product._id}`}
+                                        className="text-green-400 hover:text-green-500"
+                                      >
+                                        {comment.product.name}
+                                      </Link>
+                                    </div>
                                     <div className="flex items-center">
                                       <div className="flex items-center ">
                                         {[0, 1, 2, 3, 4].map((rating) => (
