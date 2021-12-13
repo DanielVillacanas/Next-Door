@@ -1,6 +1,9 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon, MinusSmIcon, PlusSmIcon } from "@heroicons/react/solid";
+import { Disclosure, Menu } from "@headlessui/react";
+import {
+  ChevronDownIcon,
+  MinusSmIcon,
+  PlusSmIcon,
+} from "@heroicons/react/solid";
 
 const sortOptions = [
   { value: "1", label: "Más caro", checked: false },
@@ -35,7 +38,7 @@ function TypeSellerFilter(props) {
     <div>
       <div className="bg-white">
         <div>
-          <main className="max-w-7xl mx-24 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-24 sm:px-6 lg:px-8">
             <section aria-labelledby="products-heading" className="pt-6 pb-14">
               <div>
                 <form className="block">
@@ -50,18 +53,29 @@ function TypeSellerFilter(props) {
                           <h3 className="-my-3 flex justify-between">
                             <div>
                               <Disclosure.Button className=" bg-white w-full flex justify-start text-sm text-gray-400 hover:text-gray-500">
-                                <span className="font-medium text-gray-900">{section.name}</span>
+                                <span className="font-medium text-gray-900">
+                                  {section.name}
+                                </span>
                                 <span className=" flex items-center">
                                   {open ? (
-                                    <MinusSmIcon className="h-5 w-5" aria-hidden="true" />
+                                    <MinusSmIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
                                   ) : (
-                                    <PlusSmIcon className="h-5 w-5" aria-hidden="true" />
+                                    <PlusSmIcon
+                                      className="h-5 w-5"
+                                      aria-hidden="true"
+                                    />
                                   )}
                                 </span>
                               </Disclosure.Button>
                             </div>
                             <div>
-                              <Menu as="div" className="relative inline-block text-left">
+                              <Menu
+                                as="div"
+                                className="relative inline-block text-left"
+                              >
                                 <div>
                                   <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                                     Ordenar por precio
@@ -103,7 +117,10 @@ function TypeSellerFilter(props) {
                           <Disclosure.Panel className="pt-6">
                             <div className="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-1 space-y-2">
                               {section.options.map((option) => (
-                                <div key={option.value} className="flex items-center">
+                                <div
+                                  key={option.value}
+                                  className="flex items-center"
+                                >
                                   <input
                                     id={option.value}
                                     onChange={handleFilterChange}
@@ -130,7 +147,7 @@ function TypeSellerFilter(props) {
                 </form>
               </div>
             </section>
-          </main>
+          </div>
         </div>
       </div>
     </div>

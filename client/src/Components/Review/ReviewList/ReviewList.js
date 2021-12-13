@@ -3,20 +3,13 @@ import ReviewService from "../../../Services/ReviewService/reviews.service";
 import UserContext from "../../../Context/UserContext/UserContext";
 import { StarIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
+import { Options } from "../../../Const/Const";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 let reviewService = new ReviewService();
-
-const Options = [
-  { value: 1, label: "1" },
-  { value: 2, label: "2" },
-  { value: 3, label: "3" },
-  { value: 4, label: "4" },
-  { value: 5, label: "5" },
-];
 
 export default function Reviews(props) {
   const [review, setReview] = useState({
@@ -59,7 +52,12 @@ export default function Reviews(props) {
     e.preventDefault();
 
     reviewService
-      .createReview(review.description, review.rating, review.product, review.seller)
+      .createReview(
+        review.description,
+        review.rating,
+        review.product,
+        review.seller
+      )
       .then((response) => {
         loadReviews();
         if (props.ProductId) {
@@ -102,7 +100,7 @@ export default function Reviews(props) {
   return (
     <>
       <div className="min-h-full">
-        <main className="pb-10">
+        <div className="pb-10">
           <div className="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense">
             <div className="space-y-6 lg:col-start-1 lg:col-span-2">
               <section aria-labelledby="notes-title">
@@ -110,11 +108,17 @@ export default function Reviews(props) {
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
                       {id !== props.ProductId ? (
-                        <h2 id="notes-title" className="text-lg font-medium text-gray-900">
+                        <h2
+                          id="notes-title"
+                          className="text-lg font-medium text-gray-900"
+                        >
                           Comentarios del vendedor
                         </h2>
                       ) : (
-                        <h2 id="notes-title" className="text-lg font-medium text-gray-900">
+                        <h2
+                          id="notes-title"
+                          className="text-lg font-medium text-gray-900"
+                        >
                           Comentarios del producto
                         </h2>
                       )}
@@ -226,7 +230,8 @@ export default function Reviews(props) {
                                 </div>
                               </div>
                               <div className="flex place-items-end">
-                                {loggedUser.loggedUser?._id === comment.creator._id && (
+                                {loggedUser.loggedUser?._id ===
+                                  comment.creator._id && (
                                   <button
                                     type="button"
                                     onClick={() => deleteReview(comment._id)}
@@ -246,7 +251,7 @@ export default function Reviews(props) {
               </section>
             </div>
           </div>
-        </main>
+        </div>
       </div>
     </>
   );

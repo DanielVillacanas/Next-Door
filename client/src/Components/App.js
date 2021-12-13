@@ -107,9 +107,9 @@ function App() {
               <Route
                 path="/payment"
                 exact
-                render={() => (
+                render={(props) => (
                   <Elements stripe={stripePromise}>
-                    <CheckoutForm />
+                    <CheckoutForm {...props} />
                   </Elements>
                 )}
               />
@@ -193,12 +193,6 @@ function App() {
                       type={type}
                     />
                   </div>
-                )}
-              />
-              <Route
-                path="/signUpSeller"
-                render={(props) => (
-                  <SignUpSeller {...props} storeUser={storeUser} />
                 )}
               />
               <Route

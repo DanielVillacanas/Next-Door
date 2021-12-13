@@ -7,7 +7,7 @@ import axios from "axios";
 import { SubtotalContext } from "../../../Context/SubtotalContext/SubtotalContext";
 import UserContext from "../../../Context/UserContext/UserContext";
 
-function CheckoutForm() {
+function CheckoutForm(props) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -33,6 +33,9 @@ function CheckoutForm() {
           amount: subtotal * 100,
         }
       );
+      if (data) {
+        props.history.push("/");
+      }
     }
   };
 

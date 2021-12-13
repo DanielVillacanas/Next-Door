@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import SellerService from "../../../Services/SellerServices/seller.service";
 import SellerProductsCard from "./SellerProductsCard";
 
+let service = new SellerService();
+
 export default function SellerProducts(props) {
   let [products, setProducts] = useState();
 
-  let service = new SellerService();
   useEffect(() => {
     getProductsFromSeller();
   }, []);
@@ -26,7 +27,11 @@ export default function SellerProducts(props) {
       <h2 className="sr-only">Products</h2>
       <div className="grid grid-cols-1 gap-y-10 gap-x-6 lg:grid-cols-2 xl:grid-cols-3 xl:gap-x-8">
         {products?.map((product) => (
-          <SellerProductsCard product={product} id={props.id} bringProduct={bringProduct} />
+          <SellerProductsCard
+            product={product}
+            id={props.id}
+            bringProduct={bringProduct}
+          />
         ))}
       </div>
     </div>

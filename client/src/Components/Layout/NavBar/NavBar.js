@@ -6,20 +6,7 @@ import { PlusSmIcon } from "@heroicons/react/solid";
 import NewProduct from "../../Products/NewProduct/NewProduct";
 import AuthService from "../../../Services/AuthServices/auth.service";
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-const navigation = [
-  { name: "Home Page", href: "/", current: false },
-  { name: "All products", href: "/products", current: false },
-];
-const notLogged = [
-  { name: "Login", href: "/login", current: false },
-  { name: "Sign Up", href: "/signUp", current: false },
-];
+import { navigation, notLogged } from "../../../Const/Const";
 
 const authService = new AuthService();
 

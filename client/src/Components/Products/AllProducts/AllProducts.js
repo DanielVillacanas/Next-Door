@@ -4,14 +4,14 @@ import ProductCard from "./ProductCard";
 import SearchBar from "../SearchBar/SearchBar";
 import TypeSellerFilter from "../Filters/TypeSellerFilter";
 
+let service = new ProductService();
+
 export default function AllProducts(props) {
   let [products, setProducts] = useState([]);
   let [productsCopy, setProductsCopy] = useState([]);
   let [filters, setFilters] = useState([]);
   let [shorts, setShort] = useState();
   let [search, setSearch] = useState("");
-
-  let service = new ProductService();
 
   let loadProducts = () => {
     service
