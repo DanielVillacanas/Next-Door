@@ -61,18 +61,19 @@ router.post("/login", (req, res, next) => {
   User.findOne({ email })
     .populate("productsCart.product")
     .then((user) => {
-      console.log(user);
-      user
-        ? password === user.password //Validate password
+      if (user) {
+        password === user.password //Validate password
           ? ((req.session.currentUser = user), res.json({ user: user, type: "user" }))
-          : res.status(500).send("Error contraseña incorrecta!")
-        : Seller.findOne({ email }).then((seller) => {
-            seller
-              ? password === seller.password //Validate password
-                ? ((req.session.currentUser = seller), res.json({ user: seller, type: "seller" }))
-                : res.status(500).send("Error contraseña incorrecta!")
-              : res.status(500).send("Error usuario no registrado!");
-          });
+          : res.status(500).send("Error contraseña incorrecta!");
+      } else {
+        Seller.findOne({ email }).then((seller) => {
+          seller
+            ? password === seller.password //Validate password
+              ? ((req.session.currentUser = seller), res.json({ user: seller, type: "seller" }))
+              : res.status(500).send("Error contraseña incorrecta!")
+            : res.status(500).send("Error usuario no registrado!");
+        });
+      }
     })
     .catch((err) => res.status(500).send("Error contraseña incorrecta!"));
 });

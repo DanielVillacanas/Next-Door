@@ -3,20 +3,6 @@ const router = require("express").Router();
 const { APIMapBox } = require("../../services/APImapBox/mapBoxSerivces");
 let mapAPI = new APIMapBox();
 
-router.get("/getCart", (req, res) => {
-  //PILLO LA ID DE USUARIO
-  const { id } = req.params;
-  //BUSCO AL USER y POPULO EL CARRITO DE PRODUCTOS
-  User.findById(id)
-    .populate({
-      path: "productsCart",
-      populate: {
-        path: "owner",
-      },
-    })
-    .then((response) => console.log(response));
-});
-
 router.post("/edit", (req, res) => {
   let { username, email, password, address, img_url } = req.body;
 

@@ -1,6 +1,6 @@
 let calcDistance = (coordinates1, coordinates2) => {
-  const R = 6371e3; // metres
-  const φ1 = (coordinates1[1] * Math.PI) / 180; // φ, λ in radians
+  const R = 6371e3;
+  const φ1 = (coordinates1[1] * Math.PI) / 180;
   const φ2 = (coordinates2[1] * Math.PI) / 180;
   const Δφ = ((coordinates2[1] - coordinates1[1]) * Math.PI) / 180;
   const Δλ = ((coordinates2[0] - coordinates1[0]) * Math.PI) / 180;

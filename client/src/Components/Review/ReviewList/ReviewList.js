@@ -47,8 +47,6 @@ export default function Reviews(props) {
   let handleInputChange = (e) => {
     const { name, value, type, checked } = e.currentTarget;
 
-    // if (type == "radio") setChecked(checked);
-    // else
     setReview((prevState) => {
       return {
         ...prevState,
@@ -148,10 +146,7 @@ export default function Reviews(props) {
                                 <h3 className="ml-5 mt-4">Deja tu nota</h3>
                                 <div className="py-1 flex grid grid-cols-5">
                                   {Options.map((option, i) => (
-                                    <div
-                                      key={i + 1}
-                                      className="flex items-center px-4 py-2 ml-6"
-                                    >
+                                    <div key={i + 1} className="flex items-center px-4 py-2 ml-6">
                                       <input
                                         onChange={handleInputChange}
                                         id={i + 1}

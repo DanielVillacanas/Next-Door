@@ -3,7 +3,7 @@ import axios from "axios";
 class SellerService {
   constructor() {
     this.app = axios.create({
-      baseURL: "http://localhost:5000/seller",
+      baseURL: "http://localhost:5000/api/seller",
       withCredentials: true,
     });
   }
