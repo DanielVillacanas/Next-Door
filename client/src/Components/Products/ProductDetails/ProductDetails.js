@@ -76,7 +76,7 @@ export default function ProductsDetails(props) {
           <div className=" aspect-w-3 aspect-h-4 overflow-hidden lg:block rounded-lg">
             <img
               src={product?.img_url}
-              className="px-4 w-full h-80 object-center lg:mx-0 lg:px-0 object-fill lg:object-cover mb-6 lg:mb-0 rounded-lg "
+              className="px-4 w-full h-90 object-center lg:mx-0 lg:px-0 lg:object-cover object-contain mb-6 lg:mb-0 rounded-lg "
             />
           </div>
           <div className="lg:col-span-2 lg:pr-8 mx-8 lg:mx-4">
