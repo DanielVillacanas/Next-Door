@@ -20,7 +20,6 @@ router.post("/checkout", async (req, res) => {
       confirm: true,
     });
     res.send({ message: "Pago realizado" });
-    res.render("/");
   } catch (error) {
     res.json({ message: error });
   }
