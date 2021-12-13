@@ -16,7 +16,7 @@ let service = new ProductService();
 export default function ProductsDetails(props) {
   const [reviewList, setReviewList] = useState([]);
 
-  let { loggedUser } = useContext(UserContext);
+  let loggedUser = useContext(UserContext);
 
   let [count, setCount] = useState(1);
   let [product, setProduct] = useState();
@@ -62,9 +62,9 @@ export default function ProductsDetails(props) {
   };
 
   let addProductCart = () => {
-    service.addProductCart(product._id, count).then((res) => {
-      console.log(res);
+    service.addProductCart(product._id, count).then(() => {
       props.loadUser();
+      props.history.push("/products/cart");
     });
   };
 
@@ -88,9 +88,7 @@ export default function ProductsDetails(props) {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        reviews.average > rating
-                          ? "text-green-500"
-                          : "text-gray-200",
+                        reviews.average > rating ? "text-green-500" : "text-gray-200",
                         "h-5 w-5 flex-shrink-0"
                       )}
                       aria-hidden="true"
@@ -98,10 +96,7 @@ export default function ProductsDetails(props) {
                   ))}
                 </div>
                 <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <p
-                  href={reviews.href}
-                  className="ml-3 text-sm font-medium text-green-600 "
-                >
+                <p href={reviews.href} className="ml-3 text-sm font-medium text-green-600 ">
                   {reviews.totalCount} reviews
                 </p>
               </div>
@@ -109,10 +104,7 @@ export default function ProductsDetails(props) {
             <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl mb-4">
               {product?.name}
             </h1>
-            <Link
-              className="text-green-600 hover:text-green-500"
-              to={`/seller/${owner?._id}`}
-            >
+            <Link className="text-green-600 hover:text-green-500" to={`/seller/${owner?._id}`}>
               {owner?.username}
             </Link>
             <div className="grid grid-cols-12 gap-4 mb-6 mt-4">
@@ -120,8 +112,7 @@ export default function ProductsDetails(props) {
                 Precio por unidad: {product?.price} €
               </div>
 
-              {(loggedUser === null ||
-                loggedUser.loggedUser?.role === "User") && (
+              {(loggedUser === null || loggedUser?.role === "User") && (
                 <>
                   <div className="col-end-7 col-span-2">
                     <button
@@ -132,9 +123,7 @@ export default function ProductsDetails(props) {
                       -
                     </button>
                   </div>
-                  <div className="col-end-9 col-span-2 text-center pt-2">
-                    {count}
-                  </div>
+                  <div className="col-end-9 col-span-2 text-center pt-2">{count}</div>
                   <div className="col-end-11 col-span-2">
                     <button
                       type="button"
@@ -147,38 +136,28 @@ export default function ProductsDetails(props) {
                 </>
               )}
             </div>
-            {(loggedUser === null ||
-              loggedUser.loggedUser?.role === "User") && (
+            {(loggedUser === null || loggedUser?.role === "User") && (
               <>
-                <Link
-                  to={"/products/cart"}
-                  className="grid grid-cols-6 border-b-2 border-gray-200 pb-8"
-                >
+                <div className="grid grid-cols-6 border-b-2 border-gray-200 pb-8">
                   <button
                     type="button"
-                    onClick={() => addProductCart()}
+                    onClick={addProductCart}
                     className="col-start-3 col-span-3 inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
                   >
                     Añadir a la cesta
                   </button>
-                </Link>
+                </div>
               </>
             )}
             <div>
               <div className="space-y-6 mt-8">
-                <p className="text-base text-gray-900 ">
-                  {product?.description}
-                </p>
+                <p className="text-base text-gray-900 ">{product?.description}</p>
               </div>
             </div>
           </div>
         </div>
 
-        <ReviewList
-          ProductId={id}
-          loadProduct={loadProduct}
-          loadReviewsFather={loadReviews}
-        />
+        <ReviewList ProductId={id} loadProduct={loadProduct} loadReviewsFather={loadReviews} />
       </div>
     </div>
   );

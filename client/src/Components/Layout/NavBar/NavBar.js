@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { Disclosure, Dialog, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { PlusSmIcon } from "@heroicons/react/solid";
 import NewProduct from "../../Products/NewProduct/NewProduct";
 import AuthService from "../../../Services/AuthServices/auth.service";
@@ -15,7 +15,11 @@ function classNames(...classes) {
 }
 
 export default function NavBar(props) {
-  let logged = props.loggedUser?.loggedUser;
+  let logged = props.loggedUser;
+
+  if (logged === null) {
+    logged = undefined;
+  }
   const [isOpen, setOpen] = useState(false);
 
   let openModal = () => {
@@ -28,7 +32,10 @@ export default function NavBar(props) {
   let logOut = () => {
     authService
       .logout()
-      .then((response) => props.storeUser(null))
+      .then((response) => {
+        props.loadUser();
+        props.history.push("/logIn");
+      })
       .catch((err) => console.log(err));
   };
 
@@ -79,7 +86,7 @@ export default function NavBar(props) {
                   ))}
                   {notLogged.map(
                     (item) =>
-                      logged === null && (
+                      logged === undefined && (
                         <Link
                           key={item.name}
                           to={item.href}
@@ -104,10 +111,7 @@ export default function NavBar(props) {
                     onClick={openModal}
                     className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
                   >
-                    <PlusSmIcon
-                      className="-ml-1 mr-2 h-5 w-5"
-                      aria-hidden="true"
-                    />
+                    <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
                     <span>New Product</span>
                   </button>
                 )}
@@ -141,10 +145,7 @@ export default function NavBar(props) {
                       </Transition.Child>
 
                       {/* This element is to trick the browser into centering the modal contents. */}
-                      <span
-                        className=" sm:inline-block sm:align-middle sm:h-12"
-                        aria-hidden="true"
-                      >
+                      <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
                         &#8203;
                       </span>
                       <Transition.Child
@@ -158,7 +159,7 @@ export default function NavBar(props) {
                         <Fragment>
                           <NewProduct
                             refreshProducts={props.refreshProducts}
-                            storeUser={logged}
+                            loggedUser={logged}
                             history={props.history}
                             close={closeModal}
                           />
@@ -173,11 +174,7 @@ export default function NavBar(props) {
                       <div>
                         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
-                          <img
-                            className="h-8 w-8 rounded-full"
-                            src={logged.img_url}
-                            alt=""
-                          />
+                          <img className="h-8 w-8 rounded-full" src={logged.img_url} alt="" />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -258,7 +255,7 @@ export default function NavBar(props) {
                   {item.name}
                 </Link>
               ))}
-              {logged === null &&
+              {logged === undefined &&
                 notLogged.map((item) => (
                   <Link
                     key={item.name}
@@ -279,19 +276,11 @@ export default function NavBar(props) {
               <div className="pt-4 pb-3 border-t border-gray-700">
                 <div className="flex items-center px-5 sm:px-6">
                   <div className="flex-shrink-0">
-                    <img
-                      className="h-10 w-10 rounded-full"
-                      src={logged.img_url}
-                      alt=""
-                    />
+                    <img className="h-10 w-10 rounded-full" src={logged.img_url} alt="" />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium text-white">
-                      {logged.username}
-                    </div>
-                    <div className="text-sm font-medium text-gray-400">
-                      {logged.email}
-                    </div>
+                    <div className="text-base font-medium text-white">{logged.username}</div>
+                    <div className="text-sm font-medium text-gray-400">{logged.email}</div>
                   </div>
                 </div>
                 <div className="mt-3 px-2 space-y-1 sm:px-3">

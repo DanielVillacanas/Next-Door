@@ -4,7 +4,7 @@ const Seller = require("../../models/Seller.model");
 const { APIMapBox } = require("../../services/APImapBox/mapBoxSerivces");
 let mapAPI = new APIMapBox();
 
-router.post("/signUp", (req, res, next) => {
+router.post("/signUp", (req, res) => {
   let { email, password, address, username } = req.body;
   let map_img = "";
   let coordinates = [];
@@ -21,18 +21,21 @@ router.post("/signUp", (req, res, next) => {
       return User.findOne({ email });
     })
     .then((user) => {
+      console.log("LLEGA a create USER", user);
       user
         ? res.status(500).send("Error usuario ya registrado")
         : User.create({ email, password, address, username, coordinates, map_img }).then(
             (response) => {
+              req.session.currentUser = response;
               return res.json(response);
             }
           );
+      // .catch((err) => console.log(err));
     })
-    .catch((err) => console.log(err));
+    .catch((err) => res.status(500).send(err));
 });
 
-router.post("/signUpSeller", (req, res, next) => {
+router.post("/signUpSeller", (req, res) => {
   let { email, password, address, username, type } = req.body;
   let map_img = "";
   let coordinates = [];
@@ -50,13 +53,18 @@ router.post("/signUpSeller", (req, res, next) => {
     .then((seller) => {
       seller
         ? console.log("Vendedor ya registrado")
-        : Seller.create({ email, password, address, username, coordinates, type, map_img }).then(
-            (response) => res.json(response)
-          );
-    });
+        : Seller.create({ email, password, address, username, coordinates, type, map_img })
+            .then((response) => {
+              console.log(response);
+              req.session.currentUser = response;
+              return res.json(response);
+            })
+            .catch((err) => console.log("Error al crear Vendedor"));
+    })
+    .catch((err) => res.status(500).send(err));
 });
 
-router.post("/login", (req, res, next) => {
+router.post("/login", (req, res) => {
   const { email, password } = req.body;
   User.findOne({ email })
     .populate("productsCart.product")
@@ -79,14 +87,31 @@ router.post("/login", (req, res, next) => {
 });
 
 router.get("/isloggedin", (req, res) => {
-  User.findOne({ id: req.session.currentUser._id })
-    .populate("productsCart.product")
-    .then((user) => {
-      req.session.currentUser
-        ? res.json(user)
-        : res.status(401).json({ code: 401, message: "Unauthorized" });
-    })
-    .catch((err) => console.log(err));
+  const _id = req.session.currentUser?._id;
+  const role = req.session.currentUser?.role;
+  console.log("LA ID es", _id);
+  if (_id) {
+    if (role === "User") {
+      User.findById(_id)
+        .populate("productsCart.product")
+        .then((user) => {
+          req.session.currentUser
+            ? res.json(user)
+            : res.status(401).json({ code: 401, message: "Unauthorized" });
+        })
+        .catch((err) => console.log(err));
+    } else if (role === "Seller") {
+      Seller.findById(_id)
+        .then((user) => {
+          req.session.currentUser
+            ? res.json(user)
+            : res.status(401).json({ code: 401, message: "Unauthorized" });
+        })
+        .catch((err) => console.log(err));
+    }
+  } else {
+    res.status(400).json({ code: 400, message: "Not Logged user" });
+  }
 });
 
 router.get("/logout", (req, res) => {

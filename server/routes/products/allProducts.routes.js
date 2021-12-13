@@ -68,7 +68,8 @@ router.get("/cart/all", (req, res) => {
     })
     .then((response) => {
       res.json(response);
-    });
+    })
+    .catch((err) => console.log(err));
 });
 
 router.put("/cart/remove/:id", (req, res) => {

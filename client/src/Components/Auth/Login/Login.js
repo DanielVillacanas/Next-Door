@@ -17,10 +17,9 @@ function LoginPage(props) {
 
     authService
       .login(user.email, user.password)
-      .then((response) => {
+      .then(() => {
         props.history.push("/products");
-        props.storeUser(response.data.user);
-        props.setTypeBussines(response.data.type);
+        props.loadUser();
       })
       .catch((err) => setError(err.response.data));
   };

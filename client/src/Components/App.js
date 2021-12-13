@@ -38,6 +38,7 @@ function App() {
   }, []);
 
   let loadUser = () => {
+    debugger;
     authService
       .isloggedin()
       .then((response) => {
@@ -54,7 +55,7 @@ function App() {
   };
 
   let storeUser = (user) => {
-    setLoggedUser({ loggedUser: user });
+    setLoggedUser(user);
   };
 
   let setTypeBussines = (type) => {
@@ -64,7 +65,7 @@ function App() {
   return (
     <>
       <SubtotalContext.Provider value={{ subtotal, setSubtotal }}>
-        <UserProvider value={{ loggedUser }}>
+        <UserProvider value={loggedUser}>
           <main>
             <Switch>
               <Route
@@ -72,11 +73,7 @@ function App() {
                 exact
                 render={() => (
                   <div>
-                    <NavBar
-                      storeUser={storeUser}
-                      loggedUser={loggedUser}
-                      type={type}
-                    />
+                    <NavBar loadUser={loadUser} loggedUser={loggedUser} type={type} />
                     <Home />
                     <Footer />
                   </div>
@@ -90,15 +87,12 @@ function App() {
                   <div>
                     <NavBar
                       {...props}
-                      storeUser={storeUser}
+                      loadUser={loadUser}
                       loggedUser={loggedUser}
                       type={type}
                       refreshProducts={() => refreshProducts()}
                     />
-                    <AllProducts
-                      refresh={refresh}
-                      changeValueRefresh={changeValueRefresh}
-                    />
+                    <AllProducts refresh={refresh} changeValueRefresh={changeValueRefresh} />
                     <Footer />
                   </div>
                 )}
@@ -109,7 +103,7 @@ function App() {
                 exact
                 render={(props) => (
                   <Elements stripe={stripePromise}>
-                    <CheckoutForm {...props} />
+                    <CheckoutForm loadUser={loadUser} {...props} />
                   </Elements>
                 )}
               />
@@ -120,7 +114,7 @@ function App() {
                   <div>
                     <NavBar
                       {...props}
-                      storeUser={storeUser}
+                      loadUser={loadUser}
                       loggedUser={loggedUser}
                       type={type}
                       refreshProducts={() => refreshProducts()}
@@ -136,7 +130,7 @@ function App() {
                   <div>
                     <NavBar
                       refreshProducts={() => refreshProducts()}
-                      storeUser={storeUser}
+                      loadUser={loadUser}
                       loggedUser={loggedUser}
                       type={type}
                       {...props}
@@ -152,16 +146,12 @@ function App() {
                   <div>
                     <NavBar
                       refreshProducts={() => refreshProducts()}
-                      storeUser={storeUser}
+                      loadUser={loadUser}
                       loggedUser={loggedUser}
                       type={type}
                       {...props}
                     />
-                    <UserProfile
-                      {...props}
-                      loggedUser={loggedUser}
-                      storeUser={storeUser}
-                    />
+                    <UserProfile {...props} loggedUser={loggedUser} loadUser={loadUser} />
                   </div>
                 )}
               />
@@ -170,39 +160,24 @@ function App() {
                 exact
                 render={(props) => (
                   <div>
-                    <NavBar
-                      storeUser={storeUser}
-                      loggedUser={loggedUser}
-                      type={type}
-                    />
+                    <NavBar loadUser={loadUser} loggedUser={loggedUser} type={type} />
                     <ProductDetails {...props} loadUser={loadUser} />
                   </div>
                 )}
               />
-              <Route
-                path="/signUp"
-                render={(props) => <SignUp {...props} storeUser={storeUser} />}
-              />
+              <Route path="/signUp" render={(props) => <SignUp {...props} loadUser={loadUser} />} />
               <Route
                 path="/logOut"
                 render={() => (
                   <div>
-                    <NavBar
-                      storeUser={storeUser}
-                      loggedUser={loggedUser}
-                      type={type}
-                    />
+                    <NavBar loadUser={loadUser} loggedUser={loggedUser} type={type} />
                   </div>
                 )}
               />
               <Route
                 path="/login"
                 render={(props) => (
-                  <Login
-                    {...props}
-                    storeUser={storeUser}
-                    setTypeBussines={setTypeBussines}
-                  />
+                  <Login {...props} loadUser={loadUser} setTypeBussines={setTypeBussines} />
                 )}
               />
             </Switch>

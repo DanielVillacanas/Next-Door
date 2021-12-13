@@ -15,7 +15,7 @@ export default function SignUpSeller(props) {
     type: "Carnes",
     description: "",
   });
-
+  const [errSingUp, setErr] = useState();
   let handleInputChange = (e) => {
     const { name, value } = e.currentTarget;
 
@@ -39,7 +39,7 @@ export default function SignUpSeller(props) {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    console.log("entra");
+
     authService
       .signUpSeller(
         seller.username,
@@ -50,10 +50,12 @@ export default function SignUpSeller(props) {
         seller.type
       )
       .then((response) => {
-        props.props.storeUser(response?.data);
-        props.props.history.push("/login");
+        console.log(response);
+        props.props.loadUser();
+        props.props.history.push("/products");
       })
-      .catch((err) => console.log(err.response?.data.message));
+      .catch((err) => setErr(err.response.data));
+    // .catch((err) => console.log(err.response?.data.message));
   };
   return (
     <>
@@ -165,6 +167,14 @@ export default function SignUpSeller(props) {
               >
                 Registrate
               </button>
+            </div>
+            <div>
+              {errSingUp && (
+                <p className="text-red-500 text-center">
+                  Error al registrar usuario compruebe que la dirección es correcta y que no empieza
+                  por C/
+                </p>
+              )}
             </div>
           </form>
           <div className="mt-6">

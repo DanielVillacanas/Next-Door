@@ -15,14 +15,13 @@ export default function SignUp(props) {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-
     authService
       .signUp(user.username, user.email, user.password, user.password2, user.address)
-      .then((response) => {
-        props.props.storeUser(response.data);
-        props.props.history.push("/login");
+      .then(() => {
+        props.props.loadUser();
+        props.props.history.push("/products");
       })
-      .catch((err) => console.log(err.response.data.message));
+      .catch((err) => console.log("USER", err));
   };
 
   let handleInputChange = (e) => {

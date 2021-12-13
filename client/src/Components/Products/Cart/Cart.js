@@ -5,13 +5,14 @@ import ProductService from "../../../Services/ProductsServices/products.service"
 
 const service = new ProductService();
 
-export default function Cart() {
+export default function Cart(props) {
   let [cart, setCart] = useState([]);
   let { subtotal, setSubtotal } = useContext(SubtotalContext);
 
   let getAllCart = () => {
     service.getCartProducts().then((result) => {
-      setCart((cart = result.data.productsCart));
+      console.log(result);
+      setCart(result.data.productsCart);
       setSubtotal((subtotal = 0));
       result.data.productsCart.forEach((element) => {
         element.product &&
@@ -23,7 +24,9 @@ export default function Cart() {
   };
 
   let removeFromCart = (id) => {
-    service.removeProductCart(id).then((response) => getAllCart());
+    service.removeProductCart(id).then(() => {
+      getAllCart();
+    });
   };
 
   useEffect(() => {

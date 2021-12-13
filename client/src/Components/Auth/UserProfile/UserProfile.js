@@ -54,7 +54,7 @@ export default function UserProfile(props) {
                     </button>
                   </div>
                   {/*body*/}
-                  <EditProfile user={user} storeUser={props.storeUser} />
+                  <EditProfile user={user} loadUser={props.loadUser} />
                   {/*footer*/}
                   <div className="flex items-center justify-center p-6 border-t border-solid border-blueGray-200 rounded-b">
                     <button
