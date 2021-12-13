@@ -1,6 +1,7 @@
 const User = require("../../models/User.model");
-
 const router = require("express").Router();
+const { APIMapBox } = require("../../services/APImapBox/mapBoxSerivces");
+let mapAPI = new APIMapBox();
 
 router.get("/getCart", (req, res) => {
   //PILLO LA ID DE USUARIO
@@ -17,17 +18,30 @@ router.get("/getCart", (req, res) => {
 });
 
 router.post("/edit", (req, res) => {
-  const { username, email, password, address, img_url } = req.body;
-  const id = req.session.currentUser._id;
+  let { username, email, password, address, img_url } = req.body;
 
-  //LLAMAR A LA API DE LOS MAPAS PARA ACTUALIZAR LA POSICION DEL MAPA Y LA ADDRESS
-  //
-  User.findByIdAndUpdate(id, { username, email, password, address, img_url }, { new: true }).then(
-    (response) => {
+  let map_img = "";
+  let coordinates = [];
+  mapAPI
+    .getCoordinates(address)
+    .then((response) => {
+      address = response.data.features[0].place_name;
+      coordinates = response.data.features[0].center;
+      return mapAPI.getMap(coordinates);
+    })
+    .then((map) => {
+      map_img = map.request._redirectable._currentUrl;
+      return User.findOneAndUpdate(
+        { email },
+        { username, email, password, address, img_url, coordinates, map_img },
+        { new: true }
+      );
+    })
+    .then((response) => {
+      console.log(response);
       req.session.currentUser = response;
       return res.json(response);
-    }
-  );
+    });
 });
 
 module.exports = router;

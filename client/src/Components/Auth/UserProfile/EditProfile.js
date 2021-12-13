@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
-import AuthService from "../../../Services/AuthServices/auth.service";
 import UploadService from "../../../Services/UploadServices/UploadServices";
 import UserServices from "../../../Services/UserSerivces/UserSerivces";
 

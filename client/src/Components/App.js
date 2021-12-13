@@ -52,7 +52,6 @@ function App() {
   };
 
   let storeUser = (user) => {
-    console.log(user);
     setLoggedUser({ loggedUser: user });
   };
 

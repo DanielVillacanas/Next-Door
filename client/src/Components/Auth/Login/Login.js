@@ -8,6 +8,7 @@ function LoginPage(props) {
     email: "",
     password: "",
   });
+  const [errorLogin, setError] = useState(undefined);
 
   let authService = new AuthService();
 
@@ -21,7 +22,7 @@ function LoginPage(props) {
         props.storeUser(response.data.user);
         props.setTypeBussines(response.data.type);
       })
-      .catch((err) => console.log("error", err));
+      .catch((err) => setError(err.response.data));
   };
 
   let handleInputChange = (e) => {
@@ -181,6 +182,13 @@ function LoginPage(props) {
                       </Link>
                       .
                     </p>
+                  </div>
+                  <div>
+                    {errorLogin && (
+                      <p className="font-medium text-red-600 hover:text-red-500 text-center pb-5">
+                        {errorLogin}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

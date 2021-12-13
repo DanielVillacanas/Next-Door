@@ -34,6 +34,7 @@ export default function UserProfile(props) {
             <h3>{user?.address}</h3>
           </div>
         </label>
+        <img src={user?.map_img}></img>
         {show ? (
           <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">

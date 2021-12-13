@@ -17,6 +17,7 @@ const sellerSchema = new Schema(
     address: { type: String, required: true },
     description: String,
     coordinates: [Number],
+    map_img: String,
     type: {
       type: String,
       enum: ["Carnes", "Frutas", "Pescados", "Verduras", "Otro"],
