@@ -15,6 +15,7 @@ class ReviewService {
       seller,
     });
   getReviewsOhThis = (id, type) => this.app.get(`/?id=${id}&type=${type}`);
+  getReviewsOfThisUser = (id) => this.app.get(`/user/${id}`);
   deleteThisReview = (id) => this.app.delete(`/remove/${id}`);
 }
 

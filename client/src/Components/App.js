@@ -1,7 +1,6 @@
 import Login from "./Auth/Login/Login";
 import NavBar from "./Layout/NavBar/NavBar";
 import SignUp from "./Auth/SignUp/SignUp";
-import SignUpSeller from "./Auth/SignUp/SignUpSeller";
 import AllProducts from "./Products/AllProducts/AllProducts";
 import ProductDetails from "./Products/ProductDetails/ProductDetails";
 import SellerProfile from "./Auth/SellerProfile/SellerProfile";
@@ -92,7 +91,11 @@ function App() {
                       type={type}
                       refreshProducts={() => refreshProducts()}
                     />
-                    <AllProducts refresh={refresh} changeValueRefresh={changeValueRefresh} />
+                    <AllProducts
+                      refresh={refresh}
+                      loggedUser={loggedUser}
+                      changeValueRefresh={changeValueRefresh}
+                    />
                     <Footer />
                   </div>
                 )}

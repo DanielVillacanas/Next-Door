@@ -35,4 +35,11 @@ router.get("/", (req, res) => {
   }
 });
 
+router.get("/user/:id", (req, res) => {
+  const { id } = req.params;
+  Review.find({ owner: id })
+    .populate("product")
+    .then((response) => res.json(response));
+});
+
 module.exports = router;

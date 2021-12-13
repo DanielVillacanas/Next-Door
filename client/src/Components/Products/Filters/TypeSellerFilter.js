@@ -4,24 +4,9 @@ import {
   MinusSmIcon,
   PlusSmIcon,
 } from "@heroicons/react/solid";
-
-const sortOptions = [
-  { value: "1", label: "Más caro", checked: false },
-  { value: "0", label: "Más barato", checked: false },
-];
-const filters = [
-  {
-    id: "color",
-    name: "Categoría de Productos",
-    options: [
-      { value: "Carnes", label: "Carnes", checked: false },
-      { value: "Pescados", label: "Pescados", checked: false },
-      { value: "Frutas", label: "Frutas", checked: false },
-      { value: "Verduras", label: "Verduras", checked: false },
-      { value: "Other", label: "Otros", checked: false },
-    ],
-  },
-];
+import { sortOptions, filters, range } from "../../../Const/Const";
+import React, { useContext } from "react";
+import UserContext from "../../../Context/UserContext/UserContext";
 
 function TypeSellerFilter(props) {
   const handleFilterChange = (e) => {
@@ -29,9 +14,16 @@ function TypeSellerFilter(props) {
     props.getFilter(filter);
   };
 
+  let { loggedUser } = useContext(UserContext);
+
   const handleShortFilterChange = (e) => {
     let shortFilterID = e.currentTarget.id;
     props.getShort(shortFilterID);
+  };
+
+  const handleRangeFilterChange = (e) => {
+    let range = e.currentTarget.value;
+    props.getRange(range);
   };
 
   return (
@@ -41,7 +33,71 @@ function TypeSellerFilter(props) {
           <div className="max-w-7xl mx-24 sm:px-6 lg:px-8">
             <section aria-labelledby="products-heading" className="pt-6 pb-14">
               <div>
-                <form className="block">
+                <form className="block space-y-4">
+                  {loggedUser?.loggedUser !== null &&
+                    range.map((section) => (
+                      <Disclosure
+                        as="div"
+                        key={section.id}
+                        className="border-b border-gray-200 pb-6 pt-4"
+                      >
+                        {({ open }) => (
+                          <>
+                            <h3 className="-my-3 flex justify-between">
+                              <div>
+                                <Disclosure.Button className=" bg-white w-full flex justify-start text-sm text-gray-400 hover:text-gray-500">
+                                  <span className="font-medium text-gray-900">
+                                    {section.name}
+                                  </span>
+                                  <span className=" flex items-center">
+                                    {open ? (
+                                      <MinusSmIcon
+                                        className="h-5 w-5"
+                                        aria-hidden="true"
+                                        value={0}
+                                        onClick={handleRangeFilterChange}
+                                      />
+                                    ) : (
+                                      <PlusSmIcon
+                                        className="h-5 w-5"
+                                        aria-hidden="true"
+                                      />
+                                    )}
+                                  </span>
+                                </Disclosure.Button>
+                              </div>
+                            </h3>
+
+                            <Disclosure.Panel className="pt-6">
+                              <div className="grid md:grid-cols-6 sm:grid-cols-3 grid-cols-1 space-y-2">
+                                {section.options.map((option) => (
+                                  <div
+                                    key={option.value}
+                                    className="flex items-center"
+                                  >
+                                    <input
+                                      id={option.value}
+                                      onChange={handleRangeFilterChange}
+                                      name={`${section.id}[]`}
+                                      value={option.value}
+                                      type="radio"
+                                      defaultChecked={option.checked}
+                                      className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500 "
+                                    />
+                                    <label
+                                      htmlFor={option.value}
+                                      className="ml-3 text-sm text-gray-600"
+                                    >
+                                      {option.label}
+                                    </label>
+                                  </div>
+                                ))}
+                              </div>
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
+                    ))}
                   {filters.map((section) => (
                     <Disclosure
                       as="div"

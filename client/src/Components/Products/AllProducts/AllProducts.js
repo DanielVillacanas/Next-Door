@@ -3,6 +3,7 @@ import ProductService from "../../../Services/ProductsServices/products.service"
 import ProductCard from "./ProductCard";
 import SearchBar from "../SearchBar/SearchBar";
 import TypeSellerFilter from "../Filters/TypeSellerFilter";
+import { calcDistance } from "../../../util/calcDistance";
 
 let service = new ProductService();
 
@@ -11,6 +12,7 @@ export default function AllProducts(props) {
   let [productsCopy, setProductsCopy] = useState([]);
   let [filters, setFilters] = useState([]);
   let [shorts, setShort] = useState();
+  let [range, setRange] = useState(0);
   let [search, setSearch] = useState("");
 
   let loadProducts = () => {
@@ -26,14 +28,19 @@ export default function AllProducts(props) {
   if (props.refresh === true) {
     loadProducts();
   }
-  props.changeValueRefresh();
 
   useEffect(() => {
     loadProducts();
   }, []);
 
-  const getInfo = (search2) => {
-    setSearch(search2);
+  const getInfo = (searching) => {
+    setSearch(searching);
+  };
+  const getShort = (id) => {
+    setShort(id);
+  };
+  const getRange = (range) => {
+    setRange(range);
   };
 
   const getFilter = (filter) => {
@@ -47,10 +54,6 @@ export default function AllProducts(props) {
     setFilters(allFilters);
   };
 
-  const getShort = (id) => {
-    setShort(id);
-  };
-
   useEffect(() => {
     let copy = [...products];
     if (search.length !== 0) {
@@ -60,6 +63,17 @@ export default function AllProducts(props) {
     }
     if (filters.length !== 0) {
       copy = copy.filter((product) => filters.includes(product.owner.type));
+    }
+
+    if (range > 0) {
+      copy = copy.filter(
+        (product) =>
+          range >
+          calcDistance(
+            product.owner.coordinates,
+            props.loggedUser.loggedUser.coordinates
+          )
+      );
     }
     if (shorts == 1) {
       copy = copy.sort((a, b) => {
@@ -83,13 +97,17 @@ export default function AllProducts(props) {
       });
     }
     setProductsCopy(copy);
-  }, [search, filters, shorts]);
+  }, [search, filters, shorts, range]);
 
   return (
     <>
       <div className="bg-white">
         <SearchBar getInfo={getInfo} />
-        <TypeSellerFilter getFilter={getFilter} getShort={getShort} />
+        <TypeSellerFilter
+          getFilter={getFilter}
+          getShort={getShort}
+          getRange={getRange}
+        />
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 ">
           <h2 className="sr-only">Products</h2>
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 ">

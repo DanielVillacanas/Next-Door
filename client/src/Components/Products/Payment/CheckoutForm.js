@@ -35,6 +35,7 @@ function CheckoutForm(props) {
         amount: subtotal * 100,
       });
       if (data) {
+        //limpiar el carro del usuario comprador
         props.history.push("/");
       }
     }

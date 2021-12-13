@@ -30,4 +30,12 @@ router.post("/edit", (req, res) => {
     });
 });
 
+router.get("/user/:id", (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  User.findById(id)
+    .then((response) => res.json(response))
+    .catch((err) => console.log(err));
+});
+
 module.exports = router;

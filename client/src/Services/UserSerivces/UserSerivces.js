@@ -11,6 +11,7 @@ class UserServices {
   editUser = (username, email, password, password2, address, img_url) => {
     return this.app.post("/edit", username, email, password, address, img_url);
   };
+  getOwner = (id) => this.app.get(`/user/${id}`);
 }
 
 export default UserServices;
