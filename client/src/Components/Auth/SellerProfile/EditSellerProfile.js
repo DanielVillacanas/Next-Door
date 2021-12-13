@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 
 import UploadService from "../../../Services/UploadServices/UploadServices";
-import UserServices from "../../../Services/UserSerivces/UserSerivces";
+import SellerServices from "../../../Services/SellerServices/seller.service";
 
-let userServices = new UserServices();
+let sellerServices = new SellerServices();
 let uploadService = new UploadService();
 
-export default function EditProfile(props) {
-  const [user, setUser] = useState({
-    username: props.user?.username,
-    email: props.user?.email,
+export default function EditSellerProfile(props) {
+  const [seller, setSeller] = useState({
+    username: props.seller?.username,
+    email: props.seller?.email,
     password: "",
     password2: "",
-    address: props.user?.address,
+    description: props.seller?.description,
+    address: props.seller?.address,
     img_url: "",
   });
-  console.log(props);
   const handleSubmit = () => {
-    userServices
-      .editUser(user)
+    sellerServices
+      .editSeller(seller)
       .then(() => {
         props.loadUser();
       })
@@ -27,7 +27,7 @@ export default function EditProfile(props) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.currentTarget;
-    setUser((prevState) => {
+    setSeller((prevState) => {
       return {
         ...prevState,
         [name]: value,
@@ -37,17 +37,16 @@ export default function EditProfile(props) {
 
   const handleUploadChange = (e) => {
     const uploadData = new FormData();
-    console.log(e.target.files[0]);
     uploadData.append("imageData", e.target.files[0]);
     uploadService
       .uploadImage(uploadData)
       .then((response) => {
-        setUser({ ...user, img_url: response.data.cloudinary_url });
+        setSeller({ ...seller, img_url: response.data.cloudinary_url });
       })
       .catch((err) => console.log("El error", { err }));
   };
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {}, [seller]);
 
   return (
     <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
@@ -61,7 +60,7 @@ export default function EditProfile(props) {
               htmlFor="email"
               className="block text-sm font-medium text-gray-700"
             >
-              Nombre de usuario
+              Nombre de la empresa
             </label>
             <div className="mt-1">
               <input
@@ -69,7 +68,7 @@ export default function EditProfile(props) {
                 name="username"
                 type="text"
                 onChange={handleInputChange}
-                value={user.username}
+                value={seller.username}
                 required
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               />
@@ -88,7 +87,28 @@ export default function EditProfile(props) {
                 name="email"
                 type="email"
                 onChange={handleInputChange}
-                value={user.email}
+                value={seller.email}
+                required
+                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Descripción
+            </label>
+
+            <div className="mt-1">
+              <textarea
+                id="description"
+                rows={6}
+                name="description"
+                type="text"
+                onChange={handleInputChange}
+                value={seller.description}
                 required
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               />
@@ -107,7 +127,7 @@ export default function EditProfile(props) {
                 name="password"
                 type="password"
                 onChange={handleInputChange}
-                value={user.password}
+                value={seller.password}
                 required
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               />
@@ -126,7 +146,7 @@ export default function EditProfile(props) {
                 name="password2"
                 type="password"
                 onChange={handleInputChange}
-                value={user.password2}
+                value={seller.password2}
                 required
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               />
@@ -137,7 +157,7 @@ export default function EditProfile(props) {
               htmlFor="address"
               className="block text-sm font-medium text-gray-700"
             >
-              Dirección de envio
+              Dirección de la empresa
             </label>
             <div className="mt-1">
               <input
@@ -145,7 +165,7 @@ export default function EditProfile(props) {
                 name="address"
                 type="text"
                 onChange={handleInputChange}
-                value={user.address}
+                value={seller.address}
                 required
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               />
@@ -154,10 +174,10 @@ export default function EditProfile(props) {
           <div className="flex justify-center mt-8">
             <div className="max-w rounded-lg shadow-xl bg-white">
               <div className="m-4">
-                {!user.img_url && (
+                {!seller.img_url && (
                   <>
                     <label className="inline-block mb-2 text-gray-500">
-                      New Photo
+                      Nueva foto
                     </label>
                     <div className="flex items-center justify-center w-full">
                       <label className="flex flex-col w-full h-32 border-4 border-green-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
@@ -192,13 +212,13 @@ export default function EditProfile(props) {
                     </div>
                   </>
                 )}
-                {user.img_url && (
+                {seller.img_url && (
                   <img
                     className="object-center object-cover w-32 h-32 text-gray-400 group-hover:text-gray-600"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    src={user.img_url}
+                    src={seller.img_url}
                     alt=""
                   />
                 )}

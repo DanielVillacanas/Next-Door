@@ -68,12 +68,16 @@ export default function UserProfile(props) {
             <div className="flex lg:justify-between justify-center mt-8 ">
               <div className="font-medium text-lg lg:text-start text-center lg:text-left ">
                 <h3 className="text-white">{owner?.username}</h3>
-                <div className="text-green-300 text-sm my-2">{owner?.email}</div>
+                <div className="text-green-300 text-sm my-2">
+                  {owner?.email}
+                </div>
                 {user?._id === ownerProfile && (
-                  <div className="text-green-300 text-sm my-2">{owner?.address}</div>
+                  <div className="text-green-300 text-sm my-2">
+                    {owner?.address}
+                  </div>
                 )}
                 {user?._id === ownerProfile ? (
-                  <div className="flex justify-between grid grid-col-1">
+                  <div className="flex lg:justify-between grid grid-col-1 mx-auto">
                     <button
                       type="button"
                       onClick={openModal}
@@ -100,7 +104,7 @@ export default function UserProfile(props) {
                     )}
                   </div>
                 ) : (
-                  <div className="flex justify-between lg:grid">
+                  <div className="flex justify-between lg:grid mx-auto">
                     {showReviews === false ? (
                       <button
                         type="button"
@@ -141,7 +145,10 @@ export default function UserProfile(props) {
                       </Transition.Child>
 
                       {/* This element is to trick the browser into centering the modal contents. */}
-                      <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
+                      <span
+                        className=" sm:inline-block sm:align-middle sm:h-12"
+                        aria-hidden="true"
+                      >
                         &#8203;
                       </span>
                       <Transition.Child
@@ -153,7 +160,7 @@ export default function UserProfile(props) {
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                       >
                         <Fragment>
-                          <EditProfile />
+                          <EditProfile user={user} loadUser={props.loadUser} />
                         </Fragment>
                       </Transition.Child>
                     </div>

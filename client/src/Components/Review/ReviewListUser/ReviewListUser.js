@@ -15,7 +15,6 @@ export default function ReviewsUser(props) {
   useEffect(() => {
     loadReviews();
   }, []);
-  console.log(reviewList);
   let deleteReview = (id) => {
     reviewService
       .deleteThisReview(id)
@@ -24,7 +23,6 @@ export default function ReviewsUser(props) {
       })
       .catch((err) => console.log(err));
   };
-  console.log(reviewList);
   let loadReviews = () => {
     reviewService
       .getReviewsOfThisUser(props.id)
@@ -43,7 +41,10 @@ export default function ReviewsUser(props) {
                 <div className="bg-white shadow rounded-lg sm:overflow-hidden">
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
-                      <h2 id="notes-title" className="text-lg font-medium text-gray-900">
+                      <h2
+                        id="notes-title"
+                        className="text-lg font-medium text-gray-900"
+                      >
                         Comentarios del usuario
                       </h2>
                     </div>
@@ -55,15 +56,28 @@ export default function ReviewsUser(props) {
                               <div className="flex">
                                 <div className=" ml-2">
                                   <div className="lg:col-span-2 lg:pr-8 mx-4 my-2 ">
-                                    <div className="pb-2">
-                                      Comentaste en:{" "}
-                                      <Link
-                                        to={`/products/${comment.product._id}`}
-                                        className="text-green-400 hover:text-green-500"
-                                      >
-                                        {comment.product.name}
-                                      </Link>
-                                    </div>
+                                    {comment.product !== undefined && (
+                                      <div className="pb-2">
+                                        Comentaste en:{" "}
+                                        <Link
+                                          to={`/products/${comment.product._id}`}
+                                          className="text-green-400 hover:text-green-500"
+                                        >
+                                          {comment.product.name}
+                                        </Link>
+                                      </div>
+                                    )}
+                                    {comment.seller !== undefined && (
+                                      <div className="pb-2">
+                                        Comentaste en:{" "}
+                                        <Link
+                                          to={`/products/${comment.seller._id}`}
+                                          className="text-green-400 hover:text-green-500"
+                                        >
+                                          {comment.seller.username}
+                                        </Link>
+                                      </div>
+                                    )}
                                     <div className="flex items-center">
                                       <div className="flex items-center ">
                                         {[0, 1, 2, 3, 4].map((rating) => (
@@ -87,18 +101,16 @@ export default function ReviewsUser(props) {
                                 </div>
                               </div>
                               <div className="flex place-items-end">
-                                {
-                                  (console.log(props.loggedUser._id, comment.creator._id),
-                                  props.loggedUser._id === comment.creator._id && (
-                                    <button
-                                      type="button"
-                                      onClick={() => deleteReview(comment._id)}
-                                      className="mt-4 h-6 text-sm font-sm text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
-                                    >
-                                      Borrar
-                                    </button>
-                                  ))
-                                }
+                                {props.loggedUser?._id ===
+                                  comment.creator._id && (
+                                  <button
+                                    type="button"
+                                    onClick={() => deleteReview(comment._id)}
+                                    className="mt-4 h-6 text-sm font-sm text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                                  >
+                                    Borrar
+                                  </button>
+                                )}
                               </div>
                             </div>
                           </li>

@@ -63,7 +63,10 @@ export default function SignUpSeller(props) {
         <div className="bg-white py-2 px-4 shadow rounded-lg ">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Nombre de la empresa
               </label>
               <div className="mt-1">
@@ -79,7 +82,10 @@ export default function SignUpSeller(props) {
               </div>
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Dirección de correo
               </label>
               <div className="mt-1">
@@ -95,7 +101,10 @@ export default function SignUpSeller(props) {
               </div>
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Contraseña
               </label>
               <div className="mt-1">
@@ -111,7 +120,10 @@ export default function SignUpSeller(props) {
               </div>
             </div>
             <div>
-              <label htmlFor="password2" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password2"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Comprobación de contraseña
               </label>
               <div className="mt-1">
@@ -127,7 +139,10 @@ export default function SignUpSeller(props) {
               </div>
             </div>
             <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="address"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Dirección de la empresa
               </label>
               <div className="mt-1">
@@ -143,7 +158,10 @@ export default function SignUpSeller(props) {
               </div>
             </div>
             <div>
-              <label htmlFor="type" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="type"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Tipo de comercio
               </label>
               <select
@@ -171,8 +189,8 @@ export default function SignUpSeller(props) {
             <div>
               {errSingUp && (
                 <p className="text-red-500 text-center">
-                  Error al registrar usuario compruebe que la dirección es correcta y que no empieza
-                  por C/
+                  Error al registrar usuario compruebe que la dirección es
+                  correcta y que no empieza por C/
                 </p>
               )}
             </div>
@@ -183,7 +201,9 @@ export default function SignUpSeller(props) {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">o inicia sesión</span>
+                <span className="px-2 bg-white text-gray-500">
+                  o inicia sesión
+                </span>
               </div>
             </div>
           </div>
