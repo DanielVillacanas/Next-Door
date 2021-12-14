@@ -4,6 +4,7 @@ import ProductCard from "./ProductCard";
 import SearchBar from "../SearchBar/SearchBar";
 import TypeSellerFilter from "../Filters/TypeSellerFilter";
 import { calcDistance } from "../../../util/calcDistance";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 let service = new ProductService();
 
@@ -14,13 +15,19 @@ export default function AllProducts(props) {
   let [shorts, setShort] = useState();
   let [range, setRange] = useState(0);
   let [search, setSearch] = useState("");
+  let [page, setPage] = useState(1);
+  let [length, setLength] = useState(0);
+
+  let limit = 12;
+  let numPages = Math.ceil(length / limit);
 
   let loadProducts = () => {
     service
-      .getAllProducts()
+      .getAllProducts(page, limit)
       .then((result) => {
-        setProducts((products = result.data));
-        setProductsCopy((productsCopy = result.data));
+        setProducts((products = result.data.products));
+        setProductsCopy((productsCopy = result.data.products));
+        setLength(result.data.length);
       })
       .catch((err) => console.log(err));
   };
@@ -34,6 +41,9 @@ export default function AllProducts(props) {
     loadProducts();
   }, []);
 
+  useEffect(() => {
+    loadProducts();
+  }, [page]);
   const getInfo = (searching) => {
     setSearch(searching);
   };
@@ -93,6 +103,17 @@ export default function AllProducts(props) {
     setProductsCopy(copy);
   }, [search, filters, shorts, range]);
 
+  let handleOnclickPage = (e) => {
+    setPage(parseInt(e.currentTarget.name));
+  };
+
+  let handlePrevNextPage = (e) => {
+    if ((e.currentTarget.name = "Next" && page < numPages)) {
+      setPage(page + 1);
+    } else if (page > 1) {
+      setPage(page - 1);
+    }
+  };
   return (
     <>
       <div className="bg-white">
@@ -107,6 +128,69 @@ export default function AllProducts(props) {
               </div>
             ))}
           </div>
+          <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-10">
+            <div className="flex-1 flex justify-between sm:hidden">
+              <button
+                name="Prev"
+                onClick={handlePrevNextPage}
+                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+              >
+                Previous
+              </button>
+              <button
+                name="Next"
+                onClick={handlePrevNextPage}
+                className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+              >
+                Next
+              </button>
+            </div>
+            <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm text-gray-700">
+                  <span className="font-medium"> {products.length * page}</span> -
+                  <span className="font-medium"> {length}</span>
+                </p>
+              </div>
+              <div>
+                <nav
+                  className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                  aria-label="Pagination"
+                >
+                  <button
+                    name="Prev"
+                    onClick={handlePrevNextPage}
+                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                  >
+                    <span className="sr-only">Previous</span>
+                    <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                  </button>
+                  {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
+                  {[...Array(numPages)].map((e, i) => {
+                    return (
+                      <button
+                        onClick={handleOnclickPage}
+                        name={i + 1}
+                        aria-current="page"
+                        className="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                      >
+                        {i + 1}
+                      </button>
+                    );
+                  })}
+
+                  <button
+                    name="Next"
+                    onClick={handlePrevNextPage}
+                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                  >
+                    <span className="sr-only">Next</span>
+                    <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                  </button>
+                </nav>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -116,6 +200,7 @@ export default function AllProducts(props) {
           d="M0,288L80,272C160,256,320,224,480,218.7C640,213,800,235,960,234.7C1120,235,1280,213,1360,202.7L1440,192L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
         ></path>
       </svg>
+      {/* //////////////////////////////////////////////////////////////// */}
     </>
   );
 }

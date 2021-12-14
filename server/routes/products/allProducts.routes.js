@@ -49,9 +49,16 @@ router.get("/cart/add", isLoggedIn, (req, res) => {
 });
 
 router.get("/", (req, res, next) => {
+  const { page } = req.query;
+  const { limit } = req.query;
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  console.log(page, limit);
   Product.find()
     .populate("owner")
-    .then((response) => res.json(response))
+    .then((response) => {
+      return res.json({ products: response.slice(startIndex, endIndex), length: response.length });
+    })
     .catch((err) => console.log(err));
 });
 

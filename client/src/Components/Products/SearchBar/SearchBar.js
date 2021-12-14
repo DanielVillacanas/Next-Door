@@ -11,6 +11,7 @@ export default function SearchBar(props) {
           type="text"
           name="search"
           id="search"
+          placeholder="Buscar..."
           onChange={(e) => handleSearchChange(e)}
           className="p-6 h-12 shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-green-300 rounded-md"
         />

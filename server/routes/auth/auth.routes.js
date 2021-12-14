@@ -96,6 +96,7 @@ router.post("/login", (req, res) => {
           ? ((req.session.currentUser = user), res.json({ user: user, type: "user" }))
           : res.status(500).send("Error contraseña incorrecta!");
       } else {
+        console.log("Seller");
         Seller.findOne({ email }).then((seller) => {
           seller
             ? bcrypt.compareSync(password, seller.password) //Validate password

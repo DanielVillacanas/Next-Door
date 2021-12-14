@@ -7,7 +7,7 @@ class ProductService {
       withCredentials: true,
     });
   }
-  getAllProducts = () => this.app.get("/");
+  getAllProducts = (page, limit) => this.app.get(`/?page=${page}&limit=${limit}`);
   getOneProduct = (id) => this.app.get(`/details/${id}`);
   addProductCart = (id, quantity) => this.app.get(`/cart/add?id=${id}&quantity=${quantity}`);
   getCartProducts = () => this.app.get("/cart/all");

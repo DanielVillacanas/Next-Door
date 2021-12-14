@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { isLoggedIn } = require("../../middlewares/isloggedIn");
 const Product = require("../../models/Product.model");
 const Seller = require("../../models/Seller.model");
+const bcrypt = require("bcrypt");
 
 const { APIMapBox } = require("../../services/APImapBox/mapBoxSerivces");
 let mapAPI = new APIMapBox();
@@ -43,6 +44,10 @@ router.put("/deleteProductFromSeller/:id", isLoggedIn, (req, res) => {
 router.post("/edit", isLoggedIn, (req, res) => {
   let { username, email, password, description, address, img_url } = req.body;
 
+  const bcryptSalt = 10;
+  const salt = bcrypt.genSaltSync(bcryptSalt);
+  const hashPass = bcrypt.hashSync(password, salt);
+
   let map_img = "";
   let coordinates = [];
   mapAPI
@@ -59,7 +64,7 @@ router.post("/edit", isLoggedIn, (req, res) => {
         {
           username,
           email,
-          password,
+          password: hashPass,
           description,
           address,
           img_url,

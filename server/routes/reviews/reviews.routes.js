@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Router } = require("express");
 const { isLoggedIn } = require("../../middlewares/isloggedIn");
+const Comment = require("../../models/Comment.model");
 const Review = require("../../models/Review.model");
 
 router.post("/create-new-review", isLoggedIn, (req, res, next) => {
@@ -28,10 +29,26 @@ router.get("/", (req, res) => {
   if (type === "product") {
     Review.find({ product: id })
       .populate("creator")
+      .populate({
+        path: "comments",
+        populate: { path: "creatorUser" },
+      })
+      .populate({
+        path: "comments",
+        populate: { path: "creatorSeller" },
+      })
       .then((response) => res.json(response));
   } else if (type === "seller") {
     Review.find({ seller: id })
       .populate("creator")
+      .populate({
+        path: "comments",
+        populate: { path: "creatorUser" },
+      })
+      .populate({
+        path: "comments",
+        populate: { path: "creatorSeller" },
+      })
       .then((response) => res.json(response));
   }
 });
@@ -43,6 +60,31 @@ router.get("/user/:id", (req, res) => {
     .populate("seller")
     .populate("creator")
     .then((response) => res.json(response));
+});
+
+router.post("/create-new-comment", (req, res) => {
+  let { creator, description, review } = req.body;
+  let creatorUser = undefined;
+  let creatorSeller = undefined;
+
+  if (req.session.currentUser.role === "User") {
+    console.log("USER");
+    creatorUser = req.session.currentUser._id;
+  } else {
+    console.log("SELLER");
+    creatorSeller = req.session.currentUser._id;
+  }
+
+  let comment = "";
+  console.log(req.body);
+  Comment.create({ creatorUser, creatorSeller, description, review })
+    .then((response) => {
+      console.log(response);
+      comment = response;
+      return Review.findByIdAndUpdate(review, { $push: { comments: response._id } }, { new: true });
+    })
+    .then((resp) => res.json({ comment: comment, review: resp }))
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;

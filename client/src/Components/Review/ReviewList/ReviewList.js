@@ -4,6 +4,7 @@ import UserContext from "../../../Context/UserContext/UserContext";
 import { StarIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { Options } from "../../../Const/Const";
+import Comment from "../Comment/Comment";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -19,7 +20,7 @@ export default function Reviews(props) {
     seller: props.SellerId,
   });
   const [reviewList, setReviewList] = useState([]);
-
+  const [newComment, setnewComment] = useState(undefined);
   const radioButtons = useRef();
 
   let id = "";
@@ -89,6 +90,10 @@ export default function Reviews(props) {
         setReviewList(result.data);
       })
       .catch((err) => console.log(err));
+  };
+
+  let commentReview = (id) => {
+    id !== newComment ? setnewComment(id) : setnewComment(undefined);
   };
 
   return (
@@ -174,62 +179,123 @@ export default function Reviews(props) {
                     <div className="px-4 py-6 sm:px-6">
                       <ul className="space-y-8">
                         {reviewList.map((comment) => (
-                          <li key={comment.id}>
-                            <div className="flex space-x-3 justify-between">
-                              <div className="flex">
-                                <div className="flex-shrink-0">
-                                  <img
-                                    className="h-10 w-10 rounded-full"
-                                    src={comment.creator.img_url}
-                                    alt=""
-                                  />
-                                </div>
-
-                                <div className=" ml-2">
-                                  <div className="text-sm mx-2">
-                                    <Link
-                                      to={`/user/${comment.creator._id}`}
-                                      className="font-medium text-gray-900"
-                                    >
-                                      {comment.creator.username}
-                                    </Link>
+                          <>
+                            <li key={comment.id}>
+                              <div className="flex space-x-3 justify-between">
+                                <div className="flex">
+                                  <div className="flex-shrink-0">
+                                    <img
+                                      className="h-10 w-10 rounded-full"
+                                      src={comment.creator.img_url}
+                                      alt=""
+                                    />
                                   </div>
-                                  <div className="lg:col-span-2 lg:pr-8 mx-4 mt-2 ">
-                                    <div className="flex items-center">
-                                      <div className="flex items-center ">
-                                        {[0, 1, 2, 3, 4].map((rating) => (
-                                          <StarIcon
-                                            key={rating}
-                                            className={classNames(
-                                              comment.rating > rating
-                                                ? "text-green-500"
-                                                : "text-gray-200",
-                                              "h-5 w-5 flex-shrink-0"
-                                            )}
-                                            aria-hidden="true"
-                                          />
-                                        ))}
+
+                                  <div className=" ml-2">
+                                    <div className="text-sm mx-2">
+                                      <Link
+                                        to={`/user/${comment.creator._id}`}
+                                        className="font-medium text-gray-900"
+                                      >
+                                        {comment.creator.username}
+                                      </Link>
+                                    </div>
+                                    <div className="lg:col-span-2 lg:pr-8 mx-4 mt-2 ">
+                                      <div className="flex items-center">
+                                        <div className="flex items-center ">
+                                          {[0, 1, 2, 3, 4].map((rating) => (
+                                            <StarIcon
+                                              key={rating}
+                                              className={classNames(
+                                                comment.rating > rating
+                                                  ? "text-green-500"
+                                                  : "text-gray-200",
+                                                "h-5 w-5 flex-shrink-0"
+                                              )}
+                                              aria-hidden="true"
+                                            />
+                                          ))}
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                  <div className="mt-1 mx-5 text-sm text-gray-700">
-                                    <p>{comment.description}</p>
+                                    <div className="mt-1 mx-5 text-sm text-gray-700">
+                                      <p>{comment.description}</p>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="flex place-items-end">
-                                {loggedUser?._id === comment.creator._id && (
+                                <div className="flex place-items-end">
+                                  {loggedUser?._id === comment.creator._id && (
+                                    <button
+                                      type="button"
+                                      onClick={() => deleteReview(comment._id)}
+                                      className="mt-4 h-6 text-sm font-sm text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                                    >
+                                      Borrar
+                                    </button>
+                                  )}
+                                </div>
+                                <div className="flex place-items-end">
                                   <button
                                     type="button"
-                                    onClick={() => deleteReview(comment._id)}
+                                    onClick={() => commentReview(comment._id)}
                                     className="mt-4 h-6 text-sm font-sm text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
                                   >
-                                    Borrar
+                                    Responder
                                   </button>
-                                )}
+                                </div>
                               </div>
-                            </div>
-                          </li>
+                              {newComment === comment._id && (
+                                <Comment
+                                  loadReviews={loadReviews}
+                                  user={loggedUser}
+                                  review={comment._id}
+                                />
+                              )}
+                            </li>
+                            <ul>
+                              {comment.comments.map((elm) => {
+                                return (
+                                  <li>
+                                    <div className="ml-10 mb-10 flex space-x-3 justify-between">
+                                      <div className="flex">
+                                        <div className="flex-shrink-0">
+                                          <img
+                                            className="h-10 w-10 rounded-full"
+                                            src={
+                                              elm.creatorUser != null
+                                                ? elm.creatorUser?.img_url
+                                                : elm.creatorSeller?.img_url
+                                            }
+                                            alt=""
+                                          />
+                                        </div>
+
+                                        <div className=" ml-2">
+                                          <div className="text-sm mx-2">
+                                            <Link
+                                              to={
+                                                elm.creatorUser != null
+                                                  ? `/user/${elm.creatorUser?._id}`
+                                                  : `/seller/${elm.creatorSeller?._id}`
+                                              }
+                                              className="font-medium text-gray-900"
+                                            >
+                                              {elm.creatorUser != null
+                                                ? elm.creatorUser?.username
+                                                : elm.creatorSeller?.username}
+                                            </Link>
+                                          </div>
+                                          <div className="mt-1 mx-5 text-sm text-gray-700">
+                                            <p>{elm.description}</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </>
                         ))}
                       </ul>
                     </div>
