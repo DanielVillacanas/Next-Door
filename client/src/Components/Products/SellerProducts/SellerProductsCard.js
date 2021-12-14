@@ -17,7 +17,7 @@ function SellerProductsCard(props) {
   let product = props.product;
   let id = props.product?._id;
 
-  let { loggedUser } = useContext(UserContext);
+  let loggedUser = useContext(UserContext);
 
   let eliminatePoduct = () => {
     setOpen(false);
@@ -37,6 +37,7 @@ function SellerProductsCard(props) {
           <img
             src={product.img_url}
             className="group w-full h-80 object-center object-cover bg-white "
+            alt="Product"
           />
         </div>
         <div className="bg-white p-4">
@@ -51,7 +52,7 @@ function SellerProductsCard(props) {
                 Product Details
               </button>
             </Link>
-            {loggedUser?.loggedUser !== null && loggedUser?.loggedUser?._id === props?.id && (
+            {loggedUser !== null && loggedUser?._id === props?.id && (
               <button
                 type="button"
                 onClick={openModal}

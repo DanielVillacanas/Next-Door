@@ -4,7 +4,6 @@ import EditProfile from "./EditProfile";
 import ReviewListUser from "../../Review/ReviewListUser/ReviewListUser";
 import ReviewService from "../../../Services/ReviewService/reviews.service";
 import UserService from "../../../Services/UserSerivces/UserSerivces";
-import { UserAddIcon } from "@heroicons/react/solid";
 
 let reviewService = new ReviewService();
 let userService = new UserService();
@@ -18,15 +17,15 @@ export default function UserProfile(props) {
   const [owner, setOwner] = useState();
   const [reviewList, setReviewList] = useState([]);
 
+  props.location.search = "";
+
   useEffect(() => {
-    console.log("Entra");
     loadOwner();
     setOwnerProfie(props.match.params.id);
     loadReviews();
   }, []);
 
   useEffect(() => {
-    console.log("Entra");
     setOwnerProfie(props.match.params.id);
     loadOwner();
     loadReviews();
@@ -76,7 +75,7 @@ export default function UserProfile(props) {
             <div className="flex lg:justify-between justify-center mt-8 ">
               <div className="font-medium text-lg lg:text-start text-center lg:text-left ">
                 <h3 className="text-white">
-                  Nombre de Usuario: <h3>{owner?.username}</h3>{" "}
+                  Nombre de Usuario: <p>{owner?.username}</p>
                 </h3>
                 <div className="text-white text-sm my-2">
                   Email:
@@ -179,7 +178,7 @@ export default function UserProfile(props) {
             </div>
           </div>
           {user?._id === ownerProfile && (
-            <img src={owner?.map_img} className="mx-auto rounded-lg"></img>
+            <img src={owner?.map_img} className="mx-auto rounded-lg" alt=""></img>
           )}
         </div>
         {showReviews ? (

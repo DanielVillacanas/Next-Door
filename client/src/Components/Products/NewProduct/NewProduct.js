@@ -14,15 +14,14 @@ export default function NewProduct(props) {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-
     sellerService
-      .createProduct(
-        product.name,
-        product.price,
-        product.description,
-        product.img_url,
-        product.owner
-      )
+      .createProduct({
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        img_url: product.img_url,
+        owner: product.owner,
+      })
       .then((response) => {
         props.refreshProducts();
         props.close();

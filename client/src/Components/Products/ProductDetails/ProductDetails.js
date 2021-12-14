@@ -77,6 +77,7 @@ export default function ProductsDetails(props) {
             <img
               src={product?.img_url}
               className="px-4 w-full lg:h-full h-72 object-center lg:mx-0 lg:px-0 lg:object-cover object-contain mb-6 lg:mb-0 rounded-lg "
+              alt="Product"
             />
           </div>
           <div className="lg:col-span-2 lg:pr-8 mx-8 lg:mx-4">

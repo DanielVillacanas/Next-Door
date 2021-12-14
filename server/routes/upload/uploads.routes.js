@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const uploader = require("../../config/cloudinary.config");
+const { isLoggedIn } = require("../../middlewares/isloggedIn");
 
 router.post("/image", uploader.single("imageData"), (req, res) => {
   console.log(req.file);

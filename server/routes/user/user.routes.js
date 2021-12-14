@@ -3,8 +3,9 @@ const router = require("express").Router();
 const { APIMapBox } = require("../../services/APImapBox/mapBoxSerivces");
 const mapAPI = new APIMapBox();
 const bcrypt = require("bcrypt");
+const { isLoggedIn } = require("../../middlewares/isloggedIn");
 
-router.post("/edit", (req, res) => {
+router.post("/edit", isLoggedIn, (req, res) => {
   let { username, email, password, address, img_url } = req.body;
 
   let map_img = "";

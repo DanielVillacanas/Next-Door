@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const { Router } = require("express");
+const { isLoggedIn } = require("../../middlewares/isloggedIn");
 const Review = require("../../models/Review.model");
 
-router.post("/create-new-review", (req, res, next) => {
+router.post("/create-new-review", isLoggedIn, (req, res, next) => {
   const id = req.session.currentUser._id;
   const data = {
     creator: id,
@@ -16,7 +17,7 @@ router.post("/create-new-review", (req, res, next) => {
   });
 });
 
-router.delete("/remove/:id", (req, res) => {
+router.delete("/remove/:id", isLoggedIn, (req, res) => {
   const { id } = req.params;
   Review.findByIdAndDelete(id).then((response) => res.json(response));
 });

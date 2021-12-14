@@ -1,14 +1,16 @@
 const router = require("express").Router();
+const { isLoggedIn } = require("../../middlewares/isloggedIn");
 const Product = require("../../models/Product.model");
 const Seller = require("../../models/Seller.model");
 
 const { APIMapBox } = require("../../services/APImapBox/mapBoxSerivces");
 let mapAPI = new APIMapBox();
 
-router.post("/create-new-product", (req, res) => {
+router.post("/create-new-product", isLoggedIn, (req, res) => {
   const id = req.session.currentUser._id;
   const { name, price, description, img_url, owner } = req.body;
-  Product.create(name, price, description, img_url, owner).then((response) => {
+
+  Product.create({ name, price, description, img_url, owner }).then((response) => {
     Seller.findByIdAndUpdate(
       id,
       {
@@ -21,28 +23,24 @@ router.post("/create-new-product", (req, res) => {
   });
 });
 
-router.get("/deleteProduct/:id", (req, res) => {
+router.get("/deleteProduct/:id", isLoggedIn, (req, res) => {
   const { id } = req.params;
   Product.findByIdAndRemove(id)
     .then((response) => res.json(response))
     .catch((err) => console.log(err));
 });
 
-router.put("/deleteProductFromSeller/:id", (req, res) => {
+router.put("/deleteProductFromSeller/:id", isLoggedIn, (req, res) => {
   const { id } = req.params;
   const seller_id = req.session.currentUser._id;
 
-  Seller.findByIdAndUpdate(
-    seller_id,
-    { $pull: { products: id } },
-    { new: true }
-  )
+  Seller.findByIdAndUpdate(seller_id, { $pull: { products: id } }, { new: true })
     .populate("products")
     .then((response) => res.json(response))
     .catch((err) => console.log(err));
 });
 
-router.post("/edit", (req, res) => {
+router.post("/edit", isLoggedIn, (req, res) => {
   let { username, email, password, description, address, img_url } = req.body;
 
   let map_img = "";
