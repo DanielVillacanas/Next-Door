@@ -202,7 +202,7 @@ export default function EditSellerProfile(props) {
                 )}
                 {seller.img_url && (
                   <img
-                    className="object-center object-cover w-32 h-32 text-gray-400 group-hover:text-gray-600"
+                    className="object-center object-cover w-32 h-32 text-gray-400 group-hover:text-gray-600 rounded-full"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

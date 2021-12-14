@@ -59,11 +59,16 @@ export default function EditProfile(props) {
 
   return (
     <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-      <p className="text-center font-semibold text-lg text-green-800">Editar perfil</p>
+      <p className="text-center font-semibold text-lg text-green-800">
+        Editar perfil
+      </p>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Nombre de usuario
             </label>
             <div className="mt-1">
@@ -79,7 +84,10 @@ export default function EditProfile(props) {
             </div>
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Dirección de correo
             </label>
             <div className="mt-1">
@@ -95,7 +103,10 @@ export default function EditProfile(props) {
             </div>
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Contraseña
             </label>
             <div className="mt-1">
@@ -111,7 +122,10 @@ export default function EditProfile(props) {
             </div>
           </div>
           <div>
-            <label htmlFor="password2" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password2"
+              className="block text-sm font-medium text-gray-700"
+            >
               Comprobación de contraseña
             </label>
             <div className="mt-1">
@@ -128,7 +142,10 @@ export default function EditProfile(props) {
             </div>
           </div>
           <div>
-            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="address"
+              className="block text-sm font-medium text-gray-700"
+            >
               Dirección de envio
             </label>
             <div className="mt-1">
@@ -148,7 +165,9 @@ export default function EditProfile(props) {
               <div className="m-4">
                 {!user.img_url && (
                   <>
-                    <label className="inline-block mb-2 text-gray-500">New Photo</label>
+                    <label className="inline-block mb-2 text-gray-500">
+                      New Photo
+                    </label>
                     <div className="flex items-center justify-center w-full">
                       <label className="flex flex-col w-full h-32 border-4 border-green-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
                         <div className="flex flex-col items-center justify-center">
@@ -184,7 +203,7 @@ export default function EditProfile(props) {
                 )}
                 {user.img_url && (
                   <img
-                    className="object-center object-cover w-32 h-32 text-gray-400 group-hover:text-gray-600"
+                    className="object-center object-cover w-32 h-32 text-gray-400 group-hover:text-gray-600 rounded-full"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

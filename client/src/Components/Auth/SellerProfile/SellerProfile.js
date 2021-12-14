@@ -5,6 +5,7 @@ import SellerService from "../../../Services/SellerServices/seller.service";
 import ReviewList from "../../Review/ReviewList/ReviewList";
 import ReviewService from "../../../Services/ReviewService/reviews.service";
 import EditSellerProfile from "./EditSellerProfile";
+import Chat from "../Chat/Chat";
 
 let service = new SellerService();
 let reviewService = new ReviewService();
@@ -17,9 +18,9 @@ export default function SellerProfile(props) {
   const [ownerProfile, setOwnerProfie] = useState(id);
   const [reviewList, setReviewList] = useState([]);
   const [showProduts, setshowProduts] = useState(false);
+  const [showChat, setshowChat] = useState(false);
   const [showReviews, setshowReviews] = useState(false);
 
-  console.log(props);
   useEffect(() => {
     if (!seller) {
       loadSeller();
@@ -45,6 +46,10 @@ export default function SellerProfile(props) {
     setOpen(false);
   };
 
+  let openChat = () => {
+    setshowChat(true);
+  };
+
   let loadSeller = () => {
     service.getSeller(id).then((result) => {
       setSeller(result.data);
@@ -59,7 +64,6 @@ export default function SellerProfile(props) {
       })
       .catch((err) => console.log(err));
   };
-
   return (
     <div className="bg-gray-900 pb-80">
       <div className="lg:flex lg:justify-between mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24 ">
@@ -85,6 +89,16 @@ export default function SellerProfile(props) {
                     Editar perfil
                   </button>
                 )}
+                {user?.role === "User" && (
+                  <button
+                    type="button"
+                    onClick={openChat}
+                    className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                  >
+                    Empezar conversación
+                  </button>
+                )}
+                {showChat && <Chat user={user} id={id} />}
                 {(showProduts || showReviews) === false && (
                   <>
                     <div className="flex lg:block">

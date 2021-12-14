@@ -70,7 +70,6 @@ router.post("/edit", isLoggedIn, (req, res) => {
       );
     })
     .then((response) => {
-      console.log(response);
       req.session.currentUser = response;
       return res.json(response);
     });
