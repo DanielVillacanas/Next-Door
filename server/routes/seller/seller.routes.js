@@ -43,7 +43,8 @@ router.put("/deleteProductFromSeller/:id", (req, res) => {
 });
 
 router.post("/edit", (req, res) => {
-  let { username, email, password, description, address, img_url } = req.body;
+  let { username, email, password, description, address, img_url } =
+    req.body.data;
 
   let map_img = "";
   let coordinates = [];
@@ -72,7 +73,6 @@ router.post("/edit", (req, res) => {
       );
     })
     .then((response) => {
-      console.log(response);
       req.session.currentUser = response;
       return res.json(response);
     });
