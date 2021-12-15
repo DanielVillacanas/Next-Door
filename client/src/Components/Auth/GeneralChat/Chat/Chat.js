@@ -100,6 +100,7 @@ function Chat(props) {
   };
   useEffect(() => {
     loadConversations();
+    currentChat && loadMessages(currentChat);
   }, []);
   // useEffect(() => {
   //   currentChat && loadMessages(currentChat);
@@ -107,7 +108,6 @@ function Chat(props) {
   useEffect(() => {
     socket.current = io("ws://localhost:5000");
     let room = currentChat?._id;
-    console.log(room);
     socket.current.on(`sentToFront${room}`, (data) => {
       setArrivalMessage({
         text: data.text,

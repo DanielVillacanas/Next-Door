@@ -72,8 +72,12 @@ function App() {
                 exact
                 render={() => (
                   <div>
-                    <NavBar loadUser={loadUser} loggedUser={loggedUser} type={type} />
-                    <Home />
+                    <NavBar
+                      loadUser={loadUser}
+                      loggedUser={loggedUser}
+                      type={type}
+                    />
+                    <Home loggedUser={loggedUser} />
                     <Footer loggedUser={loggedUser} />
                   </div>
                 )}
@@ -171,7 +175,11 @@ function App() {
                       type={type}
                       {...props}
                     />
-                    <UserProfile {...props} loggedUser={loggedUser} loadUser={loadUser} />
+                    <UserProfile
+                      {...props}
+                      loggedUser={loggedUser}
+                      loadUser={loadUser}
+                    />
                   </div>
                 )}
               />
@@ -180,24 +188,39 @@ function App() {
                 exact
                 render={(props) => (
                   <div>
-                    <NavBar loadUser={loadUser} loggedUser={loggedUser} type={type} />
+                    <NavBar
+                      loadUser={loadUser}
+                      loggedUser={loggedUser}
+                      type={type}
+                    />
                     <ProductDetails {...props} loadUser={loadUser} />
                   </div>
                 )}
               />
-              <Route path="/signUp" render={(props) => <SignUp {...props} loadUser={loadUser} />} />
+              <Route
+                path="/signUp"
+                render={(props) => <SignUp {...props} loadUser={loadUser} />}
+              />
               <Route
                 path="/logOut"
                 render={() => (
                   <div>
-                    <NavBar loadUser={loadUser} loggedUser={loggedUser} type={type} />
+                    <NavBar
+                      loadUser={loadUser}
+                      loggedUser={loggedUser}
+                      type={type}
+                    />
                   </div>
                 )}
               />
               <Route
                 path="/login"
                 render={(props) => (
-                  <Login {...props} loadUser={loadUser} setTypeBussines={setTypeBussines} />
+                  <Login
+                    {...props}
+                    loadUser={loadUser}
+                    setTypeBussines={setTypeBussines}
+                  />
                 )}
               />
             </Switch>

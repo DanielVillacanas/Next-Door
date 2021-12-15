@@ -55,7 +55,12 @@ export default function Reviews(props) {
     e.preventDefault();
 
     reviewService
-      .createReview(review.description, review.rating, review.product, review.seller)
+      .createReview(
+        review.description,
+        review.rating,
+        review.product,
+        review.seller
+      )
       .then((response) => {
         loadReviews();
         if (props.ProductId) {
@@ -109,11 +114,17 @@ export default function Reviews(props) {
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
                       {id !== props.ProductId ? (
-                        <h2 id="notes-title" className="text-lg font-medium text-gray-900">
+                        <h2
+                          id="notes-title"
+                          className="text-lg font-medium text-gray-900"
+                        >
                           Comentarios del vendedor
                         </h2>
                       ) : (
-                        <h2 id="notes-title" className="text-lg font-medium text-gray-900">
+                        <h2
+                          id="notes-title"
+                          className="text-lg font-medium text-gray-900"
+                        >
                           Comentarios del producto
                         </h2>
                       )}
@@ -145,7 +156,10 @@ export default function Reviews(props) {
                                 <h3 className="ml-5 mt-4">Deja tu nota</h3>
                                 <div className="py-1 flex grid grid-cols-5">
                                   {Options.map((option, i) => (
-                                    <div key={i + 1} className="flex items-center px-4 py-2 ml-6">
+                                    <div
+                                      key={i + 1}
+                                      className="flex items-center px-4 py-2 ml-6"
+                                    >
                                       <input
                                         onChange={handleInputChange}
                                         id={i + 1}
@@ -202,7 +216,7 @@ export default function Reviews(props) {
                                         {comment.creator.username}
                                       </Link>
                                     </div>
-                                    <div className="lg:col-span-2 lg:pr-8 mx-4 mt-2 ">
+                                    <div className="lg:col-span-2 lg:pr-8 mx-2 mt-2 ">
                                       <div className="flex items-center">
                                         <div className="flex items-center ">
                                           {[0, 1, 2, 3, 4].map((rating) => (
@@ -220,30 +234,37 @@ export default function Reviews(props) {
                                         </div>
                                       </div>
                                     </div>
-                                    <div className="mt-1 mx-5 text-sm text-gray-700">
-                                      <p className="max-w-xl break-all">{comment.description}</p>
+                                    <div className="mt-1 mx-3 text-sm text-gray-700">
+                                      <p className="max-w-xl break-all">
+                                        {comment.description}
+                                      </p>
                                     </div>
                                   </div>
                                 </div>
-                                <div className="flex place-items-end">
-                                  {loggedUser?._id === comment.creator._id && (
+                                <div className="flex">
+                                  <div className="flex place-items-end mr-2">
                                     <button
                                       type="button"
-                                      onClick={() => deleteReview(comment._id)}
-                                      className="mt-4 h-6 text-sm font-sm text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                                      onClick={() => commentReview(comment._id)}
+                                      className="mt-4 h-6 text-sm font-sm text-gray-500 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
                                     >
-                                      Borrar
+                                      Responder
                                     </button>
-                                  )}
-                                </div>
-                                <div className="flex place-items-end">
-                                  <button
-                                    type="button"
-                                    onClick={() => commentReview(comment._id)}
-                                    className="mt-4 h-6 text-sm font-sm text-gray-300 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
-                                  >
-                                    Responder
-                                  </button>
+                                  </div>
+                                  <div className="flex place-items-end ml-4">
+                                    {loggedUser?._id ===
+                                      comment.creator._id && (
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          deleteReview(comment._id)
+                                        }
+                                        className="mt-4 h-6  text-sm font-sm text-gray-500 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                                      >
+                                        Borrar
+                                      </button>
+                                    )}
+                                  </div>
                                 </div>
                               </div>
                               {newComment === comment._id && (
@@ -254,7 +275,9 @@ export default function Reviews(props) {
                                 />
                               )}
                             </li>
-                            <CommentList comment={comment} />
+                            {comment.comments.length > 0 && (
+                              <CommentList comment={comment} />
+                            )}
                           </>
                         ))}
                       </ul>

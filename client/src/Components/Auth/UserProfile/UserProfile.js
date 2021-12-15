@@ -63,11 +63,11 @@ export default function UserProfile(props) {
   };
   return (
     <>
-      <div className="bg-gray-900 pb-80">
+      <div className="bg-gray-900 lg:pb-80">
         <div className="lg:flex lg:justify-between mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24 ">
           <div className="lg:flex lg:justify-between my-auto ">
             <img
-              className="h-40 mx-auto lg:mx-0 w-40 rounded-full xl:w-56 xl:h-56 lg:mr-20 my-auto"
+              className="h-40 mx-auto lg:mx-0 w-40 rounded-full xl:w-56 xl:h-56 lg:mr-20 my-auto border border-white p-2"
               src={owner?.img_url}
               alt="User"
             />

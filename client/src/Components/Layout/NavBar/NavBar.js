@@ -42,7 +42,8 @@ export default function NavBar(props) {
   };
 
   useEffect(() => {
-    props.loggedUser != null && setcartLength(props.loggedUser?.productsCart?.length);
+    props.loggedUser != null &&
+      setcartLength(props.loggedUser?.productsCart?.length);
   });
 
   return (
@@ -54,7 +55,6 @@ export default function NavBar(props) {
               <div className="flex">
                 <div className="-ml-2 mr-2 flex items-center md:hidden">
                   <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                    <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XIcon className="block h-6 w-6" aria-hidden="true" />
                     ) : (
@@ -63,16 +63,13 @@ export default function NavBar(props) {
                   </Disclosure.Button>
                 </div>
                 <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                    alt="Workflow"
-                  />
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                    alt="Workflow"
-                  />
+                  <Link to={"/"}>
+                    <img
+                      className="hidden lg:block h-8 w-auto"
+                      src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                      alt="Workflow"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
                   {navigation.map((item) => (
@@ -117,7 +114,10 @@ export default function NavBar(props) {
                     onClick={openModal}
                     className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
                   >
-                    <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                    <PlusSmIcon
+                      className="-ml-1 mr-2 h-5 w-5"
+                      aria-hidden="true"
+                    />
                     <span>Nuevo Producto</span>
                   </button>
                 )}
@@ -127,7 +127,9 @@ export default function NavBar(props) {
                       <span className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
                         Cesta :
                         <div className="container ml-2 rounded-full bg-green-600 text-white w-6 h-6 text-center">
-                          <div className="mx-auto h-full my-auto mt-0.5">{cartLength}</div>
+                          <div className="mx-auto h-full my-auto mt-0.5">
+                            {cartLength}
+                          </div>
                         </div>
                       </span>
                     </button>
@@ -152,8 +154,10 @@ export default function NavBar(props) {
                         <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                       </Transition.Child>
 
-                      {/* This element is to trick the browser into centering the modal contents. */}
-                      <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
+                      <span
+                        className=" sm:inline-block sm:align-middle sm:h-12"
+                        aria-hidden="true"
+                      >
                         &#8203;
                       </span>
                       <Transition.Child
@@ -181,8 +185,11 @@ export default function NavBar(props) {
                     <Menu as="div" className="ml-3 relative">
                       <div>
                         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                          <span className="sr-only">Open user menu</span>
-                          <img className="h-8 w-8 rounded-full" src={logged.img_url} alt="" />
+                          <img
+                            className="h-8 w-8 rounded-full"
+                            src={logged.img_url}
+                            alt=""
+                          />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -217,7 +224,7 @@ export default function NavBar(props) {
                                       "block px-4 py-2 text-sm text-gray-700"
                                     )}
                                   >
-                                    Your Profile
+                                    Tu perfil
                                   </Link>
                                 )}
                               </>
@@ -233,7 +240,7 @@ export default function NavBar(props) {
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                Sign out
+                                Cerrar sesión
                               </Link>
                             )}
                           </Menu.Item>
@@ -284,11 +291,19 @@ export default function NavBar(props) {
               <div className="pt-4 pb-3 border-t border-gray-700">
                 <div className="flex items-center px-5 sm:px-6">
                   <div className="flex-shrink-0">
-                    <img className="h-10 w-10 rounded-full" src={logged.img_url} alt="" />
+                    <img
+                      className="h-10 w-10 rounded-full"
+                      src={logged.img_url}
+                      alt=""
+                    />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium text-white">{logged.username}</div>
-                    <div className="text-sm font-medium text-gray-400">{logged.email}</div>
+                    <div className="text-base font-medium text-white">
+                      {logged.username}
+                    </div>
+                    <div className="text-sm font-medium text-gray-400">
+                      {logged.email}
+                    </div>
                   </div>
                 </div>
                 <div className="mt-3 px-2 space-y-1 sm:px-3">
