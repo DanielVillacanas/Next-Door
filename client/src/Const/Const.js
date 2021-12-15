@@ -1,6 +1,6 @@
 export const navigation = [
-  { name: "Home Page", href: "/", current: false },
-  { name: "All products", href: "/products", current: false },
+  { name: "Inicio", href: "/", current: false },
+  { name: "Productos", href: "/products", current: false },
 ];
 
 export const notLogged = [

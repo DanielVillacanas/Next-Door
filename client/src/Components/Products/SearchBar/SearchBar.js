@@ -6,7 +6,7 @@ export default function SearchBar(props) {
 
   return (
     <div>
-      <div className=" mt-16 mb-8 mx-12 relative flex items-center border-2 border-green-300 rounded-lg">
+      <div className=" mt-20 mb-8 mx-12 relative flex items-center border-2 border-green-300 rounded-lg">
         <input
           type="text"
           name="search"

@@ -68,11 +68,11 @@ export default function SellerProfile(props) {
       .catch((err) => console.log(err));
   };
   return (
-    <div className="bg-gray-900 pb-80">
+    <div className="bg-gray-900 lg:pb-80">
       <div className="lg:flex lg:justify-between mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-24 ">
         <div className="lg:flex lg:justify-between my-auto">
           <img
-            className="h-40 mx-auto lg:my-auto lg:mx-0 w-40 rounded-full xl:w-56 xl:h-56 lg:mr-20"
+            className="h-40 mx-auto lg:my-auto lg:mx-0 w-40 rounded-full xl:w-56 xl:h-56 lg:mr-20  border border-white p-2"
             src={seller?.img_url}
             alt="User"
           />
@@ -80,8 +80,12 @@ export default function SellerProfile(props) {
             <div className="font-medium text-lg text-center lg:text-left lg:pr-4">
               <h3 className="text-white">{seller?.username}</h3>
               <div className="text-green-300 text-sm my-2">{seller?.email}</div>
-              <div className="text-green-300 text-sm my-2 max-w-xs ">{seller?.address}</div>
-              <div className="text-white text-sm my-2 ">{seller?.description}</div>
+              <div className="text-green-300 text-sm my-2 max-w-xs ">
+                {seller?.address}
+              </div>
+              <div className="text-white text-sm my-2 ">
+                {seller?.description}
+              </div>
               <div>
                 {user?._id === ownerProfile ? (
                   <>
@@ -92,12 +96,14 @@ export default function SellerProfile(props) {
                     >
                       Editar perfil
                     </button>
-                    <Link
-                      to={"/chat"}
-                      className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
-                    >
-                      Ver tus chats
-                    </Link>
+                    <div className="flexlg:block">
+                      <Link
+                        to={"/chat"}
+                        className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                      >
+                        Ver tus chats
+                      </Link>
+                    </div>
                   </>
                 ) : (
                   <Link
@@ -136,7 +142,7 @@ export default function SellerProfile(props) {
                       <button
                         type="button"
                         onClick={renderReviews}
-                        className="mx-auto mb-10 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                        className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
                       >
                         Mostrar comentarios
                       </button>
@@ -165,7 +171,11 @@ export default function SellerProfile(props) {
           </div>
         </div>
         <Transition.Root show={isOpen} as={Fragment}>
-          <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto " onClose={setOpen}>
+          <Dialog
+            as="div"
+            className="fixed z-10 inset-0 overflow-y-auto "
+            onClose={setOpen}
+          >
             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
               <Transition.Child
                 as={Fragment}
@@ -180,7 +190,10 @@ export default function SellerProfile(props) {
               </Transition.Child>
 
               {/* This element is to trick the browser into centering the modal contents. */}
-              <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
+              <span
+                className=" sm:inline-block sm:align-middle sm:h-12"
+                aria-hidden="true"
+              >
                 &#8203;
               </span>
               <Transition.Child
@@ -203,7 +216,11 @@ export default function SellerProfile(props) {
           </Dialog>
         </Transition.Root>
 
-        <img src={seller?.map_img} className="mx-auto rounded-lg" alt="map"></img>
+        <img
+          src={seller?.map_img}
+          className="mx-auto rounded-lg"
+          alt="map"
+        ></img>
       </div>
       {showProduts && <SellerProducts products={seller?.products} id={id} />}
       {showReviews && <ReviewList SellerId={id} />}

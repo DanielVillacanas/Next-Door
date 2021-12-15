@@ -7,13 +7,17 @@ export default function CommentList(props) {
   const [viewComments, setViewComments] = useState(false);
 
   let showReviews = () => {
-    console.log(viewComments);
     setViewComments(!viewComments);
   };
 
   return (
     <div>
-      <Disclosure as="div" className="border-b border-gray-200 pb-6 pt-4">
+      <Disclosure
+        as="div"
+        className={
+          viewComments !== true ? "border-b border-gray-200 pb-6 pt-4" : "pb-6"
+        }
+      >
         <>
           <h3 className="-my-3 flex justify-between">
             <div>
@@ -67,8 +71,8 @@ export default function CommentList(props) {
                 return (
                   <li>
                     <div className="ml-10 mb-10 flex space-x-3 justify-between">
-                      <div className="flex">
-                        <div className="flex-shrink-0">
+                      <div className="flex mt-2">
+                        <div className="flex-shrink-0 ">
                           <img
                             className="h-10 w-10 rounded-full"
                             src={
