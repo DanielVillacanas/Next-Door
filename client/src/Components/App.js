@@ -7,6 +7,7 @@ import SellerProfile from "./Auth/SellerProfile/SellerProfile";
 import Cart from "./Products/Cart/Cart";
 import CheckoutForm from "./Products/Payment/CheckoutForm";
 import Footer from "./Layout/Footer/Footer";
+import Chat from "./Auth/GeneralChat/Chat/Chat";
 
 import AuthService from "../Services/AuthServices/auth.service";
 
@@ -100,6 +101,23 @@ function App() {
                       changeValueRefresh={changeValueRefresh}
                     />
                     <Footer />
+                  </div>
+                )}
+              />
+
+              <Route
+                path="/chat"
+                exact
+                render={(props) => (
+                  <div>
+                    <NavBar
+                      {...props}
+                      loadUser={loadUser}
+                      loggedUser={loggedUser}
+                      type={type}
+                      refreshProducts={() => refreshProducts()}
+                    />
+                    <Chat loggedUser={loggedUser} />
                   </div>
                 )}
               />
