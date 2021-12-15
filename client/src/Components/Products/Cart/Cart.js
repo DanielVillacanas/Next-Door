@@ -11,7 +11,6 @@ export default function Cart(props) {
 
   let getAllCart = () => {
     service.getCartProducts().then((result) => {
-      console.log(result);
       setCart(result.data.productsCart);
       setSubtotal((subtotal = 0));
       result.data.productsCart.forEach((element) => {

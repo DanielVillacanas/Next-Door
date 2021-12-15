@@ -53,11 +53,13 @@ router.get("/", (req, res, next) => {
   const { limit } = req.query;
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
-  console.log(page, limit);
   Product.find()
     .populate("owner")
     .then((response) => {
-      return res.json({ products: response.slice(startIndex, endIndex), length: response.length });
+      return res.json({
+        products: response.slice(startIndex, endIndex),
+        length: response.length,
+      });
     })
     .catch((err) => console.log(err));
 });
@@ -85,9 +87,11 @@ router.get("/cart/all", isLoggedIn, (req, res) => {
 router.put("/cart/remove/:id", isLoggedIn, (req, res) => {
   const { id } = req.params;
   const user_id = req.session.currentUser._id;
-  User.findByIdAndUpdate(user_id, { $pull: { productsCart: { _id: id } } }, { new: true }).then(
-    (response) => res.json(response)
-  );
+  User.findByIdAndUpdate(
+    user_id,
+    { $pull: { productsCart: { _id: id } } },
+    { new: true }
+  ).then((response) => res.json(response));
 });
 
 module.exports = router;

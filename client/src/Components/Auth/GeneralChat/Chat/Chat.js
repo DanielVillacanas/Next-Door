@@ -6,6 +6,7 @@ import Message from "../Message/Message";
 import "./Chat.css";
 import SellerService from "../../../../Services/SellerServices/seller.service";
 import UserService from "../../../../Services/UserSerivces/UserSerivces";
+import { io } from "socket.io-client";
 
 let userService = new UserService();
 let sellerService = new SellerService();
@@ -14,7 +15,7 @@ let messagesService = new MessagesService();
 
 function Chat(props) {
   let currentUser = props.loggedUser;
-  console.log(currentUser);
+
   const [ListConversations, setConversations] = useState([]);
   const [currentChat, setcurrentChat] = useState(null);
   let [messages, setMessages] = useState([]);
@@ -26,6 +27,8 @@ function Chat(props) {
     conversationId: currentChat?._id,
   });
   const scrollRef = useRef();
+  let socket = useRef();
+  let [arrivalMessage, setArrivalMessage] = useState(null);
 
   let loadConversations = () => {
     conversationService
@@ -48,12 +51,11 @@ function Chat(props) {
       sellerService
         .getSeller(conversation.participants[1])
         .then((result) => {
-          console.log(result);
           setSeller(result.data);
         })
         .catch((err) => console.log(err));
     }
-    setcurrentChat(conversation?._id);
+    setcurrentChat(conversation);
     messagesService
       .getMessages(conversation?._id)
       .then((result) => {
@@ -66,13 +68,24 @@ function Chat(props) {
     e.preventDefault();
 
     messagesService
-      .createMessage(newMessage.text, newMessage.sender, currentChat)
+      .createMessage(newMessage.text, newMessage.sender, currentChat?._id)
       .then((response) => {
         let copy = [...messages];
         copy.push({
           text: response.data.text,
           sender: response.data.sender,
         });
+
+        const receiverId = currentChat.participants.find(
+          (member) => member !== currentUser._id
+        );
+
+        socket.current.emit("sendMessage", {
+          senderId: currentUser?._id,
+          receiverId,
+          text: response.data.text,
+        });
+
         setMessages(copy);
         setNewMessage({
           text: "",
@@ -94,8 +107,28 @@ function Chat(props) {
   };
 
   useEffect(() => {
+    socket.current = io("ws://localhost:5000");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMessage({
+        sender: data.senderId,
+        text: data.text,
+      });
+    });
     loadConversations();
   }, []);
+
+  useEffect(() => {
+    arrivalMessage &&
+      currentChat?.participants.includes(arrivalMessage.sender) &&
+      setMessages((prev) => [...prev, arrivalMessage]);
+  }, [arrivalMessage, currentChat]);
+
+  useEffect(() => {
+    socket.current.emit("addUser", currentUser?._id);
+    socket.current.on("getUsers", (users) => {
+      console.log(users);
+    });
+  }, [currentUser]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });

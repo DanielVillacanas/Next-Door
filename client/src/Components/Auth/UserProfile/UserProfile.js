@@ -54,11 +54,9 @@ export default function UserProfile(props) {
   };
 
   let loadOwner = () => {
-    console.log(props.match.params.id);
     userService
       .getOwner(props.match.params.id)
       .then((result) => {
-        console.log(result);
         setOwner(result.data);
       })
       .catch((err) => console.log(err));

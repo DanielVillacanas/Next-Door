@@ -13,7 +13,6 @@ class AuthService {
     return this.app.post("/signUp", { username, email, password, address });
   };
   signUpSeller = (username, email, password, password2, address, type) => {
-    console.log("LLAMA");
     return this.app.post("/signUpSeller", {
       username,
       email,

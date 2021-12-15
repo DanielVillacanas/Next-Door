@@ -68,20 +68,20 @@ router.post("/create-new-comment", (req, res) => {
   let creatorSeller = undefined;
 
   if (req.session.currentUser.role === "User") {
-    console.log("USER");
     creatorUser = req.session.currentUser._id;
   } else {
-    console.log("SELLER");
     creatorSeller = req.session.currentUser._id;
   }
 
   let comment = "";
-  console.log(req.body);
   Comment.create({ creatorUser, creatorSeller, description, review })
     .then((response) => {
-      console.log(response);
       comment = response;
-      return Review.findByIdAndUpdate(review, { $push: { comments: response._id } }, { new: true });
+      return Review.findByIdAndUpdate(
+        review,
+        { $push: { comments: response._id } },
+        { new: true }
+      );
     })
     .then((resp) => res.json({ comment: comment, review: resp }))
     .catch((err) => console.log(err));

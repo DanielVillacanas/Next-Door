@@ -3,7 +3,6 @@ const uploader = require("../../config/cloudinary.config");
 const { isLoggedIn } = require("../../middlewares/isloggedIn");
 
 router.post("/image", uploader.single("imageData"), (req, res) => {
-  console.log(req.file);
   if (!req.file) {
     res.status(500).json({ code: 500, message: "Error loading the file" });
     return;
