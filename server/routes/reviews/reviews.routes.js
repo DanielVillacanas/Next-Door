@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const { Router } = require("express");
 const Review = require("../../models/Review.model");
 
 router.post("/create-new-review", (req, res, next) => {

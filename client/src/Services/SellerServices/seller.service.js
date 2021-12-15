@@ -18,7 +18,6 @@ class SellerService {
   deleteProduct = (id) => this.app.get(`/deleteProduct/${id}`);
   getSeller = (id) => this.app.get(`/${id}`);
   editSeller = (data) => {
-    debugger;
     return this.app.post("/edit", data);
   };
   getAllProductsFromASeller = (id) => this.app.get(`/${id}`);

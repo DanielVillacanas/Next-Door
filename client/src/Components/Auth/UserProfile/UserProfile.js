@@ -4,7 +4,7 @@ import EditProfile from "./EditProfile";
 import ReviewListUser from "../../Review/ReviewListUser/ReviewListUser";
 import ReviewService from "../../../Services/ReviewService/reviews.service";
 import UserService from "../../../Services/UserSerivces/UserSerivces";
-import { UserAddIcon } from "@heroicons/react/solid";
+import { Link } from "react-router-dom";
 
 let reviewService = new ReviewService();
 let userService = new UserService();
@@ -80,7 +80,9 @@ export default function UserProfile(props) {
                 </h3>
                 <div className="text-white text-sm my-2">
                   Email:
-                  <div className="text-green-300 text-sm my-2">{owner?.email}</div>
+                  <div className="text-green-300 text-sm my-2">
+                    {owner?.email}
+                  </div>
                 </div>
                 {user?._id === ownerProfile && (
                   <div className="text-green-300 text-sm my-2 max-w-sm ">
@@ -97,6 +99,12 @@ export default function UserProfile(props) {
                     >
                       Editar perfil
                     </button>
+                    <Link
+                      to={"/chat"}
+                      className="mx-auto my-4 h-6 text-sm font-medium lg:mx-0 lg:text-left lg:w-24 text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                    >
+                      Ver tus chats
+                    </Link>
                     {showReviews === false ? (
                       <button
                         type="button"
@@ -157,7 +165,10 @@ export default function UserProfile(props) {
                       </Transition.Child>
 
                       {/* This element is to trick the browser into centering the modal contents. */}
-                      <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
+                      <span
+                        className=" sm:inline-block sm:align-middle sm:h-12"
+                        aria-hidden="true"
+                      >
                         &#8203;
                       </span>
                       <Transition.Child

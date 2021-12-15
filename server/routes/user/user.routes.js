@@ -25,7 +25,15 @@ router.post("/edit", (req, res) => {
 
       return User.findOneAndUpdate(
         { email },
-        { username, email, password: hashPass, address, img_url, coordinates, map_img },
+        {
+          username,
+          email,
+          password: hashPass,
+          address,
+          img_url,
+          coordinates,
+          map_img,
+        },
         { new: true }
       );
     })
@@ -38,7 +46,6 @@ router.post("/edit", (req, res) => {
 
 router.get("/user/:id", (req, res, next) => {
   const { id } = req.params;
-  console.log(id);
   User.findById(id)
     .then((response) => res.json(response))
     .catch((err) => console.log(err));

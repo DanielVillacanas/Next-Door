@@ -5,10 +5,12 @@ import SellerService from "../../../Services/SellerServices/seller.service";
 import ReviewList from "../../Review/ReviewList/ReviewList";
 import ReviewService from "../../../Services/ReviewService/reviews.service";
 import EditSellerProfile from "./EditSellerProfile";
-import Chat from "../Chat/Chat";
+import { Link } from "react-router-dom";
+import ConversationService from "../../../Services/ConversationServices/conversation.service";
 
 let service = new SellerService();
 let reviewService = new ReviewService();
+let conversationService = new ConversationService();
 
 export default function SellerProfile(props) {
   let user = props.loggedUser;
@@ -18,7 +20,6 @@ export default function SellerProfile(props) {
   const [ownerProfile, setOwnerProfie] = useState(id);
   const [reviewList, setReviewList] = useState([]);
   const [showProduts, setshowProduts] = useState(false);
-  const [showChat, setshowChat] = useState(false);
   const [showReviews, setshowReviews] = useState(false);
 
   useEffect(() => {
@@ -41,13 +42,15 @@ export default function SellerProfile(props) {
     setOpen(true);
   };
 
-  let openChat = () => {
-    setshowChat(true);
-  };
-
   let loadSeller = () => {
     service.getSeller(id).then((result) => {
       setSeller((seller = result.data));
+    });
+  };
+
+  let createConversation = () => {
+    conversationService.getNewConversation(user?._id, id).then((result) => {
+      console.log(result);
     });
   };
 
@@ -79,25 +82,31 @@ export default function SellerProfile(props) {
                 {seller?.description}
               </div>
               <div>
-                {user?._id === ownerProfile && (
-                  <button
-                    type="button"
-                    onClick={openModal}
+                {user?._id === ownerProfile ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={openModal}
+                      className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                    >
+                      Editar perfil
+                    </button>
+                    <Link
+                      to={"/chat"}
+                      className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                    >
+                      Ver tus chats
+                    </Link>
+                  </>
+                ) : (
+                  <Link
+                    to={"/chat"}
+                    onClick={createConversation}
                     className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
                   >
-                    Editar perfil
-                  </button>
+                    Conversación con el comprador
+                  </Link>
                 )}
-                {user?.role === "User" && (
-                  <button
-                    type="button"
-                    onClick={openChat}
-                    className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
-                  >
-                    Empezar conversación
-                  </button>
-                )}
-                {showChat && <Chat user={user} id={id} />}
                 {(showProduts || showReviews) === false && (
                   <>
                     <div className="flex lg:block">
