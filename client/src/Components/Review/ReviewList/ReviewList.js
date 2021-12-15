@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import ReviewService from "../../../Services/ReviewService/reviews.service";
 import UserContext from "../../../Context/UserContext/UserContext";
-import { StarIcon } from "@heroicons/react/solid";
+import { MinusSmIcon, PlusSmIcon, StarIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { Options } from "../../../Const/Const";
 import Comment from "../Comment/Comment";
+import { Disclosure } from "@headlessui/react";
+import CommentList from "../Comment/CommentList";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -219,7 +221,7 @@ export default function Reviews(props) {
                                       </div>
                                     </div>
                                     <div className="mt-1 mx-5 text-sm text-gray-700">
-                                      <p>{comment.description}</p>
+                                      <p className="max-w-xl break-all">{comment.description}</p>
                                     </div>
                                   </div>
                                 </div>
@@ -252,49 +254,7 @@ export default function Reviews(props) {
                                 />
                               )}
                             </li>
-                            <ul>
-                              {comment.comments.map((elm) => {
-                                return (
-                                  <li>
-                                    <div className="ml-10 mb-10 flex space-x-3 justify-between">
-                                      <div className="flex">
-                                        <div className="flex-shrink-0">
-                                          <img
-                                            className="h-10 w-10 rounded-full"
-                                            src={
-                                              elm.creatorUser != null
-                                                ? elm.creatorUser?.img_url
-                                                : elm.creatorSeller?.img_url
-                                            }
-                                            alt=""
-                                          />
-                                        </div>
-
-                                        <div className=" ml-2">
-                                          <div className="text-sm mx-2">
-                                            <Link
-                                              to={
-                                                elm.creatorUser != null
-                                                  ? `/user/${elm.creatorUser?._id}`
-                                                  : `/seller/${elm.creatorSeller?._id}`
-                                              }
-                                              className="font-medium text-gray-900"
-                                            >
-                                              {elm.creatorUser != null
-                                                ? elm.creatorUser?.username
-                                                : elm.creatorSeller?.username}
-                                            </Link>
-                                          </div>
-                                          <div className="mt-1 mx-5 text-sm text-gray-700">
-                                            <p>{elm.description}</p>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </li>
-                                );
-                              })}
-                            </ul>
+                            <CommentList comment={comment} />
                           </>
                         ))}
                       </ul>
