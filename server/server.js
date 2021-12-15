@@ -15,8 +15,7 @@ const io = socket(server, {
 let users = [];
 
 const addUser = (userId, socketId) => {
-  !users.some((user) => user.userId === userId) &&
-    users.push({ userId, socketId });
+  !users.some((user) => user.userId === userId) && users.push({ userId, socketId });
 };
 
 const getUser = (receiverId) => {
@@ -47,7 +46,7 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.on("disconnect", (userId) => {
-    console.log("usuario desconectado");
-  });
+  // socket.on("disconnect", (userId) => {
+  //   console.log("usuario desconectado");
+  // });
 });

@@ -102,7 +102,9 @@ function Chat(props) {
     loadConversations();
     currentChat && loadMessages(currentChat);
   }, []);
-
+  // useEffect(() => {
+  //   currentChat && loadMessages(currentChat);
+  // });
   useEffect(() => {
     socket.current = io("ws://localhost:5000");
     let room = currentChat?._id;
@@ -132,10 +134,7 @@ function Chat(props) {
             {ListConversations?.map((conversation) => {
               return (
                 <div onClick={() => loadMessages(conversation)}>
-                  <Conversation
-                    conversations={conversation}
-                    user={currentUser}
-                  />
+                  <Conversation conversations={conversation} user={currentUser} />
                 </div>
               );
             })}
@@ -149,7 +148,7 @@ function Chat(props) {
                   {messages?.map((message) => {
                     return (
                       <div ref={scrollRef}>
-                        {currentUser.role === "User" ? (
+                        {currentUser?.role === "User" ? (
                           <Message
                             userFromFather={seller}
                             message={message}

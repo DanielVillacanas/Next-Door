@@ -2,13 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const navigation = {
-  main: [
+  logged: [
     { name: "Inicio", href: "/" },
     { name: "Productos", href: "/products" },
     { name: "Cesta", href: "/products/cart" },
+    { name: "Creadores", href: "/owners" },
+  ],
+  notLogged: [
+    { name: "Inicio", href: "/" },
     { name: "Login", href: "/login" },
     { name: "Registrate", href: "/signup" },
-    { name: "Creadores", href: "/owners" },
   ],
   social: [
     {
@@ -49,7 +52,7 @@ const navigation = {
   ],
 };
 
-export default function Footer() {
+export default function Footer(props) {
   return (
     <footer className="bg-white pb-8">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
@@ -61,13 +64,22 @@ export default function Footer() {
       </svg>
       <div className="max-w-7xl mx-auto py-2 px-4 overflow-hidden sm:px-6 lg:px-8">
         <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
-          {navigation.main.map((item) => (
-            <div key={item.name} className="px-5">
-              <Link to={item.href} className="text-base text-gray-500 hover:text-green-500">
-                {item.name}
-              </Link>
-            </div>
-          ))}
+          {props.loggedUser &&
+            navigation.logged.map((item) => (
+              <div key={item.name} className="px-5">
+                <Link to={item.href} className="text-base text-gray-500 hover:text-green-500">
+                  {item.name}
+                </Link>
+              </div>
+            ))}
+          {!props.loggedUser &&
+            navigation.notLogged.map((item) => (
+              <div key={item.name} className="px-5">
+                <Link to={item.href} className="text-base text-gray-500 hover:text-green-500">
+                  {item.name}
+                </Link>
+              </div>
+            ))}
         </nav>
         <div className="mt-8 flex justify-center space-x-6">
           {navigation.social.map((item) => (

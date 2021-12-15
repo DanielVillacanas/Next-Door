@@ -87,11 +87,16 @@ router.get("/cart/all", isLoggedIn, (req, res) => {
 router.put("/cart/remove/:id", isLoggedIn, (req, res) => {
   const { id } = req.params;
   const user_id = req.session.currentUser._id;
-  User.findByIdAndUpdate(
-    user_id,
-    { $pull: { productsCart: { _id: id } } },
-    { new: true }
-  ).then((response) => res.json(response));
+  User.findByIdAndUpdate(user_id, { $pull: { productsCart: { _id: id } } }, { new: true }).then(
+    (response) => res.json(response)
+  );
+});
+
+router.put("/cart/removeAll", (req, res) => {
+  const user_id = req.session.currentUser._id;
+  User.findByIdAndUpdate(user_id, { productsCart: [] }, { new: true })
+    .then((response) => res.json(response))
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;

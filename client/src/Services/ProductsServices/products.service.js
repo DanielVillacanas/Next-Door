@@ -12,6 +12,7 @@ class ProductService {
   addProductCart = (id, quantity) => this.app.get(`/cart/add?id=${id}&quantity=${quantity}`);
   getCartProducts = () => this.app.get("/cart/all");
   removeProductCart = (id) => this.app.put(`/cart/remove/${id}`);
+  removeCart = () => this.app.put(`/cart/removeAll`);
 }
 
 export default ProductService;
