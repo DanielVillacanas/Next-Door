@@ -15,7 +15,13 @@ const io = socket(server, {
 let users = [];
 
 const addUser = (userId, socketId) => {
+<<<<<<< HEAD
+  console.log({ userId, socketId });
   !users.some((user) => user.userId === userId) && users.push({ userId, socketId });
+=======
+  !users.some((user) => user.userId === userId) &&
+    users.push({ userId, socketId });
+>>>>>>> b7caf481595d8dccedb41e70d6c6bcfd0fdf81b3
 };
 
 const getUser = (receiverId) => {
@@ -30,15 +36,30 @@ io.on("connection", (socket) => {
     io.emit("getUsers", users);
   });
 
+  // socket.on("sendMessage", () => {
+  //   const user = getUser(receiverId);
+  //   io.to(user.socketId).emit("getMessage", {
+  //     senderId,
+  //     text,
+  //   });
+  // });
+
   socket.on("sendMessageRomm", (roomId, { senderId, text }) => {
     console.log(roomId, { senderId, text });
-    io.btoadcast(`sentToFront${roomId}`, {
+    io.emit(`sentToFront${roomId}`, {
       senderId,
       text,
     });
   });
 
+<<<<<<< HEAD
+  // socket.on("disconnect", (userId) => {
+  //   removeUser(socket.id);
+  //   io.emit("getUsers", users);
+  // });
+=======
   socket.on("disconnect", (userId) => {
     console.log("usuario desconectado");
   });
+>>>>>>> b7caf481595d8dccedb41e70d6c6bcfd0fdf81b3
 });
