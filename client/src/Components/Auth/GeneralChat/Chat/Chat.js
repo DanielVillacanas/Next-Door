@@ -100,20 +100,19 @@ function Chat(props) {
   };
   useEffect(() => {
     loadConversations();
+    currentChat && loadMessages(currentChat);
   }, []);
 
   useEffect(() => {
     socket.current = io("ws://localhost:5000");
     let room = currentChat?._id;
-    console.log(room);
     socket.current.on(`sentToFront${room}`, (data) => {
-      console.log(data);
       setArrivalMessage({
         text: data.text,
       });
       currentChat && loadMessages(currentChat);
     });
-  }, [currentChat]);
+  }, [currentChat, arrivalMessage]);
 
   useEffect(() => {
     arrivalMessage &&
