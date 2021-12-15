@@ -75,15 +75,10 @@ function Chat(props) {
           text: response.data.text,
           sender: response.data.sender,
         });
-
-        const receiverId = currentChat.participants.find((member) => member !== currentUser._id);
-
-        socket.current.emit("sendMessage", {
+        socket.current.emit("sendMessageRomm", currentChat?._id, {
           senderId: currentUser?._id,
-          receiverId,
-          text: response.data.text,
+          text: newMessage.text,
         });
-
         setMessages(copy);
         setNewMessage({
           text: "",
@@ -103,28 +98,28 @@ function Chat(props) {
       };
     });
   };
+  useEffect(() => {
+    loadConversations();
+  }, []);
 
   useEffect(() => {
     socket.current = io("ws://localhost:5000");
-    socket.current.on("getMessage", (data) => {
+    let room = currentChat?._id;
+    console.log(room);
+    socket.current.on(`sentToFront${room}`, (data) => {
+      console.log(data);
       setArrivalMessage({
-        sender: data.senderId,
         text: data.text,
       });
+      currentChat && loadMessages(currentChat);
     });
-    loadConversations();
-  }, []);
+  }, [currentChat]);
 
   useEffect(() => {
     arrivalMessage &&
       currentChat?.participants.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
-
-  useEffect(() => {
-    socket.current.emit("addUser", currentUser?._id);
-    socket.current.on("getUsers", (users) => {});
-  }, [currentUser]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -135,12 +130,6 @@ function Chat(props) {
       <div className="messenger">
         <div className="chatMenu ">
           <div className="chatMenuWrapper border-r-2 border-gray-500 mt-2 mr-2">
-            <div className="flex justify-center">
-              <input
-                placeholder="Busca a un vendedor"
-                className="ChatMenuInput border-2 border-green-500 rounded-lg focus:ring-green-500 focus:border-green-500 appearance-none shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
-              />
-            </div>
             {ListConversations?.map((conversation) => {
               return (
                 <div onClick={() => loadMessages(conversation)}>

@@ -1,7 +1,6 @@
 const express = require("express");
 const Stripe = require("stripe");
 const cors = require("cors");
-const { isLoggedIn } = require("../../middlewares/isloggedIn");
 
 const router = require("express").Router();
 
@@ -21,6 +20,7 @@ router.post("/checkout", async (req, res) => {
       payment_method: id,
       confirm: true,
     });
+    console.log(payment);
     res.send({ message: "Pago realizado" });
   } catch (error) {
     res.json({ message: error });

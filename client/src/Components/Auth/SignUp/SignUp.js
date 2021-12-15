@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Popover } from "@headlessui/react";
 import SignUpSeller from "./SignUpSeller";
 import SignUpUser from "./SignUpUser";
+import { io } from "socket.io-client";
 
 export default function SignUp(props) {
   const [userForm, setUserForm] = useState(false);
+  let socket = useRef();
+
+  let loggedInChat = (currentUser) => {
+    socket.current = io("ws://localhost:5000");
+    socket.current.emit("addUser", currentUser?._id);
+  };
+
   let changeToSeller = () => {
     setUserForm(true);
   };
@@ -75,9 +83,9 @@ export default function SignUp(props) {
               <div className="lg:col-span-6 sm:px-10 mx-10 ">
                 <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto rounded-lg rounded-lg sm:overflow-hidden py-4">
                   {!userForm ? (
-                    <SignUpSeller props={props} />
+                    <SignUpSeller props={props} loggedInChat={loggedInChat} />
                   ) : (
-                    <SignUpUser props={props} />
+                    <SignUpUser props={props} loggedInChat={loggedInChat} />
                   )}
                 </div>
               </div>

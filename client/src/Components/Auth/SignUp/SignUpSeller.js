@@ -55,11 +55,10 @@ export default function SignUpSeller(props) {
           seller.type
         )
         .then((response) => {
-          console.log(response);
           props.props.loadUser();
           props.props.history.push("/products");
         })
-        .catch((err) => setErr(err.response.data));
+        .catch((err) => setErr(err.response?.data));
     // .catch((err) => console.log(err.response?.data.message));
   };
   return (
