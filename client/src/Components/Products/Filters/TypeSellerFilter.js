@@ -30,7 +30,7 @@ function TypeSellerFilter(props) {
             <section aria-labelledby="products-heading" className="pt-6 pb-14">
               <div>
                 <form className="block space-y-4">
-                  {loggedUser?.loggedUser !== null &&
+                  {loggedUser !== null &&
                     range.map((section) => (
                       <Disclosure
                         as="div"
