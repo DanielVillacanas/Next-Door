@@ -6,6 +6,7 @@ import axios from "axios";
 
 import { SubtotalContext } from "../../../Context/SubtotalContext/SubtotalContext";
 import UserContext from "../../../Context/UserContext/UserContext";
+import ProductService from "../../../Services/ProductsServices/products.service";
 
 function CheckoutForm(props) {
   const stripe = useStripe();
@@ -18,6 +19,8 @@ function CheckoutForm(props) {
   let { subtotal } = useContext(SubtotalContext);
   let loggedUser = useContext(UserContext);
   let cart = loggedUser?.productsCart;
+
+  let userService = new ProductService();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +38,8 @@ function CheckoutForm(props) {
         amount: subtotal * 100,
       });
       if (data) {
-        //limpiar el carro del usuario comprador
+        userService.removeCart();
+        props.loadUser();
         props.history.push("/");
       }
     }

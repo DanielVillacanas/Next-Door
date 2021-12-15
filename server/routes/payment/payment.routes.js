@@ -10,7 +10,7 @@ const stripe = new Stripe(`${process.env.STRIPE}`);
 router.use(cors({ origin: "http://localhost:3000" }));
 router.use(express.json());
 
-router.post("/checkout", isLoggedIn, async (req, res) => {
+router.post("/checkout", async (req, res) => {
   try {
     const { id, amount } = req.body;
 

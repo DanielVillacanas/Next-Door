@@ -76,9 +76,7 @@ function Chat(props) {
           sender: response.data.sender,
         });
 
-        const receiverId = currentChat.participants.find(
-          (member) => member !== currentUser._id
-        );
+        const receiverId = currentChat.participants.find((member) => member !== currentUser._id);
 
         socket.current.emit("sendMessage", {
           senderId: currentUser?._id,
@@ -125,9 +123,7 @@ function Chat(props) {
 
   useEffect(() => {
     socket.current.emit("addUser", currentUser?._id);
-    socket.current.on("getUsers", (users) => {
-      console.log(users);
-    });
+    socket.current.on("getUsers", (users) => {});
   }, [currentUser]);
 
   useEffect(() => {
@@ -148,10 +144,7 @@ function Chat(props) {
             {ListConversations?.map((conversation) => {
               return (
                 <div onClick={() => loadMessages(conversation)}>
-                  <Conversation
-                    conversations={conversation}
-                    user={currentUser}
-                  />
+                  <Conversation conversations={conversation} user={currentUser} />
                 </div>
               );
             })}
@@ -165,7 +158,7 @@ function Chat(props) {
                   {messages?.map((message) => {
                     return (
                       <div ref={scrollRef}>
-                        {currentUser.role === "User" ? (
+                        {currentUser?.role === "User" ? (
                           <Message
                             userFromFather={seller}
                             message={message}
