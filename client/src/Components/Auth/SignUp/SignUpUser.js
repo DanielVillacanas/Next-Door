@@ -18,8 +18,14 @@ export default function SignUp(props) {
     e.preventDefault();
     !errMessage &&
       authService
-        .signUp(user.username, user.email, user.password, user.password2, user.address)
-        .then(() => {
+        .signUp(
+          user.username,
+          user.email,
+          user.password,
+          user.password2,
+          user.address
+        )
+        .then((response) => {
           props.props.loadUser();
           props.props.history.push("/products");
         })
@@ -47,7 +53,10 @@ export default function SignUp(props) {
         <div className="bg-white py-2 px-4 shadow rounded-lg ">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Nombre
               </label>
               <div className="mt-1">
@@ -63,7 +72,10 @@ export default function SignUp(props) {
               </div>
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Dirección de correo
               </label>
               <div className="mt-1">
@@ -79,7 +91,10 @@ export default function SignUp(props) {
               </div>
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Contraseña
               </label>
               <div className="mt-1">
@@ -95,7 +110,10 @@ export default function SignUp(props) {
               </div>
             </div>
             <div>
-              <label htmlFor="password2" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password2"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Comprobación de contraseña
               </label>
               <div className="mt-1">
@@ -112,7 +130,10 @@ export default function SignUp(props) {
               </div>
             </div>
             <div>
-              <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="address"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Dirección de envio
               </label>
               <div className="mt-1">
@@ -142,7 +163,9 @@ export default function SignUp(props) {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">o inicia sesión</span>
+                <span className="px-2 bg-white text-gray-500">
+                  o inicia sesión
+                </span>
               </div>
             </div>
           </div>
