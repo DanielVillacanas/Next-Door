@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessageRomm", (roomId, { senderId, text }) => {
     console.log(roomId, { senderId, text });
-    io.emit(`sentToFront${roomId}`, {
+    io.btoadcast(`sentToFront${roomId}`, {
       senderId,
       text,
     });
