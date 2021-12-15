@@ -21,6 +21,7 @@ export default function SellerProfile(props) {
   const [reviewList, setReviewList] = useState([]);
   const [showProduts, setshowProduts] = useState(false);
   const [showReviews, setshowReviews] = useState(false);
+  const [chatAllready, setAllready] = useState(false);
 
   useEffect(() => {
     if (!seller) {
@@ -28,6 +29,8 @@ export default function SellerProfile(props) {
     }
     setOwnerProfie(id);
     loadReviews();
+    debugger;
+    findConversation();
   }, []);
 
   let renderProducts = () => {
@@ -56,6 +59,11 @@ export default function SellerProfile(props) {
   let createConversation = () => {
     conversationService.getNewConversation(user?._id, id).then((result) => {
       console.log(result);
+    });
+  };
+  let findConversation = () => {
+    conversationService.findConversation(id).then((response) => {
+      response.data.length > 0 && setAllready(true);
     });
   };
 
@@ -99,13 +107,20 @@ export default function SellerProfile(props) {
                       Ver tus chats
                     </Link>
                   </>
-                ) : (
+                ) : !chatAllready ? (
                   <Link
                     to={"/chat"}
                     onClick={createConversation}
                     className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
                   >
                     Conversación con el comprador
+                  </Link>
+                ) : (
+                  <Link
+                    to={"/chat"}
+                    className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                  >
+                    Abre tu conversacion
                   </Link>
                 )}
                 {(showProduts || showReviews) === false && (

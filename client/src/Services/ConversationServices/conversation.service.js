@@ -10,6 +10,7 @@ class ConversationService {
   getConversations = (id) => this.app.get(`/${id}`);
   getNewConversation = (senderId, receiverId) =>
     this.app.post(`/?senderId=${senderId}&receiverId=${receiverId}`);
+  findConversation = (sellerId) => this.app.get(`/findConversation/${sellerId}`);
 }
 
 export default ConversationService;
