@@ -31,20 +31,25 @@ export default function SellerProfile(props) {
   }, []);
 
   let renderProducts = () => {
-    return setshowProduts(true), setshowReviews(false);
+    setshowReviews(false);
+    return setshowProduts(true);
   };
 
   let renderReviews = () => {
-    return setshowProduts(false), setshowReviews(true);
+    setshowReviews(true);
+    return setshowProduts(false);
   };
 
   let openModal = () => {
     setOpen(true);
   };
+  let closeModal = () => {
+    setOpen(false);
+  };
 
   let loadSeller = () => {
     service.getSeller(id).then((result) => {
-      setSeller((seller = result.data));
+      setSeller(result.data);
     });
   };
 
@@ -75,12 +80,8 @@ export default function SellerProfile(props) {
             <div className="font-medium text-lg text-center lg:text-left lg:pr-4">
               <h3 className="text-white">{seller?.username}</h3>
               <div className="text-green-300 text-sm my-2">{seller?.email}</div>
-              <div className="text-green-300 text-sm my-2 max-w-xs ">
-                {seller?.address}
-              </div>
-              <div className="text-white text-sm my-2 ">
-                {seller?.description}
-              </div>
+              <div className="text-green-300 text-sm my-2 max-w-xs ">{seller?.address}</div>
+              <div className="text-white text-sm my-2 ">{seller?.description}</div>
               <div>
                 {user?._id === ownerProfile ? (
                   <>
@@ -164,11 +165,7 @@ export default function SellerProfile(props) {
           </div>
         </div>
         <Transition.Root show={isOpen} as={Fragment}>
-          <Dialog
-            as="div"
-            className="fixed z-10 inset-0 overflow-y-auto "
-            onClose={setOpen}
-          >
+          <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto " onClose={setOpen}>
             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
               <Transition.Child
                 as={Fragment}
@@ -183,10 +180,7 @@ export default function SellerProfile(props) {
               </Transition.Child>
 
               {/* This element is to trick the browser into centering the modal contents. */}
-              <span
-                className=" sm:inline-block sm:align-middle sm:h-12"
-                aria-hidden="true"
-              >
+              <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
                 &#8203;
               </span>
               <Transition.Child
@@ -200,7 +194,8 @@ export default function SellerProfile(props) {
                 <Fragment>
                   <EditSellerProfile
                     seller={seller}
-                    loadUser={props.loadUser}
+                    loadSeller={loadSeller}
+                    closeModal={closeModal}
                   />
                 </Fragment>
               </Transition.Child>
@@ -208,10 +203,10 @@ export default function SellerProfile(props) {
           </Dialog>
         </Transition.Root>
 
-        <img src={seller?.map_img} className="mx-auto rounded-lg"></img>
+        <img src={seller?.map_img} className="mx-auto rounded-lg" alt="map"></img>
       </div>
-      {showProduts && <SellerProducts products={seller?.products} id={id} />}{" "}
-      {showReviews && <ReviewList SellerId={id} />}{" "}
+      {showProduts && <SellerProducts products={seller?.products} id={id} />}
+      {showReviews && <ReviewList SellerId={id} />}
     </div>
   );
 }

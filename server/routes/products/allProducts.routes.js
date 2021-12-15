@@ -3,8 +3,9 @@ const { response } = require("express");
 const Product = require("../../models/Product.model");
 const User = require("../../models/User.model");
 const Seller = require("../../models/Seller.model");
+const { isLoggedIn } = require("../../middlewares/isloggedIn");
 
-router.get("/cart/add", (req, res) => {
+router.get("/cart/add", isLoggedIn, (req, res) => {
   const id = req.query.id;
   let newquantity = parseInt(req.query.quantity);
   const user_id = req.session.currentUser._id;
@@ -61,7 +62,7 @@ router.get("/details/:id", (req, res) => {
     .then((response) => res.json(response));
 });
 
-router.get("/cart/all", (req, res) => {
+router.get("/cart/all", isLoggedIn, (req, res) => {
   const user_id = req.session.currentUser._id;
   User.findById(user_id)
     .populate({
@@ -74,7 +75,7 @@ router.get("/cart/all", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.put("/cart/remove/:id", (req, res) => {
+router.put("/cart/remove/:id", isLoggedIn, (req, res) => {
   const { id } = req.params;
   const user_id = req.session.currentUser._id;
   User.findByIdAndUpdate(user_id, { $pull: { productsCart: { _id: id } } }, { new: true }).then(

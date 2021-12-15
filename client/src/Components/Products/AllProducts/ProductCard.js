@@ -10,15 +10,12 @@ function ProductCard(props) {
           <img
             src={product.img_url}
             className="group w-full h-80 object-center object-cover bg-white rounded-lg"
+            alt="Product Img"
           />
         </div>
         <div className="pl-8 pb-4">
-          <h3 className="mt-4 pr-2 mb-6 text-sm text-gray-700 h-10">
-            {product.name}
-          </h3>
-          <p className="mt-1 text-lg font-medium text-gray-900">
-            {product.price} €
-          </p>
+          <h3 className="mt-4 pr-2 mb-6 text-sm text-gray-700 h-10">{product.name}</h3>
+          <p className="mt-1 text-lg font-medium text-gray-900">{product.price} €</p>
           <Link to={`/products/${product._id}`}>
             <button
               type="button"

@@ -86,17 +86,19 @@ router.post("/signUpSeller", (req, res) => {
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
+
+  console.log(req.body);
   User.findOne({ email })
     .populate("productsCart.product")
     .then((user) => {
       if (user) {
-        password === user.password //Validate password
+        bcrypt.compareSync(password, user.password) //Validate password
           ? ((req.session.currentUser = user), res.json({ user: user, type: "user" }))
           : res.status(500).send("Error contraseña incorrecta!");
       } else {
         Seller.findOne({ email }).then((seller) => {
           seller
-            ? password === seller.password //Validate password
+            ? bcrypt.compareSync(password, seller.password) //Validate password
               ? ((req.session.currentUser = seller), res.json({ user: seller, type: "seller" }))
               : res.status(500).send("Error contraseña incorrecta!")
             : res.status(500).send("Error usuario no registrado!");

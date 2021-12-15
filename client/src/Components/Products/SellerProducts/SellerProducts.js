@@ -27,11 +27,7 @@ export default function SellerProducts(props) {
       <h2 className="sr-only">Products</h2>
       <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 xl:grid-cols-3 xl:gap-x-8">
         {products?.map((product) => (
-          <SellerProductsCard
-            product={product}
-            id={props.id}
-            bringProduct={bringProduct}
-          />
+          <SellerProductsCard product={product} id={props.id} bringProduct={bringProduct} />
         ))}
       </div>
     </div>

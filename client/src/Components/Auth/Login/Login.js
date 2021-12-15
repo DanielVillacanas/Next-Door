@@ -21,7 +21,7 @@ function LoginPage(props) {
         props.history.push("/products");
         props.loadUser();
       })
-      .catch((err) => setError(err.response?.data));
+      .catch((err) => console.log({ err }));
   };
 
   let handleInputChange = (e) => {
@@ -129,7 +129,10 @@ function LoginPage(props) {
                           </div>
 
                           <div className="text-sm">
-                            <a href="#" className="font-medium text-green-600 hover:text-green-500">
+                            <a
+                              href="/signUp"
+                              className="font-medium text-green-600 hover:text-green-500"
+                            >
                               Forgot your password?
                             </a>
                           </div>

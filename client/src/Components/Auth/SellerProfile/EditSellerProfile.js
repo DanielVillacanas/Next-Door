@@ -16,17 +16,26 @@ export default function EditSellerProfile(props) {
     address: props.seller?.address,
     img_url: "",
   });
-  const handleSubmit = () => {
-    sellerServices
-      .editSeller(seller)
-      .then(() => {
-        props.loadUser();
-      })
-      .catch((err) => console.log(err));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    !errMessage &&
+      sellerServices
+        .editSeller(seller)
+        .then(() => {
+          props.closeModal();
+          props.loadSeller();
+        })
+        .catch((err) => console.log(err));
   };
+  const [errMessage, setError] = useState(undefined);
 
   const handleInputChange = (e) => {
     const { name, value } = e.currentTarget;
+    if (e.currentTarget.name === "password2" && e.currentTarget.value !== "") {
+      e.currentTarget.value !== seller.password
+        ? setError("Las contraseñas no coinciden")
+        : setError(undefined);
+    }
     setSeller((prevState) => {
       return {
         ...prevState,
@@ -50,16 +59,11 @@ export default function EditSellerProfile(props) {
 
   return (
     <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-      <p className="text-center font-semibold text-lg text-green-800">
-        Editar perfil
-      </p>
+      <p className="text-center font-semibold text-lg text-green-800">Editar perfil</p>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Nombre de la empresa
             </label>
             <div className="mt-1">
@@ -75,10 +79,7 @@ export default function EditSellerProfile(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Dirección de correo
             </label>
             <div className="mt-1">
@@ -94,10 +95,7 @@ export default function EditSellerProfile(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="description"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
               Descripción
             </label>
 
@@ -115,10 +113,7 @@ export default function EditSellerProfile(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Contraseña
             </label>
             <div className="mt-1">
@@ -134,10 +129,7 @@ export default function EditSellerProfile(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="password2"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="password2" className="block text-sm font-medium text-gray-700">
               Comprobación de contraseña
             </label>
             <div className="mt-1">
@@ -150,13 +142,11 @@ export default function EditSellerProfile(props) {
                 required
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               />
+              {errMessage && <p className="text-red-500">{errMessage}</p>}
             </div>
           </div>
           <div>
-            <label
-              htmlFor="address"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
               Dirección de la empresa
             </label>
             <div className="mt-1">
@@ -176,9 +166,7 @@ export default function EditSellerProfile(props) {
               <div className="m-4">
                 {!seller.img_url && (
                   <>
-                    <label className="inline-block mb-2 text-gray-500">
-                      Nueva foto
-                    </label>
+                    <label className="inline-block mb-2 text-gray-500">Nueva foto</label>
                     <div className="flex items-center justify-center w-full">
                       <label className="flex flex-col w-full h-32 border-4 border-green-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
                         <div className="flex flex-col items-center justify-center">

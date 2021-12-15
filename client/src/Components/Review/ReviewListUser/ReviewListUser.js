@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import ReviewService from "../../../Services/ReviewService/reviews.service";
 import { StarIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
@@ -41,15 +41,12 @@ export default function ReviewsUser(props) {
                 <div className="bg-white shadow rounded-lg sm:overflow-hidden">
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
-                      <h2
-                        id="notes-title"
-                        className="text-lg font-medium text-gray-900"
-                      >
+                      <h2 id="notes-title" className="text-lg font-medium text-gray-900">
                         Comentarios del usuario
                       </h2>
                     </div>
                     <div className="px-4 py-6 sm:px-6">
-                      <ul role="list" className="space-y-8">
+                      <ul className="space-y-8">
                         {reviewList.map((comment) => (
                           <li key={comment.id}>
                             <div className="flex space-x-3 justify-between">
@@ -101,8 +98,7 @@ export default function ReviewsUser(props) {
                                 </div>
                               </div>
                               <div className="flex place-items-end">
-                                {props.loggedUser?._id ===
-                                  comment.creator._id && (
+                                {props.loggedUser?._id === comment.creator._id && (
                                   <button
                                     type="button"
                                     onClick={() => deleteReview(comment._id)}
