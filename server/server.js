@@ -15,13 +15,7 @@ const io = socket(server, {
 let users = [];
 
 const addUser = (userId, socketId) => {
-<<<<<<< HEAD
-  console.log({ userId, socketId });
   !users.some((user) => user.userId === userId) && users.push({ userId, socketId });
-=======
-  !users.some((user) => user.userId === userId) &&
-    users.push({ userId, socketId });
->>>>>>> b7caf481595d8dccedb41e70d6c6bcfd0fdf81b3
 };
 
 const getUser = (receiverId) => {
@@ -52,14 +46,7 @@ io.on("connection", (socket) => {
     });
   });
 
-<<<<<<< HEAD
   // socket.on("disconnect", (userId) => {
-  //   removeUser(socket.id);
-  //   io.emit("getUsers", users);
+  //   console.log("usuario desconectado");
   // });
-=======
-  socket.on("disconnect", (userId) => {
-    console.log("usuario desconectado");
-  });
->>>>>>> b7caf481595d8dccedb41e70d6c6bcfd0fdf81b3
 });

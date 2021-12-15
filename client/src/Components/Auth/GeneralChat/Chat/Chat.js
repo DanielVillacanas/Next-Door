@@ -109,13 +109,12 @@ function Chat(props) {
     let room = currentChat?._id;
     console.log(room);
     socket.current.on(`sentToFront${room}`, (data) => {
-      alert("yay");
       setArrivalMessage({
         text: data.text,
       });
       currentChat && loadMessages(currentChat);
     });
-  }, []);
+  }, [currentChat, arrivalMessage]);
 
   useEffect(() => {
     arrivalMessage &&
