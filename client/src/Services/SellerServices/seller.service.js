@@ -3,7 +3,7 @@ import axios from "axios";
 class SellerService {
   constructor() {
     this.app = axios.create({
-      baseURL: "http://localhost:5000/api/seller",
+      baseURL: `${process.env.REACT_APP_BASE_URL}/seller`,
       withCredentials: true,
     });
   }
@@ -18,28 +18,11 @@ class SellerService {
   };
   deleteProduct = (id) => this.app.get(`/deleteProduct/${id}`);
   getSeller = (id) => this.app.get(`/${id}`);
-  editSeller = (
-    username,
-    email,
-    password,
-    password2,
-    description,
-    address,
-    img_url
-  ) => {
-    return this.app.post(
-      "/edit",
-      username,
-      email,
-      password,
-      description,
-      address,
-      img_url
-    );
+  editSeller = (username, email, password, password2, description, address, img_url) => {
+    return this.app.post("/edit", username, email, password, description, address, img_url);
   };
   getAllProductsFromASeller = (id) => this.app.get(`/${id}`);
-  deleteProductFromSeller = (id) =>
-    this.app.put(`/deleteProductFromSeller/${id}`);
+  deleteProductFromSeller = (id) => this.app.put(`/deleteProductFromSeller/${id}`);
 }
 
 export default SellerService;
