@@ -22,6 +22,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "deploy": "rm -rf build/*; npm run build; cd ..; rm -rf server/public/*; mv client/build/* server/public; git add .; git commit -m deploy; git subtree push --prefix=server origin main",
     "start": "REACT_APP_BASE_URL=http://localhost:5000/api REACT_APP_SOCKET_URL=ws://localhost:5000/  craco start",
     "build": "REACT_APP_BASE_URL=https://nextdoor-app.herokuapp.com/api REACT_APP_SOCKET_URL=https://nextdoor-app.herokuapp.com craco build",
     "test": "craco test",

@@ -147,15 +147,9 @@ export default function AllProducts(props) {
             </div>
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
-<<<<<<< HEAD
-                <p className="text-sm text-gray-700">
-                  <span className="font-medium"> {products.length * page}</span> -
-                  <span className="font-medium"> {length}</span>
-=======
                 <p className="text-sm text-white">
-                  <span className="font-medium"> {products.length * page}</span>{" "}
-                  -<span className="font-medium"> {length}</span>
->>>>>>> 9a377633b57a375a588a82abb74335c0fa6dd76a
+                  <span className="font-medium"> {products.length * page}</span>-
+                  <span className="font-medium"> {length}</span>
                 </p>
               </div>
               <div>
