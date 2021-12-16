@@ -106,7 +106,7 @@ function Chat(props) {
   //   currentChat && loadMessages(currentChat);
   // });
   useEffect(() => {
-    socket.current = io("ws://localhost:5000");
+    socket.current = io(`${process.env.REACT_APP_SOCKET_URL}`);
     let room = currentChat?._id;
     socket.current.on(`sentToFront${room}`, (data) => {
       setArrivalMessage({

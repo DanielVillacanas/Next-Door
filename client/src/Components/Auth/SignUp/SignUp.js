@@ -10,7 +10,7 @@ export default function SignUp(props) {
   let socket = useRef();
 
   let loggedInChat = (currentUser) => {
-    socket.current = io("ws://localhost:5000");
+    socket.current = io(`${process.env.REACT_APP_SOCKET_URL}`);
     socket.current.emit("addUser", currentUser?._id);
   };
 
@@ -65,18 +65,13 @@ export default function SignUp(props) {
               <div className="px-4 my-6 lg:my-0 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
                 <div>
                   <h1 className="mt-2 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl">
-                    <span className="md:block">
-                      Unete a nosotros para apoyar el{" "}
-                    </span>
-                    <span className="text-green-400 md:block">
-                      comercio local y de cercanía.
-                    </span>
+                    <span className="md:block">Unete a nosotros para apoyar el </span>
+                    <span className="text-green-400 md:block">comercio local y de cercanía.</span>
                   </h1>
                   <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                    El comercio local supone una parte fundamental de la vida en
-                    los barrios. Los pequeños negocios, combinados con otros
-                    servicios, generan un desarrollo económico y social de gran
-                    impacto en las ciudades.
+                    El comercio local supone una parte fundamental de la vida en los barrios. Los
+                    pequeños negocios, combinados con otros servicios, generan un desarrollo
+                    económico y social de gran impacto en las ciudades.
                   </p>
                 </div>
               </div>

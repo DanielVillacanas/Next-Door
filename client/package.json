@@ -22,8 +22,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "REACT_APP_BASE_URL=http://localhost:5000/api craco start",
-    "build": "REACT_APP_BASE_URL=https://nextdoor-app.herokuapp.com/api craco build",
+    "start": "REACT_APP_BASE_URL=http://localhost:5000/api REACT_APP_SOCKET_URL=ws://localhost:5000/  craco start",
+    "build": "REACT_APP_BASE_URL=https://nextdoor-app.herokuapp.com/api REACT_APP_SOCKET_URL=https://nextdoor-app.herokuapp.com craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
