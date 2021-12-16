@@ -1,5 +1,7 @@
 import HomeFarmer from "../../images/HomeFarmer.jpg";
 import HomeTruck from "../../images/HomeTruck.jpg";
+import Dani from "../../images/Dani.jpg";
+import Alvaro from "../../images/Alvaro.jpg";
 import { Link } from "react-router-dom";
 import { UsersIcon } from "@heroicons/react/outline";
 
@@ -7,7 +9,7 @@ export default function Home(props) {
   let user = props.loggedUser;
   return (
     <>
-      <div className="relative bg-white mb-4">
+      <div className="relative bg-white">
         <div className="lg:relative">
           <div className="mx-auto max-w-7xl w-full pt-16 pb-20 text-center lg:py-48 lg:text-left">
             <div className="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
@@ -52,10 +54,10 @@ export default function Home(props) {
         </div>
       </div>
 
-      <div className="relative bg-white">
+      <div className="relative bg-white mb-4">
         <div className="h-56 bg-white-600 sm:h-72 lg:absolute lg:left-0 lg:h-full lg:w-1/2">
           <img
-            className="w-full h-full lg:p-6 object-cover lg:rounded-lg"
+            className="w-full h-full object-cover"
             src={HomeTruck}
             alt="Support team"
           />
@@ -72,10 +74,10 @@ export default function Home(props) {
               quieren
             </h2>
             <p className="mt-6 text-lg text-gray-500">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore
-              nihil ea rerum ipsa. Nostrum consectetur sequi culpa doloribus
-              omnis, molestiae esse placeat, exercitationem magnam quod
-              molestias quia aspernatur deserunt voluptatibus.
+              Productos frescos, naturales y ecológicos de vendedores cercanos a
+              tu casa.<br></br>
+              <br></br>Precios competitivos y acordes al mercado y a lo que
+              nuestros clientes demandan.
             </p>
             <div className="mt-8 overflow-hidden">
               <dl className="-mx-8 -mt-8 flex flex-wrap">
@@ -109,7 +111,7 @@ export default function Home(props) {
         </div>
       </div>
 
-      <section className="bg-green-700">
+      <section className="bg-green-700 lg:mb-4">
         <div className="max-w-7xl mx-auto md:grid md:grid-cols-2 md:px-6 lg:px-8">
           <div className="py-12 px-4 sm:px-6 md:flex md:flex-col md:py-16 md:pl-0 md:pr-10 md:border-r md:border-green-900 lg:pr-16">
             <div className="md:flex-shrink-0">
@@ -138,11 +140,7 @@ export default function Home(props) {
               <footer className="mt-8">
                 <div className="flex items-start">
                   <div className="flex-shrink-0 inline-flex rounded-full border-2 border-white">
-                    <img
-                      className="h-12 w-12 rounded-full"
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                    />
+                    <img className="h-12 w-12 rounded-full" src={Dani} alt="" />
                   </div>
                   <div className="ml-4">
                     <div className="text-base font-medium text-white">
@@ -185,7 +183,7 @@ export default function Home(props) {
                   <div className="flex-shrink-0 inline-flex rounded-full border-2 border-white">
                     <img
                       className="h-12 w-12 rounded-full"
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      src={Alvaro}
                       alt=""
                     />
                   </div>
