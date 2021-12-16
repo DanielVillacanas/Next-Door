@@ -39,7 +39,7 @@ export default function Home(props) {
               Toma el control, apoya el comercio local
             </p>
             <h2 className="mt-6 text-base font-semibold text-green-600 tracking-wide uppercase">
-              Comercio de cercania
+              Comercio de cercanía
             </h2>
             <img
               className="hidden lg:block h-32 w-auto mx-auto mt-2"
