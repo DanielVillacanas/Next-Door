@@ -55,6 +55,13 @@ const navigation = {
 export default function Footer(props) {
   return (
     <footer className="bg-white pb-8">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 260">
+        <path
+          fill="#4ade80"
+          fill-opacity="1"
+          d="M0,128L80,112C160,96,320,64,480,90.7C640,117,800,203,960,224C1120,245,1280,203,1360,181.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
+        ></path>
+      </svg>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
         <path
           fill="#4ade80"
@@ -63,11 +70,17 @@ export default function Footer(props) {
         ></path>
       </svg>
       <div className="max-w-7xl mx-auto py-2 px-4 overflow-hidden sm:px-6 lg:px-8">
-        <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+        <nav
+          className="-mx-5 -my-2 flex flex-wrap justify-center"
+          aria-label="Footer"
+        >
           {props.loggedUser &&
             navigation.logged.map((item) => (
               <div key={item.name} className="px-5">
-                <Link to={item.href} className="text-base text-gray-500 hover:text-green-500">
+                <Link
+                  to={item.href}
+                  className="text-base text-gray-500 hover:text-green-500"
+                >
                   {item.name}
                 </Link>
               </div>
@@ -75,7 +88,10 @@ export default function Footer(props) {
           {!props.loggedUser &&
             navigation.notLogged.map((item) => (
               <div key={item.name} className="px-5">
-                <Link to={item.href} className="text-base text-gray-500 hover:text-green-500">
+                <Link
+                  to={item.href}
+                  className="text-base text-gray-500 hover:text-green-500"
+                >
                   {item.name}
                 </Link>
               </div>
@@ -83,7 +99,11 @@ export default function Footer(props) {
         </nav>
         <div className="mt-8 flex justify-center space-x-6">
           {navigation.social.map((item) => (
-            <a key={item.name} href={item.href} className="text-gray-400 hover:text-green-500">
+            <a
+              key={item.name}
+              href={item.href}
+              className="text-gray-400 hover:text-green-500"
+            >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-6 w-6" aria-hidden="true" />
             </a>
