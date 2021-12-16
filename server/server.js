@@ -8,7 +8,8 @@ const server = app.listen(PORT, () => {
 
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    // origin: "http://localhost:3000",
+    origin: "https://nextdoor-app.herokuapp.com/",
   },
 });
 

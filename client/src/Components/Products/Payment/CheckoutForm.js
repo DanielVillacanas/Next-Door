@@ -33,7 +33,7 @@ function CheckoutForm(props) {
     if (!error) {
       const { id } = paymentMethod;
 
-      const { data } = await axios.post("http://localhost:5000/api/payment/checkout", {
+      const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}/payment/checkout`, {
         id,
         amount: subtotal * 100,
       });
