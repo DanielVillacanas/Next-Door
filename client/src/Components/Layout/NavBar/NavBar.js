@@ -5,7 +5,7 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { PlusSmIcon } from "@heroicons/react/solid";
 import NewProduct from "../../Products/NewProduct/NewProduct";
 import AuthService from "../../../Services/AuthServices/auth.service";
-
+import LogoWhite from "../../../images/LogoWhite.svg";
 import { navigation, notLogged } from "../../../Const/Const";
 
 const authService = new AuthService();
@@ -42,7 +42,8 @@ export default function NavBar(props) {
   };
 
   useEffect(() => {
-    props.loggedUser != null && setcartLength(props.loggedUser?.productsCart?.length);
+    props.loggedUser != null &&
+      setcartLength(props.loggedUser?.productsCart?.length);
   });
 
   return (
@@ -64,8 +65,8 @@ export default function NavBar(props) {
                 <div className="flex-shrink-0 flex items-center">
                   <Link to={"/"}>
                     <img
-                      className="hidden lg:block h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                      className="hidden lg:block h-16 w-auto"
+                      src={LogoWhite}
                       alt="Workflow"
                     />
                   </Link>
@@ -113,17 +114,36 @@ export default function NavBar(props) {
                     onClick={openModal}
                     className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
                   >
-                    <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+                    <PlusSmIcon
+                      className="-ml-1 mr-2 h-5 w-5"
+                      aria-hidden="true"
+                    />
                     <span>Nuevo Producto</span>
                   </button>
                 )}
                 {logged?.role === "User" && !props.home && (
                   <Link className="flex-shrink-0" to="/products/cart">
                     <button type="button" className="">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="#ffffff"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                        />
+                      </svg>
                       <span className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
                         Cesta :
                         <div className="container ml-2 rounded-full bg-green-600 text-white w-6 h-6 text-center">
-                          <div className="mx-auto h-full my-auto mt-0.5">{cartLength}</div>
+                          <div className="mx-auto h-full my-auto mt-0.5">
+                            {cartLength}
+                          </div>
                         </div>
                       </span>
                     </button>
@@ -148,7 +168,10 @@ export default function NavBar(props) {
                         <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                       </Transition.Child>
 
-                      <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
+                      <span
+                        className=" sm:inline-block sm:align-middle sm:h-12"
+                        aria-hidden="true"
+                      >
                         &#8203;
                       </span>
                       <Transition.Child
@@ -176,7 +199,11 @@ export default function NavBar(props) {
                     <Menu as="div" className="ml-3 relative">
                       <div>
                         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                          <img className="h-8 w-8 rounded-full" src={logged.img_url} alt="" />
+                          <img
+                            className="h-8 w-8 rounded-full"
+                            src={logged.img_url}
+                            alt=""
+                          />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -278,11 +305,19 @@ export default function NavBar(props) {
               <div className="pt-4 pb-3 border-t border-gray-700">
                 <div className="flex items-center px-5 sm:px-6">
                   <div className="flex-shrink-0">
-                    <img className="h-10 w-10 rounded-full" src={logged.img_url} alt="" />
+                    <img
+                      className="h-10 w-10 rounded-full"
+                      src={logged.img_url}
+                      alt=""
+                    />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium text-white">{logged.username}</div>
-                    <div className="text-sm font-medium text-gray-400">{logged.email}</div>
+                    <div className="text-base font-medium text-white">
+                      {logged.username}
+                    </div>
+                    <div className="text-sm font-medium text-gray-400">
+                      {logged.email}
+                    </div>
                   </div>
                 </div>
                 <div className="mt-3 px-2 space-y-1 sm:px-3">

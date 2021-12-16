@@ -28,7 +28,7 @@ function TypeSellerFilter(props) {
 
   return (
     <div>
-      <div className="bg-white">
+      <div className="bg-gray-900">
         <div>
           <div className="max-w-7xl mx-24 sm:px-6 lg:px-8">
             <section aria-labelledby="products-heading" className="pt-6 pb-14">
@@ -39,14 +39,14 @@ function TypeSellerFilter(props) {
                       <Disclosure
                         as="div"
                         key={section.id}
-                        className="border-b border-gray-200 pb-6 pt-4"
+                        className="border-b border-white pb-6 pt-4"
                       >
                         {({ open }) => (
                           <>
                             <h3 className="-my-3 flex justify-between">
                               <div>
-                                <Disclosure.Button className=" bg-white w-full flex justify-start text-sm text-gray-400 hover:text-gray-500">
-                                  <span className="font-medium text-gray-900">
+                                <Disclosure.Button className=" bg-gray-900 w-full flex justify-start text-sm text-gray-400 hover:text-white">
+                                  <span className="font-medium text-white">
                                     {section.name}
                                   </span>
                                   <span className=" flex items-center">
@@ -82,7 +82,7 @@ function TypeSellerFilter(props) {
                                       value={option.value}
                                       type="radio"
                                       defaultChecked={option.checked}
-                                      className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500 "
+                                      className="h-4 w-4 border-white rounded text-white focus:ring-white "
                                     />
                                     <label
                                       htmlFor={option.value}
@@ -102,14 +102,14 @@ function TypeSellerFilter(props) {
                     <Disclosure
                       as="div"
                       key={section.id}
-                      className="border-b border-gray-200 pb-6 pt-4"
+                      className="border-b border-white pb-6 pt-4"
                     >
                       {({ open }) => (
                         <>
                           <h3 className="-my-3 flex justify-between">
                             <div>
-                              <Disclosure.Button className=" bg-white w-full flex justify-start text-sm text-gray-400 hover:text-gray-500">
-                                <span className="font-medium text-gray-900">
+                              <Disclosure.Button className=" bg-gray-900 w-full flex justify-start text-sm text-white">
+                                <span className="font-medium text-white">
                                   {section.name}
                                 </span>
                                 <span className=" flex items-center">
@@ -133,7 +133,7 @@ function TypeSellerFilter(props) {
                                 className="relative inline-block text-left"
                               >
                                 <div>
-                                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-white">
                                     Ordenar por precio
                                     <ChevronDownIcon
                                       className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
@@ -184,11 +184,11 @@ function TypeSellerFilter(props) {
                                     value={option.value}
                                     type="checkbox"
                                     defaultChecked={option.checked}
-                                    className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500 "
+                                    className="h-4 w-4 border-white rounded text-white"
                                   />
                                   <label
                                     htmlFor={option.value}
-                                    className="ml-3 text-sm text-gray-600"
+                                    className="ml-3 text-sm text-white"
                                   >
                                     {option.label}
                                   </label>

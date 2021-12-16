@@ -36,8 +36,8 @@ function LoginPage(props) {
   };
 
   return (
-    <div className="h-screen relative bg-gray-800">
-      <div className="relative pt-6 pb-10 sm:pb-8 bg-gray-800">
+    <div className="h-screen relative bg-gray-900">
+      <div className="relative pt-6 pb-10 sm:pb-8 bg-gray-900">
         <Popover>
           <nav
             className="relative max-w-7xl mx-auto flex items-center justify-end px-4 sm:px-6"
@@ -54,7 +54,7 @@ function LoginPage(props) {
           </nav>
         </Popover>
 
-        <div className="mt-12 sm:mt-4 bg-gray-800">
+        <div className="mt-12 sm:mt-4 bg-gray-900">
           <div className="mx-auto max-w-7xl">
             <div className="lg:grid lg:grid-cols-12 lg:gap-8">
               <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
@@ -154,7 +154,9 @@ function LoginPage(props) {
                             <div className="w-full border-t border-gray-300" />
                           </div>
                           <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-white text-gray-500">o crea una cuenta</span>
+                            <span className="px-2 bg-white text-gray-500">
+                              o crea una cuenta
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -171,15 +173,24 @@ function LoginPage(props) {
                   <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 rounded-lg">
                     <p className="text-xs leading-5 text-gray-500">
                       Registrandote estas de acuerdo con nuestros
-                      <Link href="#" className="font-medium text-gray-900 hover:underline">
+                      <Link
+                        href="#"
+                        className="font-medium text-gray-900 hover:underline"
+                      >
                         Terminos
                       </Link>
                       ,
-                      <Link href="#" className="font-medium text-gray-900 hover:underline">
+                      <Link
+                        href="#"
+                        className="font-medium text-gray-900 hover:underline"
+                      >
                         Política de datos
                       </Link>
                       and
-                      <Link href="#" className="font-medium text-gray-900 hover:underline">
+                      <Link
+                        href="#"
+                        className="font-medium text-gray-900 hover:underline"
+                      >
                         Política de Cookies
                       </Link>
                       .

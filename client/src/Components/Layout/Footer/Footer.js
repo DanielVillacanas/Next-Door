@@ -54,17 +54,17 @@ const navigation = {
 
 export default function Footer(props) {
   return (
-    <footer className="bg-white pb-8">
+    <footer className="bg-gray-900 pb-8">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 260">
         <path
-          fill="#4ade80"
+          fill="#16a34a"
           fill-opacity="1"
           d="M0,128L80,112C160,96,320,64,480,90.7C640,117,800,203,960,224C1120,245,1280,203,1360,181.3L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
         ></path>
       </svg>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
         <path
-          fill="#4ade80"
+          fill="#16a34a"
           fillOpacity="1"
           d="M0,96L48,96C96,96,192,96,288,117.3C384,139,480,181,576,202.7C672,224,768,224,864,208C960,192,1056,160,1152,133.3C1248,107,1344,85,1392,74.7L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
         ></path>

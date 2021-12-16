@@ -108,7 +108,7 @@ export default function AllProducts(props) {
       });
     }
     setProductsCopy(copy);
-  }, [search, filters, shorts, range]);
+  }, [search, filters, shorts, range, page]);
 
   let handleOnclickPage = (e) => {
     setPage(parseInt(e.currentTarget.name));
@@ -123,7 +123,7 @@ export default function AllProducts(props) {
   };
   return (
     <>
-      <div className="bg-white">
+      <div className="bg-gray-900">
         <SearchBar getInfo={getInfo} />
         <TypeSellerFilter
           getFilter={getFilter}
@@ -139,7 +139,7 @@ export default function AllProducts(props) {
               </div>
             ))}
           </div>
-          <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-10">
+          <div className="bg-gray-900 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-10">
             <div className="flex-1 flex justify-between sm:hidden">
               <button
                 name="Prev"
@@ -158,7 +158,7 @@ export default function AllProducts(props) {
             </div>
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-white">
                   <span className="font-medium"> {products.length * page}</span>{" "}
                   -<span className="font-medium"> {length}</span>
                 </p>
@@ -183,7 +183,7 @@ export default function AllProducts(props) {
                         onClick={handleOnclickPage}
                         name={i + 1}
                         aria-current="page"
-                        className="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                        className="z-10 bg-green-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
                       >
                         {i + 1}
                       </button>
