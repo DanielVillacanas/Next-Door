@@ -39,13 +39,13 @@ function TypeSellerFilter(props) {
                       <Disclosure
                         as="div"
                         key={section.id}
-                        className="border-b border-white pb-6 pt-4"
+                        className="border-b border-green-500 pb-6 pt-4"
                       >
                         {({ open }) => (
                           <>
                             <h3 className="-my-3 flex justify-between">
                               <div>
-                                <Disclosure.Button className=" bg-gray-900 w-full flex justify-start text-sm text-gray-400 hover:text-white">
+                                <Disclosure.Button className=" bg-gray-900 w-full flex justify-start text-sm text-white hover:text-white">
                                   <span className="font-medium text-white">
                                     {section.name}
                                   </span>
@@ -86,7 +86,7 @@ function TypeSellerFilter(props) {
                                     />
                                     <label
                                       htmlFor={option.value}
-                                      className="ml-3 text-sm text-gray-600"
+                                      className="ml-3 text-sm text-white"
                                     >
                                       {option.label}
                                     </label>
@@ -102,7 +102,7 @@ function TypeSellerFilter(props) {
                     <Disclosure
                       as="div"
                       key={section.id}
-                      className="border-b border-white pb-6 pt-4"
+                      className="border-b border-green-500 pb-6 pt-4"
                     >
                       {({ open }) => (
                         <>
@@ -136,12 +136,12 @@ function TypeSellerFilter(props) {
                                   <Menu.Button className="group inline-flex justify-center text-sm font-medium text-white">
                                     Ordenar por precio
                                     <ChevronDownIcon
-                                      className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                      className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-white group-hover:text-white"
                                       aria-hidden="true"
                                     />
                                   </Menu.Button>
                                 </div>
-                                <Menu.Items className="origin-top-right absolute right-2 sm:left-20 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <Menu.Items className="origin-top-right absolute left-6 sm:left-20 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                                   <div className="py-1">
                                     {sortOptions.map((option) => (
                                       <div
@@ -154,7 +154,7 @@ function TypeSellerFilter(props) {
                                           name="radio-filter"
                                           defaultChecked={false}
                                           type="radio"
-                                          className="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500 "
+                                          className="h-4 w-4 border-white rounded text-indigo-600 focus:ring-indigo-500 "
                                         />
                                         <label
                                           htmlFor={option.value}

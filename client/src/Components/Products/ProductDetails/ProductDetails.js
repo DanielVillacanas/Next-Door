@@ -69,14 +69,14 @@ export default function ProductsDetails(props) {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-gray-900">
       <div className="py-6">
         {/* Image gallery */}
         <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
-          <div className=" aspect-w-3 aspect-h-4 overflow-hidden lg:block rounded-lg">
+          <div className="aspect-w-3 aspect-h-4 overflow-hidden lg:block rounded-lg">
             <img
               src={product?.img_url}
-              className="px-4 w-full lg:h-full h-72 object-center lg:mx-0 lg:px-0 lg:object-cover object-contain mb-6 lg:mb-0 rounded-lg "
+              className="px-4 w-full lg:h-full h-72 object-center lg:mx-0 lg:px-0 lg:object-contain object-cover mb-6 lg:mb-0 rounded-lg "
               alt="Product"
             />
           </div>
@@ -89,7 +89,9 @@ export default function ProductsDetails(props) {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        reviews.average > rating ? "text-green-500" : "text-gray-200",
+                        reviews.average > rating
+                          ? "text-green-500"
+                          : "text-gray-200",
                         "h-5 w-5 flex-shrink-0"
                       )}
                       aria-hidden="true"
@@ -97,19 +99,25 @@ export default function ProductsDetails(props) {
                   ))}
                 </div>
                 <p className="sr-only">{reviews.average} out of 5 stars</p>
-                <p href={reviews.href} className="ml-3 text-sm font-medium text-green-600 ">
+                <p
+                  href={reviews.href}
+                  className="ml-3 text-sm font-medium text-green-600 "
+                >
                   {reviews.totalCount} reviews
                 </p>
               </div>
             </div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl mb-4">
+            <h1 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl mb-4">
               {product?.name}
             </h1>
-            <Link className="text-green-600 hover:text-green-500" to={`/seller/${owner?._id}`}>
+            <Link
+              className="text-green-600 hover:text-green-500"
+              to={`/seller/${owner?._id}`}
+            >
               {owner?.username}
             </Link>
             <div className="grid grid-cols-12 gap-4 mb-6 mt-4">
-              <div className="col-start-1 col-end-5 text-sm text-gray-900">
+              <div className="col-start-1 col-end-5 text-sm text-white">
                 Precio por unidad: {product?.price} €
               </div>
 
@@ -124,7 +132,9 @@ export default function ProductsDetails(props) {
                       -
                     </button>
                   </div>
-                  <div className="col-end-9 col-span-2 text-center pt-2">{count}</div>
+                  <div className="col-end-9 col-span-2 text-center pt-2 text-white">
+                    {count}
+                  </div>
                   <div className="col-end-11 col-span-2">
                     <button
                       type="button"
@@ -139,7 +149,7 @@ export default function ProductsDetails(props) {
             </div>
             {(loggedUser === null || loggedUser?.role === "User") && (
               <>
-                <div className="grid grid-cols-6 border-b-2 border-gray-200 pb-8">
+                <div className="grid grid-cols-6 border-b-2 border-green-500 pb-8">
                   <button
                     type="button"
                     onClick={addProductCart}
@@ -152,13 +162,17 @@ export default function ProductsDetails(props) {
             )}
             <div>
               <div className="space-y-6 mt-8">
-                <p className="text-base text-gray-900 ">{product?.description}</p>
+                <p className="text-base text-white ">{product?.description}</p>
               </div>
             </div>
           </div>
         </div>
 
-        <ReviewList ProductId={id} loadProduct={loadProduct} loadReviewsFather={loadReviews} />
+        <ReviewList
+          ProductId={id}
+          loadProduct={loadProduct}
+          loadReviewsFather={loadReviews}
+        />
       </div>
     </div>
   );

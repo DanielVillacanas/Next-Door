@@ -123,7 +123,7 @@ export default function AllProducts(props) {
   };
   return (
     <>
-      <div className="bg-gray-900">
+      <div>
         <SearchBar getInfo={getInfo} />
         <TypeSellerFilter
           getFilter={getFilter}
@@ -132,7 +132,7 @@ export default function AllProducts(props) {
         />
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 ">
           <h2 className="sr-only">Products</h2>
-          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 ">
+          <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {productsCopy.map((product) => (
               <div key={product._id}>
                 <ProductCard product={product} />
@@ -171,7 +171,7 @@ export default function AllProducts(props) {
                   <button
                     name="Prev"
                     onClick={handlePrevNextPage}
-                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-black hover:bg-gray-100"
                   >
                     <span className="sr-only">Previous</span>
                     <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -183,7 +183,7 @@ export default function AllProducts(props) {
                         onClick={handleOnclickPage}
                         name={i + 1}
                         aria-current="page"
-                        className="z-10 bg-green-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                        className="z-10 bg-green-200 border-green-500 text-black relative inline-flex items-center px-4 py-2 border text-sm font-medium hover:bg-green-300"
                       >
                         {i + 1}
                       </button>
@@ -193,7 +193,7 @@ export default function AllProducts(props) {
                   <button
                     name="Next"
                     onClick={handlePrevNextPage}
-                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-green-300 bg-white text-sm font-medium text-black hover:bg-gray-100"
                   >
                     <span className="sr-only">Next</span>
                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />

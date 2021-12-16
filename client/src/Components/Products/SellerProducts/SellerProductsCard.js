@@ -40,29 +40,35 @@ function SellerProductsCard(props) {
             alt="Product"
           />
         </div>
-        <div className="bg-white p-4">
-          <h3 className="mt-4 text-sm text-green-700 ">{product.name}</h3>
-          <p className="mt-1 text-lg font-medium text-gray-900">{product.price} €</p>
+        <div className="bg-gray-50 p-4">
+          <h3 className="mt-4 text-sm text-black ">{product.name}</h3>
+          <p className="mt-1 text-lg font-medium text-gray-900">
+            {product.price} €
+          </p>
           <div>
             <Link to={`/products/${id}`}>
               <button
                 type="button"
-                className="mt-4 px-4 py-2 border border-transparent  shadow-sm text-sm font-medium rounded-md text-white bg-green-500  hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                className="mt-4 px-2 py-2 border border-transparent  shadow-sm text-sm font-medium rounded-md text-white bg-green-500  hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
-                Product Details
+                Detalles de producto
               </button>
             </Link>
             {loggedUser !== null && loggedUser?._id === props?.id && (
               <button
                 type="button"
                 onClick={openModal}
-                className="mt-4 ml-10 px-4 shadow-sm text-sm font-medium text-black  border-b-2 border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                className="mt-4 ml-10 px-2 shadow-sm text-sm font-medium text-black  border-b-2 border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
               >
-                Delete Product
+                Borrar producto
               </button>
             )}
             <Transition.Root show={isOpen} as={Fragment}>
-              <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={setOpen}>
+              <Dialog
+                as="div"
+                className="fixed z-10 inset-0 overflow-y-auto"
+                onClose={setOpen}
+              >
                 <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                   <Transition.Child
                     as={Fragment}
@@ -100,7 +106,10 @@ function SellerProductsCard(props) {
                       </div>
                       <div className="sm:flex sm:items-start">
                         <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                          <ExclamationIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
+                          <ExclamationIcon
+                            className="h-6 w-6 text-red-600"
+                            aria-hidden="true"
+                          />
                         </div>
                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                           <Dialog.Title
@@ -113,8 +122,9 @@ function SellerProductsCard(props) {
                             <p className="text-sm text-gray-500">
                               ¿Estas seguro de que quieres eliminar
                               <span className="text-black">{product.name}</span>
-                              de la tienda? Si acepta se borrara toda la informacion de este
-                              producto haciendo esta acción irremediable.
+                              de la tienda? Si acepta se borrara toda la
+                              informacion de este producto haciendo esta acción
+                              irremediable.
                             </p>
                           </div>
                         </div>
