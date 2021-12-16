@@ -105,6 +105,7 @@ export default function AllProducts(props) {
 
   let handleOnclickPage = (e) => {
     setPage(parseInt(e.currentTarget.name));
+    window.scrollTo(0, 0);
   };
 
   let handlePrevNextPage = (e) => {
@@ -113,6 +114,7 @@ export default function AllProducts(props) {
     } else if (page > 1) {
       setPage(page - 1);
     }
+    window.scrollTo(0, 0);
   };
   return (
     <>
@@ -148,8 +150,11 @@ export default function AllProducts(props) {
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm text-white">
-                  <span className="font-medium"> {products.length * page}</span>-
-                  <span className="font-medium"> {length}</span>
+                  <span className="font-medium">
+                    {" "}
+                    {page < 2 ? products.length * page : limit + 1 * (page - 1)}
+                  </span>
+                  -<span className="font-medium"> {length}</span>
                 </p>
               </div>
               <div>

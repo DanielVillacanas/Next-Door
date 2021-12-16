@@ -18,10 +18,12 @@ export default function EditProfile(props) {
   const [errMessage, setError] = useState(undefined);
 
   const handleSubmit = () => {
+    debugger;
     !errMessage &&
       userServices
         .editUser(user)
         .then(() => {
+          debugger;
           props.loadUser();
         })
         .catch((err) => console.log(err));

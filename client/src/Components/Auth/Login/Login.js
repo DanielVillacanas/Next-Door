@@ -112,32 +112,6 @@ function LoginPage(props) {
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <input
-                              id="remember-me"
-                              name="remember-me"
-                              type="checkbox"
-                              className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-                            />
-                            <label
-                              htmlFor="remember-me"
-                              className="ml-2 block text-sm text-gray-900"
-                            >
-                              Remember me
-                            </label>
-                          </div>
-
-                          <div className="text-sm">
-                            <a
-                              href="/signUp"
-                              className="font-medium text-green-600 hover:text-green-500"
-                            >
-                              Forgot your password?
-                            </a>
-                          </div>
-                        </div>
-
                         <div>
                           <button
                             type="submit"
@@ -154,9 +128,7 @@ function LoginPage(props) {
                             <div className="w-full border-t border-gray-300" />
                           </div>
                           <div className="relative flex justify-center text-sm">
-                            <span className="px-2 bg-white text-gray-500">
-                              o crea una cuenta
-                            </span>
+                            <span className="px-2 bg-white text-gray-500">o crea una cuenta</span>
                           </div>
                         </div>
                       </div>
@@ -173,24 +145,15 @@ function LoginPage(props) {
                   <div className="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 rounded-lg">
                     <p className="text-xs leading-5 text-gray-500">
                       Registrandote estas de acuerdo con nuestros
-                      <Link
-                        href="#"
-                        className="font-medium text-gray-900 hover:underline"
-                      >
+                      <Link href="#" className="font-medium text-gray-900 hover:underline">
                         Terminos
                       </Link>
                       ,
-                      <Link
-                        href="#"
-                        className="font-medium text-gray-900 hover:underline"
-                      >
+                      <Link href="#" className="font-medium text-gray-900 hover:underline">
                         Política de datos
                       </Link>
                       and
-                      <Link
-                        href="#"
-                        className="font-medium text-gray-900 hover:underline"
-                      >
+                      <Link href="#" className="font-medium text-gray-900 hover:underline">
                         Política de Cookies
                       </Link>
                       .

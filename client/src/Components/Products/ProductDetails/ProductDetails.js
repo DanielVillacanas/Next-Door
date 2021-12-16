@@ -35,6 +35,7 @@ export default function ProductsDetails(props) {
   useEffect(() => {
     loadReviews();
     loadProduct();
+    window.scrollTo(0, 0);
   }, []);
 
   let loadProduct = () => {
