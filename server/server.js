@@ -1,11 +1,13 @@
 const app = require("./app");
 const socket = require("socket.io");
 const PORT = process.env.PORT || 5005;
-
-const server = app.listen(PORT, () => {
-  console.log(`Server listening on port http://localhost:${PORT}`);
+const url = "https://nextdoor-app.herokuapp.com/";
+// const server = app.listen(PORT, () => {
+//   console.log(`Server listening on port http://localhost:${PORT}`);
+// });
+const server = app.listen(url, () => {
+  // console.log(`Server listening on port http://localhost:${PORT}`);
 });
-
 const io = socket(server, {
   cors: {
     // origin: "http://localhost:3000",
