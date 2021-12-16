@@ -41,13 +41,21 @@ export default function Home(props) {
             <h2 className="mt-6 text-base font-semibold text-green-600 tracking-wide uppercase">
               Comercio de cercania
             </h2>
+            <img
+              className="hidden lg:block h-32 w-auto mx-auto mt-2"
+              src={LogoWhite}
+              alt="Workflow"
+            />
             <p className="max-w-xl mt-5 mx-auto text-xl text-white">
               Empieza a comprar productos frescos, de las tiendas de tu barrio, donde tus padres
               iban a comprar cuando eras pequeño.
             </p>
           </div>
-          <div className="relative w-full h-64 sm:h-72 md:h-96 mt-12 lg:h-96">
-            <img className="relative inset-0 w-full h-full object-cover" src={HeaderPhoto} />
+          <div className="relative w-full h-64 sm:h-72 md:h-96 mt-8 lg:h-96">
+            <img
+              className="relative inset-0 w-full h-full object-cover lg:rounded-2xl"
+              src={HeaderPhoto}
+            />
           </div>
         </div>
       </div>
@@ -87,7 +95,10 @@ export default function Home(props) {
             </div>
           </div>
           <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
-            <img className="relative inset-0 w-full h-full object-cover" src={HomeFarmer} />
+            <img
+              className="relative inset-0 w-full h-full object-cover rounded-tl-lg"
+              src={HomeFarmer}
+            />
           </div>
         </div>
       </div>
@@ -95,7 +106,7 @@ export default function Home(props) {
       <div className="relative bg-gray-900 mb-4">
         <div className="lg:h-56 bg-white-600 lg:absolute lg:left-0 lg:h-full lg:w-1/2">
           <img
-            className="w-full h-full object-cover hidden lg:flex"
+            className="w-full h-full object-cover hidden lg:flex rounded-br-lg"
             src={HomeTruck}
             alt="Support team"
           />
@@ -121,20 +132,20 @@ export default function Home(props) {
             <div className="mt-8 overflow-hidden">
               <dl className="-mx-8 -mt-8 flex flex-wrap">
                 <div className="flex flex-col px-8 pt-8">
-                  <dt className="order-2 text-base font-medium text-gray-500">Envios</dt>
-                  <dd className="order-1 text-2xl font-extrabold text-green-600 sm:text-3xl">
+                  <dt className="order-2 text-base font-medium text-white">Envios</dt>
+                  <dd className="order-1 text-2xl font-extrabold text-green-500 sm:text-3xl">
                     24/7
                   </dd>
                 </div>
                 <div className="flex flex-col px-8 pt-8">
-                  <dt className="order-2 text-base font-medium text-gray-500">Satisfacción</dt>
-                  <dd className="order-1 text-2xl font-extrabold text-green-600 sm:text-3xl">
+                  <dt className="order-2 text-base font-medium text-white">Satisfacción</dt>
+                  <dd className="order-1 text-2xl font-extrabold text-green-500 sm:text-3xl">
                     99.9%
                   </dd>
                 </div>
                 <div className="flex flex-col px-8 pt-8">
-                  <dt className="order-2 text-base font-medium text-gray-500">Usuarios</dt>
-                  <dd className="order-1 text-2xl font-extrabold text-green-600 sm:text-3xl">
+                  <dt className="order-2 text-base font-medium text-white">Usuarios</dt>
+                  <dd className="order-1 text-2xl font-extrabold text-green-500 sm:text-3xl">
                     +500
                   </dd>
                 </div>

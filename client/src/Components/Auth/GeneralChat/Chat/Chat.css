@@ -10,7 +10,7 @@
 .ChatMenuInput {
   padding: 10px;
   margin: 0 auto;
-  width: 90%;
+  width: 80%;
 }
 
 .chatBox {
@@ -31,10 +31,19 @@
   padding-right: 20px;
 }
 .chatMenuWrapper {
-  height: 99%;
+  height: 96.5%;
 }
 
 .chatOnlineWrapper {
   padding: 10px;
   height: 100%;
+}
+
+#logoBackgorund {
+  position: absolute;
+  filter: opacity(5%);
+  -webkit-filter: opacity(5%);
+  transform: scale(3);
+  left: 55%;
+  top: 40%;
 }

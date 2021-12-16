@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./Conversation.css";
 import SellerService from "../../../../Services/SellerServices/seller.service";
 import UserService from "../../../../Services/UserSerivces/UserSerivces";
 
@@ -40,7 +39,7 @@ function Conversation(props) {
   }, []);
 
   return (
-    <div className="conversation mt-4 hover:bg-gray-100 py-4 pl-4">
+    <div className="conversation mt-4 hover:bg-gray-100 hover:text-black py-4 pl-4">
       {currentUser?.role === "Seller" ? (
         <>
           <img

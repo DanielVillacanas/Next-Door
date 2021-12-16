@@ -24,12 +24,12 @@ export const sortOptions = [
 export const filters = [
   {
     id: "categorias",
-    name: "Categoría de Productos",
+    name: "Categoría de Tienda",
     options: [
-      { value: "Carnes", label: "Carnes", checked: false },
-      { value: "Pescados", label: "Pescados", checked: false },
-      { value: "Frutas", label: "Frutas", checked: false },
-      { value: "Verduras", label: "Verduras", checked: false },
+      { value: "Carnes", label: "Carnicería", checked: false },
+      { value: "Pescados", label: "Pescadería", checked: false },
+      { value: "Frutas", label: "Frutería", checked: false },
+      { value: "Verduras", label: "Verdulería", checked: false },
       { value: "Other", label: "Otros", checked: false },
     ],
   },
