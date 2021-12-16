@@ -17,7 +17,7 @@ let reviewService = new ReviewService();
 export default function Reviews(props) {
   const [review, setReview] = useState({
     description: "",
-    rating: 0,
+    rating: 1,
     product: props.ProductId,
     seller: props.SellerId,
   });
@@ -55,12 +55,7 @@ export default function Reviews(props) {
     e.preventDefault();
 
     reviewService
-      .createReview(
-        review.description,
-        review.rating,
-        review.product,
-        review.seller
-      )
+      .createReview(review.description, review.rating, review.product, review.seller)
       .then((response) => {
         loadReviews();
         if (props.ProductId) {
@@ -114,17 +109,11 @@ export default function Reviews(props) {
                   <div className="divide-y divide-gray-200">
                     <div className="px-4 py-5 sm:px-6">
                       {id !== props.ProductId ? (
-                        <h2
-                          id="notes-title"
-                          className="text-lg font-medium text-gray-900"
-                        >
+                        <h2 id="notes-title" className="text-lg font-medium text-gray-900">
                           Comentarios del vendedor
                         </h2>
                       ) : (
-                        <h2
-                          id="notes-title"
-                          className="text-lg font-medium text-gray-900"
-                        >
+                        <h2 id="notes-title" className="text-lg font-medium text-gray-900">
                           Comentarios del producto
                         </h2>
                       )}
@@ -156,10 +145,7 @@ export default function Reviews(props) {
                                 <h3 className="ml-5 mt-4">Deja tu nota</h3>
                                 <div className="py-1 flex grid grid-cols-5">
                                   {Options.map((option, i) => (
-                                    <div
-                                      key={i + 1}
-                                      className="flex items-center px-4 py-2 ml-6"
-                                    >
+                                    <div key={i + 1} className="flex items-center px-4 py-2 ml-6">
                                       <input
                                         onChange={handleInputChange}
                                         id={i + 1}
@@ -235,9 +221,7 @@ export default function Reviews(props) {
                                       </div>
                                     </div>
                                     <div className="mt-1 mx-3 text-sm text-gray-700">
-                                      <p className="max-w-xl break-all">
-                                        {comment.description}
-                                      </p>
+                                      <p className="max-w-xl break-all">{comment.description}</p>
                                     </div>
                                   </div>
                                 </div>
@@ -252,13 +236,10 @@ export default function Reviews(props) {
                                     </button>
                                   </div>
                                   <div className="flex place-items-end ml-4">
-                                    {loggedUser?._id ===
-                                      comment.creator._id && (
+                                    {loggedUser?._id === comment.creator._id && (
                                       <button
                                         type="button"
-                                        onClick={() =>
-                                          deleteReview(comment._id)
-                                        }
+                                        onClick={() => deleteReview(comment._id)}
                                         className="mt-4 h-6  text-sm font-sm text-gray-500 border-b border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
                                       >
                                         Borrar
@@ -275,9 +256,7 @@ export default function Reviews(props) {
                                 />
                               )}
                             </li>
-                            {comment.comments.length > 0 && (
-                              <CommentList comment={comment} />
-                            )}
+                            {comment.comments.length > 0 && <CommentList comment={comment} />}
                           </>
                         ))}
                       </ul>

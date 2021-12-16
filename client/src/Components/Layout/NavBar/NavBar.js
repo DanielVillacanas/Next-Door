@@ -42,8 +42,7 @@ export default function NavBar(props) {
   };
 
   useEffect(() => {
-    props.loggedUser != null &&
-      setcartLength(props.loggedUser?.productsCart?.length);
+    props.loggedUser != null && setcartLength(props.loggedUser?.productsCart?.length);
   });
 
   return (
@@ -114,22 +113,17 @@ export default function NavBar(props) {
                     onClick={openModal}
                     className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
                   >
-                    <PlusSmIcon
-                      className="-ml-1 mr-2 h-5 w-5"
-                      aria-hidden="true"
-                    />
+                    <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
                     <span>Nuevo Producto</span>
                   </button>
                 )}
-                {logged?.role === "User" && (
+                {logged?.role === "User" && !props.home && (
                   <Link className="flex-shrink-0" to="/products/cart">
                     <button type="button" className="">
                       <span className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500">
                         Cesta :
                         <div className="container ml-2 rounded-full bg-green-600 text-white w-6 h-6 text-center">
-                          <div className="mx-auto h-full my-auto mt-0.5">
-                            {cartLength}
-                          </div>
+                          <div className="mx-auto h-full my-auto mt-0.5">{cartLength}</div>
                         </div>
                       </span>
                     </button>
@@ -154,10 +148,7 @@ export default function NavBar(props) {
                         <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
                       </Transition.Child>
 
-                      <span
-                        className=" sm:inline-block sm:align-middle sm:h-12"
-                        aria-hidden="true"
-                      >
+                      <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
                         &#8203;
                       </span>
                       <Transition.Child
@@ -180,16 +171,12 @@ export default function NavBar(props) {
                     </div>
                   </Dialog>
                 </Transition.Root>
-                {logged && (
+                {logged && !props.home && (
                   <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
                     <Menu as="div" className="ml-3 relative">
                       <div>
                         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                          <img
-                            className="h-8 w-8 rounded-full"
-                            src={logged.img_url}
-                            alt=""
-                          />
+                          <img className="h-8 w-8 rounded-full" src={logged.img_url} alt="" />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -291,19 +278,11 @@ export default function NavBar(props) {
               <div className="pt-4 pb-3 border-t border-gray-700">
                 <div className="flex items-center px-5 sm:px-6">
                   <div className="flex-shrink-0">
-                    <img
-                      className="h-10 w-10 rounded-full"
-                      src={logged.img_url}
-                      alt=""
-                    />
+                    <img className="h-10 w-10 rounded-full" src={logged.img_url} alt="" />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium text-white">
-                      {logged.username}
-                    </div>
-                    <div className="text-sm font-medium text-gray-400">
-                      {logged.email}
-                    </div>
+                    <div className="text-base font-medium text-white">{logged.username}</div>
+                    <div className="text-sm font-medium text-gray-400">{logged.email}</div>
                   </div>
                 </div>
                 <div className="mt-3 px-2 space-y-1 sm:px-3">
