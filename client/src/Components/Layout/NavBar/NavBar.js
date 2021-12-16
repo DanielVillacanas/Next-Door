@@ -46,7 +46,6 @@ export default function NavBar(props) {
     props.loggedUser != null && setcartLength(props.loggedUser?.productsCart?.length);
   });
   useEffect(() => {
-    debugger;
     setUser(props.loggedUser);
   }, [props.loggedUser]);
 

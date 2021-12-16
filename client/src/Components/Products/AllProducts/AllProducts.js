@@ -11,6 +11,7 @@ let service = new ProductService();
 export default function AllProducts(props) {
   let [products, setProducts] = useState([]);
   let [productsCopy, setProductsCopy] = useState([]);
+  let [productsToShow, setProductsToShow] = useState([]);
   let [filters, setFilters] = useState([]);
   let [shorts, setShort] = useState();
   let [range, setRange] = useState(0);
@@ -23,10 +24,11 @@ export default function AllProducts(props) {
 
   let loadProducts = () => {
     service
-      .getAllProducts(page, limit)
+      .getAllProducts()
       .then((result) => {
         setProducts((products = result.data.products));
         setProductsCopy((productsCopy = result.data.products));
+        ourProductsToShow(result.data.products);
         setLength(result.data.length);
       })
       .catch((err) => console.log(err));
@@ -101,6 +103,7 @@ export default function AllProducts(props) {
       });
     }
     setProductsCopy(copy);
+    ourProductsToShow(copy);
   }, [search, filters, shorts, range, page]);
 
   let handleOnclickPage = (e) => {
@@ -116,6 +119,14 @@ export default function AllProducts(props) {
     }
     window.scrollTo(0, 0);
   };
+
+  let ourProductsToShow = (copy) => {
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    let tempArr = copy.slice(startIndex, endIndex);
+    setProductsCopy(tempArr);
+  };
+
   return (
     <>
       <div>
@@ -150,11 +161,8 @@ export default function AllProducts(props) {
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm text-white">
-                  <span className="font-medium">
-                    {" "}
-                    {page < 2 ? products.length * page : limit + 1 * (page - 1)}
-                  </span>
-                  -<span className="font-medium"> {length}</span>
+                  <span className="font-medium"> {page < 2 ? 1 : limit + 1 * (page - 1)}</span>-
+                  <span className="font-medium"> {page < 2 ? productsCopy.length : length}</span>
                 </p>
               </div>
               <div>

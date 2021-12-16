@@ -29,7 +29,6 @@ export default function SellerProfile(props) {
     }
     setOwnerProfie(id);
     loadReviews();
-    debugger;
     findConversation();
   }, []);
 
