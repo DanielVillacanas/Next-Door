@@ -22,8 +22,8 @@ export default function SignUp(props) {
   };
 
   return (
-    <div className="max-h-screen relative bg-gray-800">
-      <div className="relative pt-4 pb-10 sm:pb-28 bg-gray-800">
+    <div className="max-h-screen relative bg-gray-900">
+      <div className="relative pt-4 pb-10 sm:pb-28 bg-gray-900">
         <Popover>
           <nav
             className="relative max-w-7xl mx-auto flex items-center lg:justify-end justify-center px-4 sm:px-6"
@@ -59,13 +59,13 @@ export default function SignUp(props) {
           </nav>
         </Popover>
 
-        <div className="mt-12 sm:mt-4 bg-gray-800">
+        <div className="mt-12 sm:mt-4 bg-gray-900">
           <div className="mx-auto max-w-7xl">
             <div className="lg:grid lg:grid-cols-12 lg:gap-8 ">
               <div className="px-4 my-6 lg:my-0 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
                 <div>
                   <h1 className="mt-2 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl">
-                    <span className="md:block">Unete a nosotros para apoyar el </span>
+                    <span className="md:block">Unete a nosotros para apoyar el</span>
                     <span className="text-green-400 md:block">comercio local y de cercanía.</span>
                   </h1>
                   <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">

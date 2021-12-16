@@ -55,7 +55,7 @@ export default function ReviewsUser(props) {
                                   <div className="lg:col-span-2 lg:pr-8 mx-4 my-2 ">
                                     {comment.product !== undefined && (
                                       <div className="pb-2">
-                                        Comentaste en:{" "}
+                                        Comentaste en
                                         <Link
                                           to={`/products/${comment?.product?._id}`}
                                           className="text-green-400 hover:text-green-500"
@@ -66,7 +66,7 @@ export default function ReviewsUser(props) {
                                     )}
                                     {comment.seller !== undefined && (
                                       <div className="pb-2">
-                                        Comentaste en:{" "}
+                                        Comentaste en:
                                         <Link
                                           to={`/products/${comment.seller._id}`}
                                           className="text-green-400 hover:text-green-500"
