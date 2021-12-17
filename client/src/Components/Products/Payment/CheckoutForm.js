@@ -33,10 +33,13 @@ function CheckoutForm(props) {
     if (!error) {
       const { id } = paymentMethod;
 
-      const { data } = await axios.post(`${process.env.REACT_APP_BASE_URL}/payment/checkout`, {
-        id,
-        amount: subtotal * 100,
-      });
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/payment/checkout`,
+        {
+          id,
+          amount: subtotal * 100,
+        }
+      );
       if (data) {
         userService.removeCart();
         props.loadUser();
@@ -55,12 +58,18 @@ function CheckoutForm(props) {
                 <div class="h-full flex flex-col bg-white shadow-xl rounded-lg">
                   <div class="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
                     <div class="flex items-start justify-between ">
-                      <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">
+                      <h2
+                        class="text-lg font-medium text-gray-900"
+                        id="slide-over-title"
+                      >
                         Tu cesta
                       </h2>
                       <div class="ml-3 h-7 flex items-center">
-                        <button type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
-                          <span class="sr-only">Close panel</span>
+                        <button
+                          type="button"
+                          class="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                        >
+                          <span class="sr-only">Cerrar panel</span>
                           <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -85,7 +94,10 @@ function CheckoutForm(props) {
                           {cart?.map((elm) => {
                             return (
                               elm.product && (
-                                <li class="py-6 flex px-4 rounded-lg my-2 " key={elm._id}>
+                                <li
+                                  class="py-6 flex px-4 rounded-lg my-2 "
+                                  key={elm._id}
+                                >
                                   <div class="flex-shrink-0 w-24 h-24 rounded-md overflow-hidden border border-black">
                                     <img
                                       src={elm.product.img_url}
@@ -100,7 +112,9 @@ function CheckoutForm(props) {
                                       </div>
                                     </div>
                                     <div class="flex-1 flex items-end justify-between ">
-                                      <p class="text-gray-500">Cantidad: {elm.quantity}</p>
+                                      <p class="text-gray-500">
+                                        Cantidad: {elm.quantity}
+                                      </p>
                                       <p class="ml-4">{elm.product.price}€</p>
                                     </div>
                                   </div>
@@ -144,6 +158,7 @@ function CheckoutForm(props) {
                           <div className="mt-1">
                             <input
                               id="Direccion de envio"
+                              max={13}
                               placeholder="+34 ... ... ..."
                               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                             />
@@ -177,8 +192,9 @@ function CheckoutForm(props) {
                   </div>
                   <div className="px-4 py-4 bg-gray-50 border-t-2 border-gray-200 sm:px-10 rounded-lg">
                     <p className="text-xs leading-5 text-gray-500">
-                      Los plazos de entrega serán de 1 día para menos de 50km, 2 días para más de
-                      50km y de 4 a 5 días para fuera de la península.
+                      Los plazos de entrega serán de 1 día para menos de 50km, 2
+                      días para más de 50km y de 4 a 5 días para fuera de la
+                      península.
                     </p>
                   </div>
                 </div>

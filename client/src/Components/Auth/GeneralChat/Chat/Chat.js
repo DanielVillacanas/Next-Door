@@ -3,6 +3,7 @@ import Conversation from "../Conversation/Conversation";
 import ConversationService from "../../../../Services/ConversationServices/conversation.service";
 import MessagesService from "../../../../Services/MessagesServices/message.service";
 import Message from "../Message/Message";
+import ConversationPhoto from "../../../../images/Conversation.png";
 import "./Chat.css";
 import SellerService from "../../../../Services/SellerServices/seller.service";
 import UserService from "../../../../Services/UserSerivces/UserSerivces";
@@ -149,8 +150,8 @@ function Chat(props) {
               <>
                 <div className="chatBoxTop border-b-2 border-green-500">
                   <svg
-                    id="logoBackgorund"
                     width="205"
+                    id="logoBackgorund"
                     height="78"
                     viewBox="0 0 205 78"
                     fill="none"
@@ -182,6 +183,7 @@ function Chat(props) {
                       stroke-width="3"
                     />
                   </svg>
+
                   {messages?.map((message) => {
                     return (
                       <div ref={scrollRef}>
@@ -226,7 +228,13 @@ function Chat(props) {
               </>
             ) : (
               <>
-                <span>Empieza una conversacion...</span>
+                <img src={ConversationPhoto} id="ConversationBackgorund"></img>
+                <p
+                  className="text-white text-4xl mx-auto"
+                  id="ConversationSpan"
+                >
+                  Empieza una conversacion...
+                </p>
               </>
             )}
           </div>

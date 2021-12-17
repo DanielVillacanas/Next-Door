@@ -48,7 +48,7 @@ function LoginPage(props) {
                 to="/"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
               >
-                Home
+                Inicio
               </Link>
             </div>
           </nav>
@@ -62,7 +62,7 @@ function LoginPage(props) {
                   <h1 className="mt-2 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:leading-none lg:mt-6 lg:text-5xl xl:text-6xl">
                     <span className="md:block">Inicia sesión y accede a</span>
                     <span className="text-green-400 md:block">
-                      miles de productos ecologicos y de cercanía
+                      miles de productos ecológicos y de cercanía
                     </span>
                   </h1>
                 </div>
@@ -77,7 +77,7 @@ function LoginPage(props) {
                             htmlFor="email"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Email address
+                            Dirección de correo
                           </label>
                           <div className="mt-1">
                             <input
@@ -97,7 +97,7 @@ function LoginPage(props) {
                             htmlFor="password"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Password
+                            Contraseña
                           </label>
                           <div className="mt-1">
                             <input
@@ -143,7 +143,7 @@ function LoginPage(props) {
                             type="submit"
                             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                           >
-                            Log in
+                            Inicio de sesión
                           </button>
                         </div>
                       </form>

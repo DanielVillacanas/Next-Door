@@ -146,14 +146,14 @@ export default function AllProducts(props) {
                 onClick={handlePrevNextPage}
                 className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
-                Previous
+                Anterior
               </button>
               <button
                 name="Next"
                 onClick={handlePrevNextPage}
                 className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
               >
-                Next
+                Siguiente
               </button>
             </div>
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
@@ -173,7 +173,7 @@ export default function AllProducts(props) {
                     onClick={handlePrevNextPage}
                     className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-black hover:bg-gray-100"
                   >
-                    <span className="sr-only">Previous</span>
+                    <span className="sr-only">Anterior</span>
                     <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
                   </button>
                   {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
@@ -195,7 +195,7 @@ export default function AllProducts(props) {
                     onClick={handlePrevNextPage}
                     className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-green-300 bg-white text-sm font-medium text-black hover:bg-gray-100"
                   >
-                    <span className="sr-only">Next</span>
+                    <span className="sr-only">Siguiente</span>
                     <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                   </button>
                 </nav>

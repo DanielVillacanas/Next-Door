@@ -98,12 +98,12 @@ export default function ProductsDetails(props) {
                     />
                   ))}
                 </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
+                <p className="sr-only">{reviews.average} en 5 estrellas</p>
                 <p
                   href={reviews.href}
                   className="ml-3 text-sm font-medium text-green-600 "
                 >
-                  {reviews.totalCount} reviews
+                  {reviews.totalCount} comentarios
                 </p>
               </div>
             </div>

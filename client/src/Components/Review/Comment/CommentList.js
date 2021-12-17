@@ -31,7 +31,7 @@ export default function CommentList(props) {
                           showReviews();
                         }}
                       >
-                        Ocultar comentarios
+                        Ocultar respuestas
                       </p>
                       <MinusSmIcon
                         className="h-5 w-5"
@@ -49,7 +49,7 @@ export default function CommentList(props) {
                           showReviews();
                         }}
                       >
-                        Mostrar comentarios
+                        Mostrar respuestas
                       </p>
                       <PlusSmIcon
                         className="h-5 w-5"

@@ -53,7 +53,7 @@ export default function SignUp(props) {
                 to="/"
                 className="inline-flex items-center h-1/2 mt-auto px-4 ml-12 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
               >
-                Home
+                Inicio
               </Link>
             </div>
           </nav>

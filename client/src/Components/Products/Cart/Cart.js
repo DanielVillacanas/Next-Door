@@ -56,7 +56,7 @@ export default function Cart(props) {
                     type="button"
                     class="-m-2 p-2 text-gray-400 hover:text-gray-500"
                   >
-                    <span class="sr-only">Close panel</span>
+                    <span class="sr-only">Cerrar panel</span>
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
