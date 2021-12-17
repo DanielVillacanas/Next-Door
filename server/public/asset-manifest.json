@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.3af2dfdd.chunk.css",
-    "main.js": "/static/js/main.36231398.chunk.js",
-    "main.js.map": "/static/js/main.36231398.chunk.js.map",
+    "main.css": "/static/css/main.327c6a89.chunk.css",
+    "main.js": "/static/js/main.2bfe5474.chunk.js",
+    "main.js.map": "/static/js/main.2bfe5474.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.98b499fe.js",
     "runtime-main.js.map": "/static/js/runtime-main.98b499fe.js.map",
     "static/js/2.01360802.chunk.js": "/static/js/2.01360802.chunk.js",
@@ -10,9 +10,10 @@
     "static/js/3.a5769517.chunk.js": "/static/js/3.a5769517.chunk.js",
     "static/js/3.a5769517.chunk.js.map": "/static/js/3.a5769517.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.3af2dfdd.chunk.css.map": "/static/css/main.3af2dfdd.chunk.css.map",
+    "static/css/main.327c6a89.chunk.css.map": "/static/css/main.327c6a89.chunk.css.map",
     "static/js/2.01360802.chunk.js.LICENSE.txt": "/static/js/2.01360802.chunk.js.LICENSE.txt",
     "static/media/Alvaro.1a7ad4a3.jpg": "/static/media/Alvaro.1a7ad4a3.jpg",
+    "static/media/Conversation.7ac32440.png": "/static/media/Conversation.7ac32440.png",
     "static/media/Dani.bb68dd17.jpg": "/static/media/Dani.bb68dd17.jpg",
     "static/media/HeaderPhoto.7f19171c.jpg": "/static/media/HeaderPhoto.7f19171c.jpg",
     "static/media/HomeFarmer.573c5976.jpg": "/static/media/HomeFarmer.573c5976.jpg",
@@ -22,7 +23,7 @@
   "entrypoints": [
     "static/js/runtime-main.98b499fe.js",
     "static/js/2.01360802.chunk.js",
-    "static/css/main.3af2dfdd.chunk.css",
-    "static/js/main.36231398.chunk.js"
+    "static/css/main.327c6a89.chunk.css",
+    "static/js/main.2bfe5474.chunk.js"
   ]
 }
