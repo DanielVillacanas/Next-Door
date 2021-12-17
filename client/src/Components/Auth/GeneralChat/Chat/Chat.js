@@ -132,16 +132,19 @@ function Chat(props) {
       <div className="messenger">
         <div className="chatMenu ">
           <div className="chatMenuWrapper border-r-2 border-green-500 mt-2 mr-2  text-white  ">
-            {ListConversations?.map((conversation) => {
-              return (
-                <div onClick={() => loadMessages(conversation)}>
-                  <Conversation
-                    conversations={conversation}
-                    user={currentUser}
-                  />
-                </div>
-              );
-            })}
+            {
+              (console.log(ListConversations),
+              ListConversations?.map((conversation) => {
+                return (
+                  <div onClick={() => loadMessages(conversation)}>
+                    <Conversation
+                      conversations={conversation}
+                      user={currentUser}
+                    />
+                  </div>
+                );
+              }))
+            }
           </div>
         </div>
         <div className="chatBox pr-6">
