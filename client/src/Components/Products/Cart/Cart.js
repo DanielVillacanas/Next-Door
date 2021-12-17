@@ -48,7 +48,7 @@ export default function Cart(props) {
                 </h2>
                 <div class="ml-3 h-7 flex items-center">
                   <button type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
-                    <span class="sr-only">Close panel</span>
+                    <span class="sr-only">Cerrar panel</span>
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"

@@ -59,7 +59,6 @@ export default function SignUpSeller(props) {
           props.props.history.push("/products");
         })
         .catch((err) => setErr(err.response?.data));
-    // .catch((err) => console.log(err.response?.data.message));
   };
   return (
     <>
@@ -217,7 +216,7 @@ export default function SignUpSeller(props) {
               to="/login"
               className="mt-6 w-full flex justify-center py-2 px-4 border border-green-600 rounded-md shadow-sm text-sm font-medium text-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
-              Login
+              Inicio de sesión
             </Link>
           </div>
         </div>

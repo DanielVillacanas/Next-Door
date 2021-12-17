@@ -47,3 +47,17 @@
   left: 55%;
   top: 40%;
 }
+
+#ConversationBackgorund {
+  position: absolute;
+  filter: opacity(20%);
+  -webkit-filter: opacity(20%);
+  transform: scale(1.2);
+  left: 50%;
+  top: 25%;
+}
+#ConversationSpan {
+  position: absolute;
+  left: 49%;
+  top: 65%;
+}

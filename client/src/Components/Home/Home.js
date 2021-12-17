@@ -65,7 +65,7 @@ export default function Home(props) {
           <div className="mx-auto max-w-7xl w-full lg:pt-16 pb-20 text-center lg:py-48 lg:text-left">
             <div className="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
               <h1 className="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-                <span className="block xl:inline">Productos de cercanía</span>
+                <span className="block xl:inline">Productos de cercanía </span>{" "}
                 <span className="block text-green-500 xl:inline">en la puerta de al lado</span>
               </h1>
               <p className="mt-3 max-w-md mx-auto text-lg text-white sm:text-xl md:mt-5 md:max-w-3xl">
@@ -121,13 +121,12 @@ export default function Home(props) {
             <h2 className="mt-6 text-3xl font-extrabold text-white sm:text-4xl">
               <span className="block text-green-500 xl:inline">Enviando a tiempo</span>
               <span className="block  xl:inline">
-                todos los productos que nuestros clientes quieren
+                todos los productos que nuestros clientes necesitan.
               </span>
             </h2>
             <p className="mt-6 text-lg text-white">
-              Productos frescos, naturales y ecológicos de vendedores cercanos a tu casa.<br></br>
-              <br></br>Precios competitivos y acordes al mercado y a lo que nuestros clientes
-              demandan.
+              Productos frescos, naturales y ecológicos de vendedores cercanos a tu casa con precios
+              competitivos y acordes al mercado,lo que nuestros clientes demandan.
             </p>
             <div className="mt-8 overflow-hidden">
               <dl className="-mx-8 -mt-8 flex flex-wrap">
@@ -172,8 +171,8 @@ export default function Home(props) {
                   <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
                 </svg>
                 <p className="relative">
-                  Este proyecto empezó como un proyecto en Ironhack, a día de hoy,ya ayudamos a más
-                  de 500 vendedores. Este es el inicio de una nueva generación para el comércio de
+                  Esta idea empezó como un proyecto en Ironhack, a día de hoy,ya ayudamos a más de
+                  500 vendedores. Este es el inicio de una nueva generación para el comercio de
                   cercanía.
                 </p>
               </div>
