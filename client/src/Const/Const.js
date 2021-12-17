@@ -4,8 +4,8 @@ export const navigation = [
 ];
 
 export const notLogged = [
-  { name: "Login", href: "/login", current: false },
-  { name: "Sign Up", href: "/signUp", current: false },
+  { name: "Inicio de Sesión", href: "/login", current: false },
+  { name: "Registrarse", href: "/signUp", current: false },
 ];
 
 export const Options = [
