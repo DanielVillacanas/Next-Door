@@ -43,9 +43,9 @@ export default function AllProducts(props) {
     loadProducts();
   }, []);
 
-  useEffect(() => {
-    loadProducts();
-  }, [page]);
+  // useEffect(() => {
+  //   loadProducts();
+  // }, [page]);
   const getInfo = (searching) => {
     setSearch(searching);
   };
@@ -64,12 +64,17 @@ export default function AllProducts(props) {
     } else {
       allFilters.push(filter);
     }
+    console.log(allFilters);
+    if (allFilters.length > 0) {
+      setPage(1);
+    }
     setFilters(allFilters);
   };
 
   useEffect(() => {
     let copy = [...products];
     if (search.length !== 0) {
+      setPage(1);
       copy = products.filter((product) => product.name.toLowerCase().includes(search));
     }
     if (filters.length !== 0) {
@@ -102,6 +107,7 @@ export default function AllProducts(props) {
         return 0;
       });
     }
+
     setProductsCopy(copy);
     ourProductsToShow(copy);
   }, [search, filters, shorts, range, page]);

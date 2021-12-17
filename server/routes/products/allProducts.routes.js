@@ -53,8 +53,9 @@ router.get("/", (req, res, next) => {
   // const { limit } = req.query;
   // const startIndex = (page - 1) * limit;
   // const endIndex = page * limit;
-  Product.find()
-    .populate("owner")
+  Product.aggregate()
+    .sample(999)
+    //.populate("owner")
     .then((response) => {
       return res.json({
         products: response,
