@@ -23,7 +23,7 @@ function ProductCard(props) {
           <Link to={`/products/${product._id}`}>
             <button
               type="button"
-              className="mt-4 px-4 py-2 border border-transparent  shadow-sm text-sm font-medium rounded-md text-white bg-green-500  hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              className="mt-4 shadow-sm text-sm font-medium text-black  border-b-2 border-green-500 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
             >
               Detalles de producto
             </button>

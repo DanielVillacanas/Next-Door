@@ -46,23 +46,25 @@ function SellerProductsCard(props) {
             {product.price} €
           </p>
           <div>
-            <Link to={`/products/${id}`}>
-              <button
-                type="button"
-                className="mt-4 px-2 py-2 border border-transparent  shadow-sm text-sm font-medium rounded-md text-white bg-green-500  hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-              >
-                Detalles de producto
-              </button>
-            </Link>
-            {loggedUser !== null && loggedUser?._id === props?.id && (
-              <button
-                type="button"
-                onClick={openModal}
-                className="mt-4 ml-10 px-2 shadow-sm text-sm font-medium text-black  border-b-2 border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
-              >
-                Borrar producto
-              </button>
-            )}
+            <div className="flex justify-between">
+              <Link to={`/products/${id}`}>
+                <button
+                  type="button"
+                  className="mt-4 px-2 shadow-sm text-sm font-medium text-black  border-b-2 border-green-500 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                >
+                  Detalles de producto
+                </button>
+              </Link>
+              {loggedUser !== null && loggedUser?._id === props?.id && (
+                <button
+                  type="button"
+                  onClick={openModal}
+                  className="mt-4 px-2 shadow-sm text-sm font-medium text-black  border-b-2 border-red-900 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
+                >
+                  Borrar producto
+                </button>
+              )}
+            </div>
             <Transition.Root show={isOpen} as={Fragment}>
               <Dialog
                 as="div"

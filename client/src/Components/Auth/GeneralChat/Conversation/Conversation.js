@@ -13,9 +13,8 @@ function Conversation(props) {
 
   let loadSeller = () => {
     sellerService
-      .getSeller(conversation.participants[1])
+      .getSeller(conversation?.participants[1])
       .then((result) => {
-        console.log(result);
         setSeller(result.data);
       })
       .catch((err) => console.log(err));
@@ -23,7 +22,7 @@ function Conversation(props) {
 
   let loadUser = () => {
     userService
-      .getOwner(conversation.participants[0])
+      .getOwner(conversation?.participants[0])
       .then((result) => {
         setUser(result.data);
       })

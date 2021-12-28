@@ -5,9 +5,11 @@ import MessagesService from "../../../../Services/MessagesServices/message.servi
 import Message from "../Message/Message";
 import ConversationPhoto from "../../../../images/Conversation.png";
 import "./Chat.css";
+import { Link } from "react-router-dom";
 import SellerService from "../../../../Services/SellerServices/seller.service";
 import UserService from "../../../../Services/UserSerivces/UserSerivces";
 import { io } from "socket.io-client";
+import { Icon } from "@iconify/react";
 
 let userService = new UserService();
 let sellerService = new SellerService();
@@ -16,9 +18,10 @@ let messagesService = new MessagesService();
 
 function Chat(props) {
   let currentUser = props.loggedUser;
-
   const [ListConversations, setConversations] = useState([]);
+
   const [currentChat, setcurrentChat] = useState(null);
+
   let [messages, setMessages] = useState([]);
   let [user, setUser] = useState();
   let [seller, setSeller] = useState();
@@ -43,14 +46,14 @@ function Chat(props) {
   let loadMessages = (conversation) => {
     if (currentUser.role === "Seller") {
       userService
-        .getOwner(conversation.participants[0])
+        .getOwner(conversation?.participants[0])
         .then((result) => {
           setUser(result.data);
         })
         .catch((err) => console.log(err));
     } else {
       sellerService
-        .getSeller(conversation.participants[1])
+        .getSeller(conversation?.participants[1])
         .then((result) => {
           setSeller(result.data);
         })
@@ -100,12 +103,14 @@ function Chat(props) {
     });
   };
   useEffect(() => {
+    if (props.conversationFromSeller !== undefined) {
+      setcurrentChat(props.conversationFromSeller);
+      loadMessages(props.conversationFromSeller);
+    }
     loadConversations();
     currentChat && loadMessages(currentChat);
   }, []);
-  // useEffect(() => {
-  //   currentChat && loadMessages(currentChat);
-  // });
+
   useEffect(() => {
     socket.current = io(`${process.env.REACT_APP_SOCKET_URL}`);
     let room = currentChat?._id;
@@ -132,19 +137,19 @@ function Chat(props) {
       <div className="messenger">
         <div className="chatMenu ">
           <div className="chatMenuWrapper border-r-2 border-green-500 mt-2 mr-2  text-white  ">
-            {
-              (console.log(ListConversations),
-              ListConversations?.map((conversation) => {
-                return (
-                  <div onClick={() => loadMessages(conversation)}>
-                    <Conversation
-                      conversations={conversation}
-                      user={currentUser}
-                    />
-                  </div>
-                );
-              }))
-            }
+            {ListConversations?.map((conversation) => {
+              return (
+                <Link
+                  to={`/chat/${conversation._id}`}
+                  onClick={() => loadMessages(conversation)}
+                >
+                  <Conversation
+                    conversations={conversation}
+                    user={currentUser}
+                  />
+                </Link>
+              );
+            })}
           </div>
         </div>
         <div className="chatBox pr-6">
@@ -207,23 +212,27 @@ function Chat(props) {
                     );
                   })}
                 </div>
-                <div className="chatBoxBottom mt-4 ">
+                <div className="chatBoxBottom mt-4">
                   <form onSubmit={handleSubmit}>
                     <div className="flex justify-between">
                       <textarea
                         onKeyDown={(e) => e.key === "Enter" && handleSubmit(e)}
-                        className="chatMessageInput pl-2 pt-1 w-full rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:border-green-500 focus:ring-green-500"
-                        rows={2}
+                        className="chatMessageInput pl-4 pt-1 w-full rounded-full border border-gray-500 focus:outline-none focus:ring-2 focus:border-green-500 focus:ring-green-500"
                         onChange={handleInputChange}
                         type="text"
+                        rows={1}
                         value={newMessage.text}
                         name="text"
                       ></textarea>
                       <button
                         type="submit"
-                        className="chatSubmitButton h-8 lg:ml-4 my-auto inline-flex items-center px-4 py-2 border border-black shadow-sm text-sm font-medium rounded-md text-black bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hover:bg-green-500 hover:text-white hover:border-white"
+                        className="chatSubmitButton lg:ml-4 py-2"
                       >
-                        Enviar
+                        <Icon
+                          icon="fluent:send-28-filled"
+                          color="white"
+                          width="30"
+                        />
                       </button>
                     </div>
                   </form>

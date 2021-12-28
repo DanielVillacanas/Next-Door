@@ -138,6 +138,10 @@ function CheckoutForm(props) {
                     <div className="bg-white py-2 px-4 shadow rounded-lg ">
                       <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
+                          <p className="mb-4 text-red-500 text-center">
+                            No introduzca su tarjeta real, esto es una
+                            aplicación aun en Beta
+                          </p>
                           <label
                             htmlFor="email"
                             className="block text-sm font-medium text-gray-700"
@@ -180,12 +184,14 @@ function CheckoutForm(props) {
                           </div>
                         </div>
                         <div>
-                          <button
-                            type="submit"
-                            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                          >
-                            Comprar
-                          </button>
+                          <Link to={"/"}>
+                            <button
+                              type="submit"
+                              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                            >
+                              Comprar
+                            </button>
+                          </Link>
                         </div>
                       </form>
                     </div>
