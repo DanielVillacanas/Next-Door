@@ -150,15 +150,26 @@ export default function ProductsDetails(props) {
             </div>
             {(loggedUser === null || loggedUser?.role === "User") && (
               <>
-                <div className="grid grid-cols-6 border-b-2 border-green-500 pb-8">
-                  <button
-                    type="button"
-                    onClick={addProductCart}
-                    className="col-start-3 col-span-3 inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
-                  >
-                    Añadir a la cesta
-                  </button>
-                </div>
+                {loggedUser === null ? (
+                  <div className="grid grid-cols-6 border-b-2 border-green-500 pb-8">
+                    <Link
+                      to={"/login"}
+                      className="col-start-3 col-span-3 inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
+                    >
+                      Añadir a la cesta
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-6 border-b-2 border-green-500 pb-8">
+                    <button
+                      type="button"
+                      onClick={addProductCart}
+                      className="col-start-3 col-span-3 inline-flex justify-center rounded-md border border-transparent shadow-sm py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
+                    >
+                      Añadir a la cesta
+                    </button>
+                  </div>
+                )}
               </>
             )}
             <div>

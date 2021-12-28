@@ -46,6 +46,7 @@ export default function AllProducts(props) {
   useEffect(() => {
     loadProducts();
   }, [page]);
+
   const getInfo = (searching) => {
     setSearch(searching);
   };
@@ -70,7 +71,9 @@ export default function AllProducts(props) {
   useEffect(() => {
     let copy = [...products];
     if (search.length !== 0) {
-      copy = products.filter((product) => product.name.toLowerCase().includes(search));
+      copy = products.filter((product) =>
+        product.name.toLowerCase().includes(search)
+      );
     }
     if (filters.length !== 0) {
       copy = copy.filter((product) => filters.includes(product.owner.type));
@@ -78,7 +81,12 @@ export default function AllProducts(props) {
 
     if (range > 0) {
       copy = copy.filter(
-        (product) => range > calcDistance(product.owner?.coordinates, props.loggedUser?.coordinates)
+        (product) =>
+          range >
+          calcDistance(
+            product.owner?.coordinates,
+            props.loggedUser?.coordinates
+          )
       );
     }
     if (shorts == 1) {
@@ -130,10 +138,14 @@ export default function AllProducts(props) {
   return (
     <>
       <div>
-        <SearchBar getInfo={getInfo} />
-        <TypeSellerFilter getFilter={getFilter} getShort={getShort} getRange={getRange} />
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 ">
-          <h2 className="sr-only">Products</h2>
+          <SearchBar getInfo={getInfo} />
+          <TypeSellerFilter
+            getFilter={getFilter}
+            getShort={getShort}
+            getRange={getRange}
+          />
+
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {productsCopy.map((product) => (
               <div key={product._id}>
@@ -161,8 +173,15 @@ export default function AllProducts(props) {
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm text-white">
-                  <span className="font-medium"> {page < 2 ? 1 : limit + 1 * (page - 1)}</span>-
-                  <span className="font-medium"> {page < 2 ? productsCopy.length : length}</span>
+                  <span className="font-medium">
+                    {" "}
+                    {page < 2 ? 1 : limit + 1 * (page - 1)}
+                  </span>
+                  -
+                  <span className="font-medium">
+                    {" "}
+                    {page < 2 ? productsCopy.length : length}
+                  </span>
                 </p>
               </div>
               <div>

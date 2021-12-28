@@ -22,6 +22,7 @@ export default function SellerProfile(props) {
   const [showProduts, setshowProduts] = useState(false);
   const [showReviews, setshowReviews] = useState(false);
   const [chatAllready, setAllready] = useState(false);
+  const [conversation, setConversation] = useState("");
 
   useEffect(() => {
     if (!seller) {
@@ -62,6 +63,8 @@ export default function SellerProfile(props) {
   };
   let findConversation = () => {
     conversationService.findConversation(id).then((response) => {
+      setConversation(response.data[0]._id);
+      props.getConversation(response.data[0]);
       response.data.length > 0 && setAllready(true);
     });
   };
@@ -87,8 +90,12 @@ export default function SellerProfile(props) {
             <div className="font-medium text-lg text-center lg:text-left lg:pr-4">
               <h3 className="text-white">{seller?.username}</h3>
               <div className="text-green-300 text-sm my-2">{seller?.email}</div>
-              <div className="text-green-300 text-sm my-2 max-w-xs ">{seller?.address}</div>
-              <div className="text-white text-sm my-2 ">{seller?.description}</div>
+              <div className="text-green-300 text-sm my-2 max-w-xs ">
+                {seller?.address}
+              </div>
+              <div className="text-white text-sm my-2 ">
+                {seller?.description}
+              </div>
               <div>
                 {user?._id === ownerProfile ? (
                   <>
@@ -121,7 +128,7 @@ export default function SellerProfile(props) {
                 ) : (
                   props.loggedUser && (
                     <Link
-                      to={"/chat"}
+                      to={`/chat/${conversation}`}
                       className="mx-auto my-4 h-6 text-sm font-medium  text-gray-300 border-b border-green-600 transition duration-500 ease-in-out transform hover:scale-90 hover:translate-y-1"
                     >
                       Abre tu conversacion
@@ -185,7 +192,11 @@ export default function SellerProfile(props) {
           </div>
         </div>
         <Transition.Root show={isOpen} as={Fragment}>
-          <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto " onClose={setOpen}>
+          <Dialog
+            as="div"
+            className="fixed z-10 inset-0 overflow-y-auto "
+            onClose={setOpen}
+          >
             <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
               <Transition.Child
                 as={Fragment}
@@ -200,7 +211,10 @@ export default function SellerProfile(props) {
               </Transition.Child>
 
               {/* This element is to trick the browser into centering the modal contents. */}
-              <span className=" sm:inline-block sm:align-middle sm:h-12" aria-hidden="true">
+              <span
+                className=" sm:inline-block sm:align-middle sm:h-12"
+                aria-hidden="true"
+              >
                 &#8203;
               </span>
               <Transition.Child
@@ -223,7 +237,11 @@ export default function SellerProfile(props) {
           </Dialog>
         </Transition.Root>
 
-        <img src={seller?.map_img} className="mx-auto rounded-lg" alt="map"></img>
+        <img
+          src={seller?.map_img}
+          className="mx-auto rounded-lg"
+          alt="map"
+        ></img>
       </div>
       {showProduts && <SellerProducts products={seller?.products} id={id} />}
       {showReviews && <ReviewList SellerId={id} />}
