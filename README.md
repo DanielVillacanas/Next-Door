@@ -1,4 +1,9 @@
 # Next-Door!
+<p align="center">
+<img src="https://user-images.githubusercontent.com/91207576/148802615-64fbbfee-006c-46ba-87d0-a711bc348fa9.png" />
+ </p>
+<img src="https://user-images.githubusercontent.com/91207576/148802845-b0ca5a5f-222a-4016-9aad-028ebd4a3915.jpg" />
+
 
 # App Link 
  https://nextdoor-app.herokuapp.com/
@@ -33,10 +38,8 @@ npm install
 npm run start
 ```
 
-### Endpoints
 
-
- Backend Endpoints
+# Backend Endpoints
  
 |	Method	|	Path	|	Description	|
 |	-	|	-	|	-	|	
@@ -78,7 +81,7 @@ npm run start
 |	GET	|	/api/conversation/findConversation/:id |	Load the info of an specific conversation |
 |	GET	|	/api/api/upload/image |	Loads an image into Cloudinary service |
 
-Front Endpoints 
+# Front Endpoints 
 
 |	Path	|	Description	|
 |	-	|	-	|	
@@ -94,3 +97,17 @@ Front Endpoints
 |	/signUp	|	Renders the singUp page	|
 |	/login	|	Renders the login page	|
 |	/logout	|	Kills the session and redirects to the login page |
+
+# Technologies
+<ul >
+<li style= "display:flex" > <img src="https://user-images.githubusercontent.com/91207576/148804550-8d018eb4-b161-4f2e-a413-06745e84b7d5.png" width="30" />  <span>React</span>
+</li> 
+<li> <img src="https://user-images.githubusercontent.com/91207576/148806744-de70aa27-d3bc-4356-88ee-41367a594c04.png" width="40" /> 
+Node.Js  </li> 
+<li> <img src="https://user-images.githubusercontent.com/91207576/148806927-3a3fc9d0-4c4a-4aa9-9332-d67d7aa56e10.png" width="40" />   MongoDB  </li>  
+<li><img src="https://user-images.githubusercontent.com/91207576/148807194-66d29acb-5b14-45fb-8452-a8085b0bab90.png" width="40"/>
+ Express  </li> 
+<li> <img src="https://user-images.githubusercontent.com/91207576/148807689-61617317-2aeb-4ee0-9205-49d27a70779e.png" 
+width="30"/>
+Tailwind  </li> 
+</ul>
