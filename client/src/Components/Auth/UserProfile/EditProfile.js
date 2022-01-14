@@ -15,6 +15,7 @@ export default function EditProfile(props) {
     address: props.user.address,
     img_url: "",
   });
+  const [loadingImg, setLoadingImg] = useState(false);
   const [errMessage, setError] = useState(undefined);
 
   const handleSubmit = () => {
@@ -45,10 +46,11 @@ export default function EditProfile(props) {
   const handleUploadChange = (e) => {
     const uploadData = new FormData();
     uploadData.append("imageData", e.target.files[0]);
-
+    setLoadingImg(true);
     uploadService
       .uploadImage(uploadData)
       .then((response) => {
+        setLoadingImg(false);
         setUser({ ...user, img_url: response.data.cloudinary_url });
       })
       .catch((err) => console.log("El error", { err }));
@@ -58,16 +60,11 @@ export default function EditProfile(props) {
 
   return (
     <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
-      <p className="text-center font-semibold text-lg text-green-800">
-        Editar perfil
-      </p>
+      <p className="text-center font-semibold text-lg text-green-800">Editar perfil</p>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Nombre de usuario
             </label>
             <div className="mt-1">
@@ -83,10 +80,7 @@ export default function EditProfile(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Dirección de correo
             </label>
             <div className="mt-1">
@@ -102,10 +96,7 @@ export default function EditProfile(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Contraseña
             </label>
             <div className="mt-1">
@@ -121,10 +112,7 @@ export default function EditProfile(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="password2"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="password2" className="block text-sm font-medium text-gray-700">
               Comprobación de contraseña
             </label>
             <div className="mt-1">
@@ -141,10 +129,7 @@ export default function EditProfile(props) {
             </div>
           </div>
           <div>
-            <label
-              htmlFor="address"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
               Dirección de envio
             </label>
             <div className="mt-1">
@@ -164,9 +149,7 @@ export default function EditProfile(props) {
               <div className="m-4">
                 {!user.img_url && (
                   <>
-                    <label className="inline-block mb-2 text-gray-500">
-                      Nueva foto
-                    </label>
+                    <label className="inline-block mb-2 text-gray-500">Nueva foto</label>
                     <div className="flex items-center justify-center w-full">
                       <label className="flex flex-col w-full h-32 border-4 border-green-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
                         <div className="flex flex-col items-center justify-center">
@@ -185,9 +168,40 @@ export default function EditProfile(props) {
                             />
                           </svg>
 
-                          <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                            Sube una foto
-                          </p>
+                          {!loadingImg && (
+                            <p className="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                              Sube una foto
+                            </p>
+                          )}
+                          {loadingImg && (
+                            <button
+                              type="button"
+                              class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-green-500 hover:bg-green-400 transition ease-in-out duration-150 cursor-not-allowed"
+                              disabled=""
+                            >
+                              <svg
+                                class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                              >
+                                <circle
+                                  class="opacity-25"
+                                  cx="12"
+                                  cy="12"
+                                  r="10"
+                                  stroke="currentColor"
+                                  stroke-width="4"
+                                ></circle>
+                                <path
+                                  class="opacity-75"
+                                  fill="currentColor"
+                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
+                              </svg>
+                              Cargando...
+                            </button>
+                          )}
                         </div>
 
                         <input
