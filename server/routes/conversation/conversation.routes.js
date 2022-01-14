@@ -10,16 +10,19 @@ router.post("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   let { id } = req.params;
-  Conversation.find({ participants: { $in: [id] } }).then((response) => res.json(response));
+  Conversation.find({ participants: { $in: [id] } }).then((response) =>
+    res.json(response)
+  );
 });
 
 router.get("/findConversation/:id", (req, res) => {
   let { id } = req.params;
   let user_id = req.session.currentUser._id;
-  console.log(id, user_id);
-  Conversation.find({ participants: { $all: [id, user_id] } }).then((response) => {
-    return res.json(response);
-  });
+  Conversation.find({ participants: { $all: [id, user_id] } }).then(
+    (response) => {
+      return res.json(response);
+    }
+  );
 });
 
 module.exports = router;

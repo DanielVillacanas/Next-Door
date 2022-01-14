@@ -7,5 +7,4 @@ module.exports = (app) => {
   app.use("/api/payment", require("./payment/payment.routes"));
   app.use("/api/message", require("./message/message.routes"));
   app.use("/api/conversation", require("./conversation/conversation.routes"));
-  app.use("/api/api/upload", require("./upload/uploads.routes"));
 };

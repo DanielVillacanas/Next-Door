@@ -11,17 +11,19 @@ router.post("/create-new-product", isLoggedIn, (req, res) => {
   const id = req.session.currentUser._id;
   const { name, price, description, img_url, owner } = req.body;
 
-  Product.create({ name, price, description, img_url, owner }).then((response) => {
-    Seller.findByIdAndUpdate(
-      id,
-      {
-        $push: { products: response._id },
-      },
-      { new: true }
-    ).then((response) => {
-      res.json(response);
-    });
-  });
+  Product.create({ name, price, description, img_url, owner }).then(
+    (response) => {
+      Seller.findByIdAndUpdate(
+        id,
+        {
+          $push: { products: response._id },
+        },
+        { new: true }
+      ).then((response) => {
+        res.json(response);
+      });
+    }
+  );
 });
 
 router.get("/deleteProduct/:id", isLoggedIn, (req, res) => {
@@ -35,7 +37,11 @@ router.put("/deleteProductFromSeller/:id", isLoggedIn, (req, res) => {
   const { id } = req.params;
   const seller_id = req.session.currentUser._id;
 
-  Seller.findByIdAndUpdate(seller_id, { $pull: { products: id } }, { new: true })
+  Seller.findByIdAndUpdate(
+    seller_id,
+    { $pull: { products: id } },
+    { new: true }
+  )
     .populate("products")
     .then((response) => res.json(response))
     .catch((err) => console.log(err));
