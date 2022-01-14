@@ -157,6 +157,7 @@ function App() {
                   </Elements>
                 )}
               />
+
               <Route
                 path="/products/cart"
                 exact
@@ -193,6 +194,7 @@ function App() {
                   </div>
                 )}
               />
+
               <Route
                 path="/user/:id"
                 exact
@@ -213,6 +215,7 @@ function App() {
                   </div>
                 )}
               />
+
               <Route
                 path="/products/:id"
                 exact
@@ -227,10 +230,12 @@ function App() {
                   </div>
                 )}
               />
+
               <Route
                 path="/signUp"
                 render={(props) => <SignUp {...props} loadUser={loadUser} />}
               />
+
               <Route
                 path="/logOut"
                 render={() => (
@@ -243,6 +248,7 @@ function App() {
                   </div>
                 )}
               />
+
               <Route
                 path="/login"
                 render={(props) => (

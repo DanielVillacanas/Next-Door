@@ -71,7 +71,7 @@ export default function ReviewsUser(props) {
                                       <div className="pb-2">
                                         Comentaste en:
                                         <Link
-                                          to={`/products/${comment.seller._id}`}
+                                          to={`/seller/${comment.seller?._id}`}
                                           className="text-green-400 hover:text-green-500"
                                         >
                                           {comment.seller.username}
